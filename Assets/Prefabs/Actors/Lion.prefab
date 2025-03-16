@@ -139,6 +139,10 @@ PrefabInstance:
       value: Lion
       objectReference: {fileID: 0}
     - target: {fileID: 4184888071631929187, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
+      propertyPath: CanPilotBoat
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4184888071631929187, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
       propertyPath: KeyWords.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -152,8 +156,30 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2484676141621302505, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9209907234126517375}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 730430602304427420, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 8963867017362023446}
   m_SourcePrefab: {fileID: 100100000, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
+--- !u!1 &6675431335655176085 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 730430602304427420, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
+  m_PrefabInstance: {fileID: 6233236617907331593}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8963867017362023446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6675431335655176085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0590b59b8415b7749afd0b5552311498, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Predator: Lion
+  Guard: Pug
 --- !u!4 &8429525073654396640 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2484676141621302505, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}

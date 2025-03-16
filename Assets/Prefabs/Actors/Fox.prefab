@@ -65,6 +65,10 @@ PrefabInstance:
       value: Fox
       objectReference: {fileID: 0}
     - target: {fileID: 4184888071631929187, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
+      propertyPath: CanPilotBoat
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4184888071631929187, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
       propertyPath: KeyWords.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -80,7 +84,7 @@ PrefabInstance:
       addedObject: {fileID: 6860267103610949003}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 730430602304427420, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
-      insertIndex: 1
+      insertIndex: 2
       addedObject: {fileID: 6151560508799137034}
   m_SourcePrefab: {fileID: 100100000, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
 --- !u!1 &723372287837139011 stripped
@@ -101,8 +105,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Predator: Fox
-  Prey: Owl
-  Guard: Pug
+  Prey: Mouse
+  Guard: Owl
 --- !u!4 &2472962495056392502 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2484676141621302505, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}

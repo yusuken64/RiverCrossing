@@ -11,6 +11,9 @@ public class MainMenu : MonoBehaviour
 
     public List<PuzzleDefinition> Puzzles;
 
+    public int PizzlesPerPage = 8;
+    public int CurrentPage;
+
     private void Start()
     {
         Setup();
@@ -18,6 +21,7 @@ public class MainMenu : MonoBehaviour
 
     public void Setup()
     {
+        CurrentPage = 0;
         Game game = FindObjectOfType<Game>();
         game.GameCanvas.SetActive(false);
         game.ClearAllActors();
@@ -26,6 +30,11 @@ public class MainMenu : MonoBehaviour
             Destroy(child.gameObject);
         }
 
+        SetupPuzzles();
+    }
+
+    private void SetupPuzzles()
+    {
         for (int i = 0; i < Puzzles.Count; i++)
         {
             PuzzleDefinition puzzleDefinition = Puzzles[i];
@@ -50,5 +59,16 @@ public class MainMenu : MonoBehaviour
         var nextPuzzle = Puzzles[index + 1];
 
         LevelClicked(nextPuzzle);
+    }
+
+
+    public void ExitClicked()
+    {
+        Application.Quit();
+    }
+
+    public void CreditsClicked()
+    {
+
     }
 }

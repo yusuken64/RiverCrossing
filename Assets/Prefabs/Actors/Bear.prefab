@@ -87,6 +87,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 730430602304427420, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
       insertIndex: 2
       addedObject: {fileID: 7845198283905590620}
+    - targetCorrespondingSourceObject: {fileID: 730430602304427420, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: -3434624540214737788}
   m_SourcePrefab: {fileID: 100100000, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
 --- !u!1 &2802879591505519342 stripped
 GameObject:
@@ -108,3 +111,18 @@ MonoBehaviour:
   Predator: Bear
   Prey: Fox
   Guard: Pug
+--- !u!114 &-3434624540214737788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2802879591505519342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c16321c61403de4bbf3fa6a237beb53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Predator: Bear
+  Prey: Sheep
+  Guard: Owl

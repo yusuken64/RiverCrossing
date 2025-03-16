@@ -7,7 +7,7 @@ public class MinorityConstraint : GameConstraint
 
     public override string Description()
     {
-        return $"{Animal}s cannot outnumber non {Animal}";
+        return $"{Animal}s cannot be majority";
     }
 
     public override bool IsGameOver(Actor owner,

@@ -18,12 +18,12 @@ public abstract class GameConstraint : MonoBehaviour
         IEnumerable<Actor> rightSideActors,
         out string message);
 
-    internal int CountItem(IEnumerable<Actor> actors, string item)
+    internal static int CountItem(IEnumerable<Actor> actors, string item)
     {
         return actors.Count(actor => actor.KeyWords.Contains(item));
     }
 
-    internal bool HasItem(IEnumerable<Actor> actors, string item)
+    internal static bool HasItem(IEnumerable<Actor> actors, string item)
     {
         if (string.IsNullOrWhiteSpace(item)) { return false; }
         return actors.Any(actor => actor.KeyWords.Contains(item));

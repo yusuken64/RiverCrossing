@@ -7,10 +7,12 @@ using UnityEngine;
 public class Solver : MonoBehaviour
 {
     public PuzzleDefinition PuzzleDefinition;
+    public bool warnNoSolutions;
 
     [ContextMenu("Solve Puzzle")]
     public void SolvePuzzle()
     {
+        warnNoSolutions = true;
         var path = Solve(PuzzleDefinition.ActorPrefabs, PuzzleDefinition.BoatSize);
         if (path != null)
         {
@@ -18,46 +20,56 @@ public class Solver : MonoBehaviour
             for (int i = 0; i < path.Count; i++)
             {
                 GameState state = path[i];
-                Debug.Log($"step{i} {state.ToKey()}");
+                Debug.Log($"step{i} {state.cachedKey}");
             }
         }
     }
 
     public List<GameState> Solve(List<Actor> actorPrefabs, int boatSize)
     {
-        var initialState = new GameState()
+        var game = FindObjectOfType<Game>(true);
+        game.ClearAllActors();
+
+        List<Actor> puzzleActors = new();
+        foreach (var actorPrefab in actorPrefabs)
         {
-            LeftSide = actorPrefabs
-            .OrderBy(x => x.name)
-            .ToArray(),
-            BoatIsLeft = true
-        };
-        var goalState = new GameState()
-        {
-            RightSide = actorPrefabs
-            .OrderBy(x => x.name)
-            .ToArray()
-        };
-        var goalStateKey = goalState.ToKey();
-        Debug.Log($"Solving {initialState.ToKey()}");
+            var newActor = Instantiate(actorPrefab);
+            puzzleActors.Add(newActor);
+        }
+
+        var initialState = new GameState(
+            puzzleActors.ToArray(),
+            new Actor[0],
+            true);
+        var goalState = new GameState(
+            new Actor[0],
+            puzzleActors.ToArray(),
+            false);
+        var goalStateKey = goalState.cachedKey;
+        //Debug.Log($"Solving {initialState.ToKey()}");
 
         HashSet<string> visited = new();
         var path = new List<GameState>();
 
         if (DFS(initialState, goalStateKey, boatSize, visited, path))
         {
+            game.ClearAllActors();
             return path;
         }
         else
         {
-            //Debug.LogWarning("No solution found.");
+            game.ClearAllActors();
+            if (warnNoSolutions)
+            {
+                Debug.LogWarning("No solution found.");
+            }
             return null;
         }
     }
 
     private bool DFS(GameState currentState, string goalStateKey, int boatSize, HashSet<string> visited, List<GameState> path)
     {
-        var currentStateKey = currentState.ToKey();
+        var currentStateKey = currentState.cachedKey;
 
         // Check if we have already visited this state
         if (visited.Contains(currentStateKey))
@@ -110,7 +122,7 @@ public class Solver : MonoBehaviour
             if (IsValid(newLeft, newRight))
             {
                 var nextState = new GameState(newLeft, newRight, !state.BoatIsLeft);
-                yield return (nextState.ToKey(), nextState);
+                yield return (nextState.cachedKey, nextState);
             }
             else
             {
@@ -132,8 +144,10 @@ public class Solver : MonoBehaviour
 
     private static bool IsValid(IEnumerable<Actor> left, IEnumerable<Actor> right)
     {
-        return !left.Any(x => x.IsGameOver(left, right, out _)) &&
-            !right.Any(x => x.IsGameOver(left, right, out _));
+        bool leftValid = !left.Any(x => x.IsGameOver(left, right, out _));
+        bool rightValid = !right.Any(x => x.IsGameOver(left, right, out _));
+
+        return leftValid && rightValid;
     }
 
     private static IEnumerable<IEnumerable<Actor>> GetPossibleMoves(Actor[] side, int boatCapacity)
@@ -180,21 +194,20 @@ public struct GameState
     public Actor[] RightSide;
     public bool BoatIsLeft;
 
-    public GameState(Actor[] leftSide, Actor[] rightSide, bool v) : this()
-    {
-        this.LeftSide = leftSide;
-        this.RightSide = rightSide;
-        this.BoatIsLeft = v;
-    }
+    public readonly string cachedKey;
 
-    public string ToKey()
+    public GameState(Actor[] leftSide, Actor[] rightSide, bool boatIsLeft)
     {
+        this.LeftSide = leftSide.OrderBy(x => x.ActorName).ToArray();
+        this.RightSide = rightSide.OrderBy(x => x.ActorName).ToArray();
+        this.BoatIsLeft = boatIsLeft;
+
         if (LeftSide == null) LeftSide = Array.Empty<Actor>();
         if (RightSide == null) RightSide = Array.Empty<Actor>();
 
-        var left = string.Join(',', LeftSide.Select(x => x.name).OrderBy(x => x));
-        var right = string.Join(',', RightSide.Select(x => x.name).OrderBy(x => x));
+        var left = string.Join(',', LeftSide.Select(x => x.ActorName).OrderBy(x => x));
+        var right = string.Join(',', RightSide.Select(x => x.ActorName).OrderBy(x => x));
 
-        return $"{left}|{right}|{(BoatIsLeft ? "L" : "R")}";
+        cachedKey = $"{left}|{right}|{(BoatIsLeft ? "L" : "R")}";
     }
 }
