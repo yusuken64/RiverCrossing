@@ -1770,23 +1770,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PossiblePrefabs:
-  - {fileID: 992369366352160612, guid: 2f3819453634f6d4b83b967d74c3b19b, type: 3}
-  - {fileID: 8941935360082772343, guid: 9847d04eb8d1726409a23ce9b4e8757f, type: 3}
-  - {fileID: 8239791522300715463, guid: 52460989159f6ad4399a69bd693d8889, type: 3}
-  - {fileID: 8309842559200804850, guid: 33374419c76bc7b46a1dcca8c76425a3, type: 3}
+  - {fileID: 6424050200218902508, guid: 201b15c764cf64449bc48358c48caca4, type: 3}
+  - {fileID: 7289021463777834827, guid: a79d6a458c087784a81947f1e5492889, type: 3}
   ActorCount: 8
   BoatSize: 2
   Solver: {fileID: 659124769}
   GeneratePuzzleFiles: 1
-  MustContain:
-  - {fileID: 992369366352160612, guid: 2f3819453634f6d4b83b967d74c3b19b, type: 3}
-  - {fileID: 992369366352160612, guid: 2f3819453634f6d4b83b967d74c3b19b, type: 3}
-  - {fileID: 8941935360082772343, guid: 9847d04eb8d1726409a23ce9b4e8757f, type: 3}
-  - {fileID: 8941935360082772343, guid: 9847d04eb8d1726409a23ce9b4e8757f, type: 3}
-  - {fileID: 8239791522300715463, guid: 52460989159f6ad4399a69bd693d8889, type: 3}
-  - {fileID: 8239791522300715463, guid: 52460989159f6ad4399a69bd693d8889, type: 3}
-  - {fileID: 8239791522300715463, guid: 52460989159f6ad4399a69bd693d8889, type: 3}
-  - {fileID: 8309842559200804850, guid: 33374419c76bc7b46a1dcca8c76425a3, type: 3}
+  MustContain: []
 --- !u!4 &275037087
 Transform:
   m_ObjectHideFlags: 0
@@ -2480,7 +2470,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5d34e12a3b63441499b03eb9818172d5, type: 2}
   - {fileID: 11400000, guid: 791ddaf8c89c55343880a2606ccddacd, type: 2}
   - {fileID: 11400000, guid: 8a948abbf764d7146a49dcce6e298ea4, type: 2}
-  - {fileID: 11400000, guid: 87fd0a6e010288549be05ed0c3cf68ea, type: 2}
+  - {fileID: 11400000, guid: 076e0c460c661df49b6f821f05b6acda, type: 2}
   - {fileID: 11400000, guid: ceb652d3d2c29944f8a98027337fe509, type: 2}
   - {fileID: 11400000, guid: 3d30ca59e2133e64286683977e745135, type: 2}
   - {fileID: 11400000, guid: 449bad797abe31d498839375ee0815e9, type: 2}
@@ -2492,6 +2482,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fb0b5af580acce84d82bd2e776b0b04c, type: 2}
   - {fileID: 11400000, guid: 23444c9f7f1569a4cb04cd5667a10061, type: 2}
   - {fileID: 11400000, guid: e4ecdc797e01fb646a793db295374b7e, type: 2}
+  - {fileID: 11400000, guid: 1c3a3a46c006bfd4ca4aabad691b7876, type: 2}
   PizzlesPerPage: 8
   CurrentPage: 0
 --- !u!1001 &377093984
@@ -3086,7 +3077,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31e01a0ff4bafd6468e98992b4e784ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PuzzleDefinition: {fileID: 11400000, guid: 7a55ae14f111c9847984be9c2c8b95eb, type: 2}
+  PuzzleDefinition: {fileID: 11400000, guid: 87fd0a6e010288549be05ed0c3cf68ea, type: 2}
   warnNoSolutions: 0
 --- !u!4 &659124770
 Transform:

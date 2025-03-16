@@ -9,6 +9,22 @@ public class Solver : MonoBehaviour
     public PuzzleDefinition PuzzleDefinition;
     public bool warnNoSolutions;
 
+    [ContextMenu("Solve Main Puzzles")]
+    public void SolveMainPuzzles()
+    {
+        var mainMenu = FindObjectOfType<MainMenu>(true);
+        for (int i = 0; i < mainMenu.Puzzles.Count; i++)
+        {
+            PuzzleDefinition puzzle = mainMenu.Puzzles[i];
+            var path = Solve(puzzle.ActorPrefabs, puzzle.BoatSize);
+            if (path == null)
+            {
+                Debug.LogError($"{puzzle.name} was not solvable", puzzle);
+            }
+            puzzle.PuzzleName = $"Puzzle {i+1}";
+        }
+    }
+
     [ContextMenu("Solve Puzzle")]
     public void SolvePuzzle()
     {

@@ -44,7 +44,7 @@ public class Game : MonoBehaviour
         LeftShore.SetupCells();
         RightShore.SetupCells();
 
-        LevelText.text = PuzzleDefinition.name;
+        LevelText.text = PuzzleDefinition.PuzzleName;
         for (int i = 0; i < PuzzleDefinition.ActorPrefabs.Count; i++)
         {
             Actor prefab = PuzzleDefinition.ActorPrefabs[i];
