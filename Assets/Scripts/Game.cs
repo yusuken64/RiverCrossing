@@ -15,15 +15,16 @@ public class Game : MonoBehaviour
     public Container RightShore;
     public Boat Boat;
 
-    public GameObject InfoObject;
     public TextMeshProUGUI InfoText;
+    public GameObject InfoObject;
+    public TextMeshProUGUI LevelText;
 
     public List<Actor> Actors;
 
     private void Start()
     {
         ResultsCanvas.gameObject.SetActive(false);
-        InfoObject.gameObject.SetActive(false);
+        GameCanvas.gameObject.SetActive(false);
     }
 
     internal void Retry()
@@ -34,9 +35,30 @@ public class Game : MonoBehaviour
     [ContextMenu("SetupGame")]
     public void SetupGame()
     {
-        InfoObject.gameObject.SetActive(false);
-        ResultsCanvas.gameObject.SetActive(false);
+        ClearGame();
+        Container boatContainer = Boat.GetComponent<Container>();
+        boatContainer.Width = 1;
+        boatContainer.Height = PuzzleDefinition.BoatSize;
+        boatContainer.SetupCells();
+
+        LeftShore.SetupCells();
+        RightShore.SetupCells();
+
+        LevelText.text = PuzzleDefinition.name;
+        for (int i = 0; i < PuzzleDefinition.ActorPrefabs.Count; i++)
+        {
+            Actor prefab = PuzzleDefinition.ActorPrefabs[i];
+            Actor newActor = Instantiate(prefab);
+            LeftShore.Cells[i].SetActor(newActor);
+            Actors.Add(newActor);
+        }
         GameCanvas.gameObject.SetActive(true);
+    }
+
+    public void ClearGame()
+    {
+        GameCanvas.gameObject.SetActive(false);
+        ResultsCanvas.gameObject.SetActive(false);
         ClearAllActors();
 
         LeftShore.Width = PuzzleDefinition.Width;
@@ -45,23 +67,15 @@ public class Game : MonoBehaviour
         RightShore.Width = PuzzleDefinition.Width;
         RightShore.Height = PuzzleDefinition.Height;
 
-        LeftShore.SetupCells();
-        RightShore.SetupCells();
+        LeftShore.Cells.Clear();
+        RightShore.Cells.Clear();
 
         Container boatContainer = Boat.GetComponent<Container>();
-        boatContainer.Width = 1;
-        boatContainer.Height = PuzzleDefinition.BoatSize;
-        boatContainer.SetupCells();
+        boatContainer.ClearChildren();
         Boat.GoLeft();
 
         Actors.Clear();
-        for (int i = 0; i < PuzzleDefinition.ActorPrefabs.Count; i++)
-        {
-            Actor prefab = PuzzleDefinition.ActorPrefabs[i];
-            Actor newActor = Instantiate(prefab);
-            LeftShore.Cells[i].SetActor(newActor);
-            Actors.Add(newActor);
-        }
+        InfoObject.gameObject.SetActive(false);
     }
 
     internal bool CheckWin()
@@ -91,6 +105,9 @@ public class Game : MonoBehaviour
             }
 #endif
         }
+
+        LeftShore.ClearChildren();
+        RightShore.ClearChildren();
     }
 
     internal void CheckConstraints()
@@ -98,14 +115,14 @@ public class Game : MonoBehaviour
         if (IsGameOver(out string message))
         {
             Debug.Log("Game Over!");
-            InfoObject.gameObject.SetActive(false);
+            GameCanvas.gameObject.SetActive(false);
             ResultsCanvas.Setup("You Lose", message);
             ResultsCanvas.gameObject.SetActive(true);
         }
         else if (CheckWin())
         {
             Debug.Log("Game Win!");
-            InfoObject.gameObject.SetActive(false);
+            GameCanvas.gameObject.SetActive(false);
             ResultsCanvas.Setup("You Win", "Everyone made it safely across the River");
             ResultsCanvas.gameObject.SetActive(true);
         }

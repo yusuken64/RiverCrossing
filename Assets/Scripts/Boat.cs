@@ -30,19 +30,23 @@ public class Boat : MonoBehaviour
 
     public void GoRight_Clicked()
     {
-        if (FindObjectOfType<Game>().CanBoatMove())
+        Game game = FindObjectOfType<Game>();
+        if (game.CanBoatMove())
         {
             GoRight();
-            FindObjectOfType<Game>().CheckConstraints();
+            game.CheckConstraints();
+            game.InfoObject.gameObject.SetActive(false);
         }
     }
 
     public void GoLeft_Clicked()
     {
-        if (FindObjectOfType<Game>().CanBoatMove())
+        Game game = FindObjectOfType<Game>();
+        if (game.CanBoatMove())
         {
             GoLeft();
-            FindObjectOfType<Game>().CheckConstraints();
+            game.CheckConstraints();
+            game.InfoObject.gameObject.SetActive(false);
         }
     }
 

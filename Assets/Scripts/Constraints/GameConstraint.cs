@@ -25,6 +25,7 @@ public abstract class GameConstraint : MonoBehaviour
 
     internal bool HasItem(IEnumerable<Actor> actors, string item)
     {
+        if (string.IsNullOrWhiteSpace(item)) { return false; }
         return actors.Any(actor => actor.KeyWords.Contains(item));
     }
 }

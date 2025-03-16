@@ -13,15 +13,15 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
-        Game game = FindObjectOfType<Game>();
-        game.GameCanvas.SetActive(false);
-        game.ClearAllActors();
         Setup();
     }
 
     public void Setup()
     {
-        foreach(Transform child in ButtonContainer)
+        Game game = FindObjectOfType<Game>();
+        game.GameCanvas.SetActive(false);
+        game.ClearAllActors();
+        foreach (Transform child in ButtonContainer)
         {
             Destroy(child.gameObject);
         }

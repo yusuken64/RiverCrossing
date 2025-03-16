@@ -39,6 +39,7 @@ public class ResultsCanvas : MonoBehaviour
     {
         FindObjectOfType<MainMenu>(true).gameObject.SetActive(true);
         FindObjectOfType<Game>(true).GameCanvas.gameObject.SetActive(false);
+        FindObjectOfType<Game>(true).ClearGame();
     }
 
     public void Next_Clicked()

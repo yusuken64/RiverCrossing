@@ -60,7 +60,8 @@ public class Actor : MonoBehaviour
                 CurrentCell?.SetActor(this);
             }
 
-            FindObjectOfType<Game>().CheckConstraints();
+            Game game = FindObjectOfType<Game>();
+            game.CheckConstraints();
         };
     }
 
