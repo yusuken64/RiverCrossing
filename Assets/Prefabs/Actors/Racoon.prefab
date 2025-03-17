@@ -159,14 +159,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 730430602304427420, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
       insertIndex: 2
-      addedObject: {fileID: 9020645491463959227}
+      addedObject: {fileID: 322478069144849906}
   m_SourcePrefab: {fileID: 100100000, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
 --- !u!1 &4785402257054075704 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 730430602304427420, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
   m_PrefabInstance: {fileID: 5209023459469926052}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &9020645491463959227
+--- !u!114 &322478069144849906
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,10 +175,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4785402257054075704}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd8d1809667e64146abea29e4403cf7f, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ac97aaa183e70543b19a7b89d4fac7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Animal: Racoon
+  Predator: Racoon
+  Prey: Rabbit
 --- !u!4 &7652034636596922957 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2484676141621302505, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}

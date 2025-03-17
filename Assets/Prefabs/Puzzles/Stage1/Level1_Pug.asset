@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba0919d402bc0b749898d1bec04c1cb9, type: 3}
+  m_Name: Level1_Pug
+  m_EditorClassIdentifier: 
+  PuzzleName: Puzzle 1
+  Width: 1
+  Height: 1
+  BoatSize: 1
+  ActorPrefabs:
+  - {fileID: 7289021463777834827, guid: 59057161a4d379a4887637c8189d0809, type: 3}
+  Difficulty: 4.41
+  SolveDepth: 2

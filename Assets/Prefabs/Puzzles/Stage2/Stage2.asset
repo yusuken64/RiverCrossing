@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1982cbadf6f2b874f89439b67d618777, type: 3}
+  m_Name: Stage2
+  m_EditorClassIdentifier: 
+  Puzzles:
+  - {fileID: 11400000, guid: dc70f7368a644584b950a4d7e90dd0d0, type: 2}
+  - {fileID: 11400000, guid: b01800095784328479c5ddfc125d6930, type: 2}
+  - {fileID: 11400000, guid: a3ee8e28e8a559f49857a22ae16b7172, type: 2}
+  - {fileID: 11400000, guid: 740e5e62ca8ef544cac67cb3951f4ff2, type: 2}
+  - {fileID: 11400000, guid: c8bdd09c25f83f146981a191dca29f6b, type: 2}

@@ -15,6 +15,7 @@ public class PredatorPreyConstraint : GameConstraint
         Actor owner,
         IEnumerable<Actor> leftSideActors,
         IEnumerable<Actor> rightSideActors,
+        IEnumerable<Actor> boatActors,
         out string message)
     {
 

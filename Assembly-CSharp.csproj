@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\MainMenu\LevelButton.cs" />
     <Compile Include="Assets\Scripts\PuzzleDefinition.cs" />
     <Compile Include="Assets\Scripts\Constraints\LonelyConstraint.cs" />
+    <Compile Include="Assets\Scripts\Constraints\CantCrossWithHeavyConstraint.cs" />
     <Compile Include="Assets\Scripts\Game.cs" />
     <Compile Include="Assets\Scripts\Generator.cs" />
     <Compile Include="Assets\Scripts\MainMenu\MainMenu.cs" />
@@ -74,8 +75,12 @@
     <Compile Include="Assets\Scripts\Boat.cs" />
     <Compile Include="Assets\Scripts\Constraints\PredatorPreyConstraint.cs" />
     <Compile Include="Assets\Scripts\Cell.cs" />
+    <Compile Include="Assets\Scripts\PuzzleFinder.cs" />
     <Compile Include="Assets\Scripts\Constraints\PredatorGuardedConstraint.cs" />
+    <Compile Include="Assets\Scripts\Constraints\MustCrossAloneConstraint.cs" />
+    <Compile Include="Assets\Scripts\Constraints\CantCrossWithPredatorConstraint.cs" />
     <Compile Include="Assets\Scripts\Constraints\GameConstraint.cs" />
+    <Compile Include="Assets\Scripts\StageDefinition.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -25,45 +23,36 @@ public class Generator : MonoBehaviour
     [ContextMenu("Generate Puzzles")]
     public void GeneratePuzzle()
     {
-        Solver.warnNoSolutions = false;
-        var combinations = GenerateCombinations(PossiblePrefabs, ActorCount);
-
-        int solvablePuzzleCount = 0;
-        foreach (var combination in combinations)
+        IEnumerable<((List<GameState> path, double difficulty) solution, List<Actor> combination)> generatedPuzzles = GenerateConstrainedPuzzles(ActorCount, BoatSize);
+        if (GeneratePuzzleFiles)
         {
-            var path = Solver.Solve(combination, BoatSize);
-            if (path != null)
+            foreach (var puzzle in generatedPuzzles)
             {
-                //Debug.LogWarning($"{path[0].ToKey()} {path.Count()} steps");
-
-                // Check if the combination contains all items from MustContain with the correct count
-                bool containsAllRequired = true;
-
-                foreach (var mustContainItem in MustContain)
-                {
-                    int requiredCount = MustContain.Count(x => x.name == mustContainItem.ActorName);
-                    int actualCount = combination.Count(x => x.name == mustContainItem.ActorName);
-
-                    if (actualCount < requiredCount)
-                    {
-                        containsAllRequired = false;
-                        break;
-                    }
-                }
-
-                if (containsAllRequired)
-                {
-                    solvablePuzzleCount++;
-                    if (GeneratePuzzleFiles)
-                    {
-                        string key = string.Join(',', path[0].LeftSide.Select(x => x.ActorName).OrderBy(x => x));
-                        CreatePuzzleData(combination, BoatSize, $"{key}_{path.Count()}steps");
-                    }
-                }
+                var key = Solver.ToKey(puzzle.combination.ToList());
+                CreatePuzzleData(puzzle.combination.ToList(), BoatSize, key);
             }
         }
+    }
 
-        Debug.Log($"Done Generating {solvablePuzzleCount} solvable puzzles");
+    public IEnumerable<((List<GameState> path, double difficulty) solution, List<Actor> combination)> GenerateConstrainedPuzzles(int actorCount, int boatSize)
+    {
+        Solver.warnNoSolutions = false;
+        var combinations = GenerateCombinations(PossiblePrefabs, actorCount);
+
+        var requiredCounts = MustContain
+            .GroupBy(x => x.ActorName)
+            .ToDictionary(g => g.Key, g => g.Count());
+
+        var solvedPuzzles = combinations
+            .Where(combination => requiredCounts.All(req => combination.Count(x => x.name == req.Key) >= req.Value))
+            .Select(combination => (
+                solution: Solver.Solve(combination, boatSize),
+                combination: combination
+            ))
+            .Where(solution => solution.solution.path != null);
+     
+        Debug.Log($"Done Generating {solvedPuzzles.Count()} solvable puzzles");
+        return solvedPuzzles;
     }
 
     public void CreatePuzzleData(List<Actor> combination, int boatSize, string key)
@@ -77,9 +66,8 @@ public class Generator : MonoBehaviour
         asset.ActorPrefabs.AddRange(combination);
 
         // Generate a consistent folder path based on prefab names
-        string initialStateKey = string.Join(',', PossiblePrefabs.Select(x => x.name).OrderBy(x => x));
-        string directoryPath = $"Assets/Prefabs/Generated/{initialStateKey}_Actors{ActorCount}_Boat{boatSize}";
-
+        string directoryPath = $"Assets/Prefabs/Generated/{key}_Actors{combination.Count()}_Boat{boatSize}";
+        
         if (!AssetDatabase.IsValidFolder("Assets/Prefabs/Generated"))
         {
             AssetDatabase.CreateFolder("Assets/Prefabs", "Generated");
@@ -88,12 +76,12 @@ public class Generator : MonoBehaviour
         // Ensure directory exists
         if (!AssetDatabase.IsValidFolder(directoryPath))
         {
-            AssetDatabase.CreateFolder("Assets/Prefabs/Generated", $"{initialStateKey}_Actors{ActorCount}_Boat{boatSize}");
+            AssetDatabase.CreateFolder("Assets/Prefabs/Generated", $"{key}_Actors{combination.Count()}_Boat{boatSize}");
             AssetDatabase.Refresh();
         }
 
         // Define the asset path
-        string baseAssetPath = $"{directoryPath}/{key}.asset";
+        string baseAssetPath = $"{directoryPath}/{key}_b{boatSize}.asset";
 
         // Refresh AssetDatabase to ensure it detects existing assets
         AssetDatabase.Refresh();
@@ -146,7 +134,7 @@ public class Generator : MonoBehaviour
         return sizes[number - 1];
     }
 
-    static List<List<Actor>> GenerateCombinations(List<Actor> items, int length, bool noDuplicates = true)
+    public static List<List<Actor>> GenerateCombinations(List<Actor> items, int length, bool noDuplicates = true)
     {
         List<List<Actor>> result = new List<List<Actor>>();
         GenerateCombinationsRecursive(items, new List<Actor>(), length, result, 0);

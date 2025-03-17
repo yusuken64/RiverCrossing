@@ -61,8 +61,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4184888071631929187, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
+      propertyPath: IsHeavy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4184888071631929187, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
       propertyPath: ActorName
       value: Cow
+      objectReference: {fileID: 0}
+    - target: {fileID: 4184888071631929187, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
+      propertyPath: CanPilotBoat
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4184888071631929187, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
       propertyPath: KeyWords.Array.size
@@ -78,8 +86,28 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2484676141621302505, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2653521472087278032}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 730430602304427420, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: -1375179338308854814}
   m_SourcePrefab: {fileID: 100100000, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
+--- !u!1 &151497467670264965 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 730430602304427420, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
+  m_PrefabInstance: {fileID: 592567393712433433}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-1375179338308854814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151497467670264965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6540f9de9d8149468806d0d88925e4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &3045118545652137456 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2484676141621302505, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}

@@ -168,7 +168,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 730430602304427420, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
       insertIndex: 2
-      addedObject: {fileID: 3739245793107239051}
+      addedObject: {fileID: -8276908939737883301}
   m_SourcePrefab: {fileID: 100100000, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
 --- !u!4 &1562037550480903406 stripped
 Transform:
@@ -180,7 +180,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 730430602304427420, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
   m_PrefabInstance: {fileID: 4023455170662078471}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3739245793107239051
+--- !u!114 &-8276908939737883301
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -189,8 +189,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4464525090237418907}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ac97aaa183e70543b19a7b89d4fac7f, type: 3}
+  m_Script: {fileID: 11500000, guid: bd8d1809667e64146abea29e4403cf7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Predator: Monkey
-  Prey: Rabbit
+  Animal: Monkey

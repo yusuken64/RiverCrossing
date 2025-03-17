@@ -1,5 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PuzzleDefinition", menuName = "ScriptableObjects/PuzzleDefinition")]
@@ -12,4 +12,6 @@ public class PuzzleDefinition : ScriptableObject
     public int BoatSize;
 
     public List<Actor> ActorPrefabs;
+    public float Difficulty;
+    public float SolveDepth;
 }

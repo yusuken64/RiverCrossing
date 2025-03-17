@@ -1,18 +1,22 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class MainMenu : MonoBehaviour
 {
     public LevelButton ButtonPrefab;
     public Transform ButtonContainer;
 
-    public List<PuzzleDefinition> Puzzles;
+    public List<StageDefinition> Stages;
 
     public int PizzlesPerPage = 8;
     public int CurrentPage;
+
+    public PuzzleDefinition DebugPuzzle;
 
     private void Start()
     {
@@ -35,14 +39,74 @@ public class MainMenu : MonoBehaviour
 
     private void SetupPuzzles()
     {
-        for (int i = 0; i < Puzzles.Count; i++)
+        var puzzles = Stages[0].Puzzles;
+        for (int i = 0; i < puzzles.Count; i++)
         {
-            PuzzleDefinition puzzleDefinition = Puzzles[i];
+            PuzzleDefinition puzzleDefinition = puzzles[i];
             var newButton = Instantiate(ButtonPrefab, ButtonContainer);
             newButton.Setup(i + 1, puzzleDefinition);
             newButton.LevelSelected = (puzzle) => LevelClicked(puzzle);
         }
     }
+
+    [ContextMenu("Debug_Puzzle")]
+    public void Debug_Puzzle()
+    {
+        LevelClicked(DebugPuzzle);
+    }
+
+#if UNITY_EDITOR
+    [ContextMenu("Solve Main Puzzles")]
+    public void SolveMainPuzzles()
+    {
+        int puzzleNum = 0;
+        for (int i = 0; i < Stages.Count; i++)
+        {
+            StageDefinition stage = Stages[i];
+            stage.name = $"Stage{i + 1}";
+            EditorUtility.SetDirty(stage);
+            string stageAssetPath = AssetDatabase.GetAssetPath(stage);
+            AssetDatabase.RenameAsset(stageAssetPath, stage.name);
+
+            foreach (var puzzle in stage.Puzzles)
+            {
+                var solver = FindObjectOfType<Solver>();
+                (List<GameState> path, double difficulty) solution = solver.Solve(puzzle.ActorPrefabs, puzzle.BoatSize);
+
+                if (solution.path == null)
+                {
+                    Debug.LogError($"{name} was not solvable", this);
+                }
+                else
+                {
+                    Debug.Log($"{name} took {solution.path.Count()} steps" +
+                        $" {solution.difficulty} difficulty");
+                }
+
+                (int width, int height) dimensions = Generator.GetDimensions(puzzle.ActorPrefabs.Count);
+                puzzle.Width = dimensions.width;
+                puzzle.Height = dimensions.height;
+                puzzle.SolveDepth = (float)solution.path.Count();
+                puzzle.Difficulty = (float)solution.difficulty;
+            }
+
+            foreach (var puzzle in stage.Puzzles
+                .OrderBy(x => x.ActorPrefabs.Count())
+                .ThenBy(x => x.SolveDepth)
+                .ThenBy(x => x.Difficulty))
+            {
+                puzzleNum++;
+                var key = $"Level{puzzleNum}_{Solver.ToKey(puzzle.ActorPrefabs)}";
+                puzzle.name = key;
+                puzzle.PuzzleName = $"Puzzle {puzzleNum}";
+                EditorUtility.SetDirty(puzzle);
+                string assetPath = AssetDatabase.GetAssetPath(puzzle);
+                AssetDatabase.RenameAsset(assetPath, key);
+            }
+        }
+        AssetDatabase.Refresh();
+    }
+#endif
 
     private void LevelClicked(PuzzleDefinition puzzle)
     {
@@ -55,10 +119,10 @@ public class MainMenu : MonoBehaviour
 
     public void NextPuzzle(PuzzleDefinition currentPuzzle)
     {
-        var index = Puzzles.IndexOf(currentPuzzle);
-        var nextPuzzle = Puzzles[index + 1];
+        //var index = Puzzles.IndexOf(currentPuzzle);
+        //var nextPuzzle = Puzzles[index + 1];
 
-        LevelClicked(nextPuzzle);
+        //LevelClicked(nextPuzzle);
     }
 
 

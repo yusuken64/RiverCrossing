@@ -8,13 +8,14 @@ public class PredatorGuardedConstraint : GameConstraint
 
     public override string Description()
     {
-        return $"{Predator} will everyone unless {Guard} is present";
+        return $"{Predator} will eat everyone unless {Guard} is present";
     }
 
     public override bool IsGameOver(
         Actor owner,
         IEnumerable<Actor> leftSideActors,
         IEnumerable<Actor> rightSideActors,
+        IEnumerable<Actor> boatActors,
         out string message)
     {
         var containingSide = GetContainingSide(leftSideActors, rightSideActors, owner);

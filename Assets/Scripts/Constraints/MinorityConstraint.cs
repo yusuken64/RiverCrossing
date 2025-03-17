@@ -7,12 +7,14 @@ public class MinorityConstraint : GameConstraint
 
     public override string Description()
     {
-        return $"{Animal}s cannot be majority";
+        return $"{Animal} cannot be majority";
     }
 
-    public override bool IsGameOver(Actor owner,
+    public override bool IsGameOver(
+        Actor owner,
         IEnumerable<Actor> leftSideActors,
         IEnumerable<Actor> rightSideActors,
+        IEnumerable<Actor> boatActors,
         out string message)
     {
         var containingSide = GetContainingSide(leftSideActors, rightSideActors, owner);
@@ -23,7 +25,7 @@ public class MinorityConstraint : GameConstraint
         if (animalCount > 0 &&
             animalCount > otherCount)
         {
-            message = $"{Animal}s outnumber the others";
+            message = $"{Animal} outnumber the others";
             return true;
         }
 

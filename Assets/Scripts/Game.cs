@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -114,26 +112,36 @@ public class Game : MonoBehaviour
     {
         if (IsGameOver(out string message))
         {
-            Debug.Log("Game Over!");
-            GameCanvas.gameObject.SetActive(false);
-            ResultsCanvas.Setup("You Lose", message);
-            ResultsCanvas.gameObject.SetActive(true);
+            HandleLoss(message);
         }
         else if (CheckWin())
         {
-            Debug.Log("Game Win!");
-            GameCanvas.gameObject.SetActive(false);
-            ResultsCanvas.Setup("You Win", "Everyone made it safely across the River");
-            ResultsCanvas.gameObject.SetActive(true);
+            HandleWin();
         }
+    }
+
+    internal void HandleLoss(string message)
+    {
+        Debug.Log("Game Over!");
+        GameCanvas.gameObject.SetActive(false);
+        ResultsCanvas.Setup("You Lose", message);
+        ResultsCanvas.gameObject.SetActive(true);
+    }
+
+    internal void HandleWin()
+    {
+        Debug.Log("Game Win!");
+        GameCanvas.gameObject.SetActive(false);
+        ResultsCanvas.Setup("You Win", "Everyone made it safely across the River");
+        ResultsCanvas.gameObject.SetActive(true);
     }
 
     public bool IsGameOver(out string message)
     {
         foreach (var actor in Actors)
         {
-            (List<Actor> leftSideActors, List<Actor> rightSideActors) = Game.GetActors(this);
-            if (actor.IsGameOver(leftSideActors, rightSideActors, out message))
+            (List<Actor> leftSideActors, List<Actor> rightSideActors, List<Actor> boatActors) = Game.GetActors(this);
+            if (actor.IsGameOver(leftSideActors, rightSideActors, boatActors, out message))
             {
                 Debug.Log(message);
                 return true;
@@ -150,7 +158,7 @@ public class Game : MonoBehaviour
             && actor.CanMoveBoat());
     }
 
-    public static (List<Actor> leftSideActors, List<Actor> rightSideActors) GetActors(Game game)
+    public static (List<Actor> leftSideActors, List<Actor> rightSideActors, List<Actor> boatActors) GetActors(Game game)
     {
         var leftSideActors = game.LeftShore.Cells.Where(x => x.CurrentActor != null)
             .Select(x => x.CurrentActor)
@@ -158,6 +166,10 @@ public class Game : MonoBehaviour
         var rightSideActors = game.RightShore.Cells.Where(x => x.CurrentActor != null)
             .Select(x => x.CurrentActor)
             .ToList();
+        var boatActors = game.Boat.Cells
+                .Where(x => x.CurrentActor != null)
+                .Select(x => x.CurrentActor).ToList();
+
         if (game.Boat.IsBoatRight)
         {
             rightSideActors.AddRange(game.Boat.Cells
@@ -171,7 +183,7 @@ public class Game : MonoBehaviour
                 .Select(x => x.CurrentActor));
         }
 
-        return (leftSideActors, rightSideActors);
+        return (leftSideActors, rightSideActors, boatActors);
     }
 
     public void Pause_Clicked()

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,39 +8,33 @@ public class Solver : MonoBehaviour
     public PuzzleDefinition PuzzleDefinition;
     public bool warnNoSolutions;
 
-    [ContextMenu("Solve Main Puzzles")]
-    public void SolveMainPuzzles()
+    public static double ComputeDifficultyScaled(double branchingFactor, int solutionDepth)
     {
-        var mainMenu = FindObjectOfType<MainMenu>(true);
-        for (int i = 0; i < mainMenu.Puzzles.Count; i++)
-        {
-            PuzzleDefinition puzzle = mainMenu.Puzzles[i];
-            var path = Solve(puzzle.ActorPrefabs, puzzle.BoatSize);
-            if (path == null)
-            {
-                Debug.LogError($"{puzzle.name} was not solvable", puzzle);
-            }
-            puzzle.PuzzleName = $"Puzzle {i+1}";
-        }
+        if (solutionDepth == 0) return 0;
+        if (branchingFactor <= 0) return double.MaxValue;
+
+        double difficulty = Math.Log(1 + Math.Pow(1 + (1 / branchingFactor), solutionDepth * solutionDepth));
+
+        return Math.Round(difficulty, 2);
     }
 
     [ContextMenu("Solve Puzzle")]
     public void SolvePuzzle()
     {
         warnNoSolutions = true;
-        var path = Solve(PuzzleDefinition.ActorPrefabs, PuzzleDefinition.BoatSize);
-        if (path != null)
+        var solution = Solve(PuzzleDefinition.ActorPrefabs, PuzzleDefinition.BoatSize);
+        if (solution.path != null)
         {
-            Debug.LogWarning($"Solution found in {path.Count()} steps");
-            for (int i = 0; i < path.Count; i++)
+            Debug.LogWarning($"Solution found in {solution.path.Count()} steps {solution.difficulty}");
+            for (int i = 0; i < solution.path.Count; i++)
             {
-                GameState state = path[i];
+                GameState state = solution.path[i];
                 Debug.Log($"step{i} {state.cachedKey}");
             }
         }
     }
 
-    public List<GameState> Solve(List<Actor> actorPrefabs, int boatSize)
+    public (List<GameState> path, double difficulty) Solve(List<Actor> actorPrefabs, int boatSize)
     {
         var game = FindObjectOfType<Game>(true);
         game.ClearAllActors();
@@ -62,25 +55,21 @@ public class Solver : MonoBehaviour
             puzzleActors.ToArray(),
             false);
         var goalStateKey = goalState.cachedKey;
-        //Debug.Log($"Solving {initialState.ToKey()}");
 
-        HashSet<string> visited = new();
-        var path = new List<GameState>();
+        var solution = BFS(initialState, goalStateKey, boatSize);
 
-        if (DFS(initialState, goalStateKey, boatSize, visited, path))
+        game.ClearAllActors();
+
+        if (solution.path == null && warnNoSolutions)
         {
-            game.ClearAllActors();
-            return path;
+            Debug.LogWarning("No solution found.");
         }
-        else
+        if (solution.path == null)
         {
-            game.ClearAllActors();
-            if (warnNoSolutions)
-            {
-                Debug.LogWarning("No solution found.");
-            }
-            return null;
+            return (null, 0);
         }
+
+        return (solution.path, ComputeDifficultyScaled(solution.branchingFactor, solution.path.Count()));
     }
 
     private bool DFS(GameState currentState, string goalStateKey, int boatSize, HashSet<string> visited, List<GameState> path)
@@ -115,6 +104,44 @@ public class Solver : MonoBehaviour
         return false;
     }
 
+    private (List<GameState> path, double branchingFactor) BFS(GameState initialState, string goalStateKey, int boatSize)
+    {
+        Queue<(GameState state, List<GameState> path)> queue = new();
+        HashSet<string> visited = new();
+
+        int expandedNodes = 0;
+        int generatedNodes = 0;
+
+        queue.Enqueue((initialState, new List<GameState> { initialState }));
+        visited.Add(initialState.cachedKey);
+
+        while (queue.Count > 0)
+        {
+            var (currentState, path) = queue.Dequeue();
+            expandedNodes++; // Count expanded nodes
+
+            if (currentState.cachedKey == goalStateKey)
+            {
+                double branchingFactor = expandedNodes > 0 ? (double)generatedNodes / expandedNodes : 0;
+                return (path, branchingFactor);
+            }
+
+            List<GameState> nextStates = new();
+            foreach (var next in GetNextStates(currentState, boatSize))
+            {
+                if (visited.Add(next.nextState.cachedKey)) // HashSet.Add returns true if new
+                {
+                    nextStates.Add(next.nextState);
+                    queue.Enqueue((next.nextState, new List<GameState>(path) { next.nextState }));
+                }
+            }
+
+            generatedNodes += nextStates.Count; // Count total generated nodes
+        }
+
+        return (null, 0); // No solution found
+    }
+
     private static IEnumerable<(string key, GameState nextState)> GetNextStates(GameState state, int boatCapacity)
     {
         var currentSide = state.BoatIsLeft ? state.LeftSide : state.RightSide;
@@ -135,7 +162,7 @@ public class Solver : MonoBehaviour
                 ? state.RightSide.Concat(move).ToArray()
                 : RemoveActors(state.RightSide, move);
 
-            if (IsValid(newLeft, newRight))
+            if (IsValid(newLeft, newRight, move))
             {
                 var nextState = new GameState(newLeft, newRight, !state.BoatIsLeft);
                 yield return (nextState.cachedKey, nextState);
@@ -158,10 +185,10 @@ public class Solver : MonoBehaviour
         return list.ToArray();
     }
 
-    private static bool IsValid(IEnumerable<Actor> left, IEnumerable<Actor> right)
+    private static bool IsValid(IEnumerable<Actor> left, IEnumerable<Actor> right, IEnumerable<Actor> boat)
     {
-        bool leftValid = !left.Any(x => x.IsGameOver(left, right, out _));
-        bool rightValid = !right.Any(x => x.IsGameOver(left, right, out _));
+        bool leftValid = !left.Any(x => x.IsGameOver(left, right, boat, out _));
+        bool rightValid = !right.Any(x => x.IsGameOver(left, right, boat, out _));
 
         return leftValid && rightValid;
     }
@@ -201,6 +228,10 @@ public class Solver : MonoBehaviour
             }
             current.RemoveAt(current.Count - 1);
         }
+    }
+    public static string ToKey(List<Actor> actors)
+    {
+        return string.Join(',', actors.Select(x => x.ActorName).OrderBy(x => x));
     }
 }
 

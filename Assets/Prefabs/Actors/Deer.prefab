@@ -145,6 +145,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5063446389422975453, guid: 056b7ce2cbe20ed4c928c9110c75c627, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5063446389422975453, guid: 056b7ce2cbe20ed4c928c9110c75c627, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1020720153
+      objectReference: {fileID: 0}
     - target: {fileID: 5642590899792312776, guid: 056b7ce2cbe20ed4c928c9110c75c627, type: 3}
       propertyPath: m_Name
       value: deer_HQ1

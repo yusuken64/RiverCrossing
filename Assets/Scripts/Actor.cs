@@ -9,6 +9,7 @@ public class Actor : MonoBehaviour
 
     public Cell CurrentCell;
     public bool CanPilotBoat;
+    public bool IsHeavy;
 
     public List<string> KeyWords;
 
@@ -61,8 +62,28 @@ public class Actor : MonoBehaviour
             }
 
             Game game = FindObjectOfType<Game>();
-            game.CheckConstraints();
+            if (game.CheckWin())
+            {
+                game.HandleWin();
+            }
         };
+    }
+
+    internal bool IsPredator()
+    {
+        var gameConstraints = GetComponents<GameConstraint>();
+        return gameConstraints.Any(constraint =>
+        {
+            switch (constraint)
+            {
+                case PredatorPreyConstraint predatorPreyConstraint:
+                    return predatorPreyConstraint.Predator == ActorName;
+                case PredatorGuardedConstraint predatorGuardedConstraint:
+                    return predatorGuardedConstraint.Predator == ActorName;
+                default:
+                    return false;
+            }
+        });
     }
 
     private bool CanDrop(Cell currentCell, Cell destinationCell)
@@ -105,7 +126,7 @@ public class Actor : MonoBehaviour
         return false;
     }
 
-    internal bool IsGameOver(IEnumerable<Actor> leftSideActors, IEnumerable<Actor> rightSideActors, out string message)
+    internal bool IsGameOver(IEnumerable<Actor> leftSideActors, IEnumerable<Actor> rightSideActors, IEnumerable<Actor> boatActors, out string message)
     {
         var gameConstraints = GetComponents<GameConstraint>();
 
@@ -122,6 +143,7 @@ public class Actor : MonoBehaviour
                 this,
                 leftSideActors,
                 rightSideActors,
+                boatActors,
                 out message))
             {
                 return true;

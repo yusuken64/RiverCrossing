@@ -62,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4184888071631929187, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
       propertyPath: CanPilotBoat
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4184888071631929187, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
       propertyPath: KeyWords.Array.size
@@ -119,8 +119,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Predator: Owl
-  Prey: Frog
-  Guard: Fox
+  Prey: Mouse
+  Guard: Pug
 --- !u!1001 &7599919924702162855
 PrefabInstance:
   m_ObjectHideFlags: 0
