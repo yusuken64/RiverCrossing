@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level14_Bear,Deer,Deer,Lion,Pug,Sheep,Sheep,Tiger
   m_EditorClassIdentifier: 
   PuzzleName: Puzzle 14
+  PuzzleNum: 14
   Width: 2
   Height: 4
   BoatSize: 2

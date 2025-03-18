@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level5_Fox,Lion,Mouse,Owl,Pug,Pug
   m_EditorClassIdentifier: 
   PuzzleName: Puzzle 5
+  PuzzleNum: 5
   Width: 2
   Height: 3
   BoatSize: 2

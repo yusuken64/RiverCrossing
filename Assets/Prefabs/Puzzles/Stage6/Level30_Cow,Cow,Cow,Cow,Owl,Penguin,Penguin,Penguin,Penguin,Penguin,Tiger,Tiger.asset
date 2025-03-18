@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level30_Cow,Cow,Cow,Cow,Owl,Penguin,Penguin,Penguin,Penguin,Penguin,Tiger,Tiger
   m_EditorClassIdentifier: 
   PuzzleName: Puzzle 30
+  PuzzleNum: 30
   Width: 3
   Height: 4
   BoatSize: 2

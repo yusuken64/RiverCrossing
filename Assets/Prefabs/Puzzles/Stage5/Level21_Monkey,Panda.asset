@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level21_Monkey,Panda
   m_EditorClassIdentifier: 
   PuzzleName: Puzzle 21
+  PuzzleNum: 21
   Width: 1
   Height: 2
   BoatSize: 2

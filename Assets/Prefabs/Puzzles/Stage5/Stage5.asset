@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Stage5
   m_EditorClassIdentifier: 
   Puzzles:
-  - {fileID: 11400000, guid: aad52c5b4c02f9f49805e998dda5e3a1, type: 2}
-  - {fileID: 11400000, guid: 4851b9fdf91808240b3f501a8acde074, type: 2}
+  - {fileID: 11400000, guid: 0b6ece8b491a25e41b3ccb32d2e342eb, type: 2}
   - {fileID: 11400000, guid: a792913af557d9543ad476b9e67640cf, type: 2}
   - {fileID: 11400000, guid: 6a5e63c14104d9543b87387f298039af, type: 2}
-  - {fileID: 11400000, guid: 0b6ece8b491a25e41b3ccb32d2e342eb, type: 2}
+  - {fileID: 11400000, guid: 4851b9fdf91808240b3f501a8acde074, type: 2}
+  - {fileID: 11400000, guid: aad52c5b4c02f9f49805e998dda5e3a1, type: 2}

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level24_Monkey,Monkey,Panda,Panda,Porcupine,Porcupine
   m_EditorClassIdentifier: 
   PuzzleName: Puzzle 24
+  PuzzleNum: 24
   Width: 2
   Height: 3
   BoatSize: 3

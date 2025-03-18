@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level18_Frog,Frog,Frog,Frog,Frog,Rabbit,Rabbit,Racoon,Racoon
   m_EditorClassIdentifier: 
   PuzzleName: Puzzle 18
+  PuzzleNum: 18
   Width: 3
   Height: 3
   BoatSize: 2

@@ -8,9 +8,9 @@ public class LevelButton : MonoBehaviour
     public PuzzleDefinition PuzzleDefinition;
     public Action<PuzzleDefinition> LevelSelected { get; internal set; }
 
-    internal void Setup(int i, PuzzleDefinition puzzleDefinition)
+    internal void Setup(PuzzleDefinition puzzleDefinition)
     {
-        ButtonText.text = i.ToString();
+        ButtonText.text = puzzleDefinition.PuzzleNum.ToString();
         PuzzleDefinition = puzzleDefinition;
     }
 

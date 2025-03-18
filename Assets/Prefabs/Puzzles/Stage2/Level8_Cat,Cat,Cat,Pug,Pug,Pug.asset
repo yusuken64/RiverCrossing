@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level8_Cat,Cat,Cat,Pug,Pug,Pug
   m_EditorClassIdentifier: 
   PuzzleName: Puzzle 8
+  PuzzleNum: 8
   Width: 2
   Height: 3
   BoatSize: 2

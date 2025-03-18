@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level16_Frog,Rabbit,Racoon
   m_EditorClassIdentifier: 
   PuzzleName: Puzzle 16
+  PuzzleNum: 16
   Width: 1
   Height: 3
   BoatSize: 2

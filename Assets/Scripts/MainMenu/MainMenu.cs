@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -16,6 +17,8 @@ public class MainMenu : MonoBehaviour
 
     public TextMeshProUGUI StageText;
     public int CurrentPage;
+    public GameObject StageRightButton;
+    public GameObject StageLeftButton;
 
     public PuzzleDefinition DebugPuzzle;
 
@@ -48,9 +51,12 @@ public class MainMenu : MonoBehaviour
         {
             PuzzleDefinition puzzleDefinition = puzzles[i];
             var newButton = Instantiate(ButtonPrefab, ButtonContainer);
-            newButton.Setup(i + 1, puzzleDefinition);
+            newButton.Setup(puzzleDefinition);
             newButton.LevelSelected = (puzzle) => LevelClicked(puzzle);
         }
+
+        StageLeftButton.gameObject.SetActive(CurrentPage > 0);
+        StageRightButton.gameObject.SetActive(CurrentPage < Stages.Count() - 1);
     }
 
     [ContextMenu("Debug_Puzzle")]
@@ -106,6 +112,7 @@ public class MainMenu : MonoBehaviour
                 var key = $"Level{puzzleNum}_{Solver.ToKey(puzzle.ActorPrefabs)}";
                 puzzle.name = key;
                 puzzle.PuzzleName = $"Puzzle {puzzleNum}";
+                puzzle.PuzzleNum = puzzleNum;
                 EditorUtility.SetDirty(puzzle);
                 string assetPath = AssetDatabase.GetAssetPath(puzzle);
                 AssetDatabase.RenameAsset(assetPath, key);
@@ -126,10 +133,11 @@ public class MainMenu : MonoBehaviour
 
     public void NextPuzzle(PuzzleDefinition currentPuzzle)
     {
-        //var index = Puzzles.IndexOf(currentPuzzle);
-        //var nextPuzzle = Puzzles[index + 1];
+        var index = currentPuzzle.PuzzleNum;
+        var nextPuzzle = Stages.SelectMany(x => x.Puzzles)
+            .FirstOrDefault(x => x.PuzzleNum == index + 1);
 
-        //LevelClicked(nextPuzzle);
+        LevelClicked(nextPuzzle);
     }
 
 
@@ -147,14 +155,14 @@ public class MainMenu : MonoBehaviour
     public void RightClicked()
     {
         CurrentPage++;
-        Mathf.Clamp(CurrentPage, 0, Stages.Count() - 1);
+        CurrentPage = Mathf.Clamp(CurrentPage, 0, Stages.Count() - 1);
         SetupPuzzles();
     }
 
     public void LeftClicked()
     {
         CurrentPage--;
-        Mathf.Clamp(CurrentPage, 0, Stages.Count() - 1);
+        CurrentPage = Mathf.Clamp(CurrentPage, 0, Stages.Count() - 1);
         SetupPuzzles();
     }
 }

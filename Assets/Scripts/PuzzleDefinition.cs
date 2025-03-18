@@ -6,6 +6,7 @@ using UnityEngine;
 public class PuzzleDefinition : ScriptableObject
 {
     public string PuzzleName;
+    public int PuzzleNum;
 
     public int Width;
     public int Height;

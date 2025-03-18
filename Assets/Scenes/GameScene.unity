@@ -477,7 +477,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 75211203}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
   m_Name: 
@@ -1550,12 +1550,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4c1cad2aa3cfe14d84d79b8d7ee422a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PossiblePrefabs: []
+  PossiblePrefabs:
+  - {fileID: 8309842559200804850, guid: 33374419c76bc7b46a1dcca8c76425a3, type: 3}
+  - {fileID: 8496292126545626667, guid: 625d8bc17038850448e900f644b8d4c3, type: 3}
+  - {fileID: 992369366352160612, guid: 2f3819453634f6d4b83b967d74c3b19b, type: 3}
   ActorCount: 8
   BoatSize: 2
   Solver: {fileID: 659124769}
-  GeneratePuzzleFiles: 1
-  MustContain: []
+  GeneratePuzzleFiles: 0
+  MustContain:
+  - {fileID: 8309842559200804850, guid: 33374419c76bc7b46a1dcca8c76425a3, type: 3}
+  - {fileID: 8496292126545626667, guid: 625d8bc17038850448e900f644b8d4c3, type: 3}
+  - {fileID: 992369366352160612, guid: 2f3819453634f6d4b83b967d74c3b19b, type: 3}
 --- !u!4 &275037087
 Transform:
   m_ObjectHideFlags: 0
@@ -1587,7 +1593,7 @@ MonoBehaviour:
   Generator: {fileID: 275037086}
   MinDifficulty: 1
   MinDepth: 1
-  ActorCountMin: 6
+  ActorCountMin: 3
   ActorCountMax: 6
   PuzzleCountMax: 6
   MaxTry: 200
@@ -2187,6 +2193,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bf984fa48e6883a4d9e72e65a9790615, type: 2}
   StageText: {fileID: 1853366262}
   CurrentPage: 0
+  StageRightButton: {fileID: 1451268212}
+  StageLeftButton: {fileID: 2071692370}
   DebugPuzzle: {fileID: 11400000, guid: 2bc01cf399decce41bcb78492c899e5b, type: 2}
 --- !u!1001 &390005551
 PrefabInstance:
@@ -2415,7 +2423,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9181264917066425971, guid: d9200694295cc784380375e0acb14632, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9181264917066425971, guid: d9200694295cc784380375e0acb14632, type: 3}
       propertyPath: m_AnchorMin.x
@@ -2423,7 +2431,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9181264917066425971, guid: d9200694295cc784380375e0acb14632, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9181264917066425971, guid: d9200694295cc784380375e0acb14632, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2463,11 +2471,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9181264917066425971, guid: d9200694295cc784380375e0acb14632, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 70.48275
       objectReference: {fileID: 0}
     - target: {fileID: 9181264917066425971, guid: d9200694295cc784380375e0acb14632, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -51.99925
       objectReference: {fileID: 0}
     - target: {fileID: 9181264917066425971, guid: d9200694295cc784380375e0acb14632, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4201,6 +4209,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1451268212 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1576152672587218382, guid: d9200694295cc784380375e0acb14632, type: 3}
+  m_PrefabInstance: {fileID: 1573384776}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1479496807
 GameObject:
   m_ObjectHideFlags: 0
@@ -4716,7 +4729,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9181264917066425971, guid: d9200694295cc784380375e0acb14632, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9181264917066425971, guid: d9200694295cc784380375e0acb14632, type: 3}
       propertyPath: m_AnchorMin.x
@@ -4724,7 +4737,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9181264917066425971, guid: d9200694295cc784380375e0acb14632, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9181264917066425971, guid: d9200694295cc784380375e0acb14632, type: 3}
       propertyPath: m_SizeDelta.x
@@ -4764,11 +4777,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9181264917066425971, guid: d9200694295cc784380375e0acb14632, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 211.44826
       objectReference: {fileID: 0}
     - target: {fileID: 9181264917066425971, guid: d9200694295cc784380375e0acb14632, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -51.99925
       objectReference: {fileID: 0}
     - target: {fileID: 9181264917066425971, guid: d9200694295cc784380375e0acb14632, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -6091,6 +6104,11 @@ Transform:
   m_Father: {fileID: 219491189}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2071692370 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1576152672587218382, guid: d9200694295cc784380375e0acb14632, type: 3}
+  m_PrefabInstance: {fileID: 525702910}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2087330328
 PrefabInstance:
   m_ObjectHideFlags: 0

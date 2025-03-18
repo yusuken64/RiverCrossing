@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level26_Cow,Cow,Cow,Cow,Lion,Pug
   m_EditorClassIdentifier: 
   PuzzleName: Puzzle 26
+  PuzzleNum: 26
   Width: 2
   Height: 3
   BoatSize: 2

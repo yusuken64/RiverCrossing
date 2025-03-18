@@ -17,8 +17,8 @@ public class ResultsCanvas : MonoBehaviour
         Game game = FindObjectOfType<Game>(true);
         MainMenu mainMenu = FindObjectOfType<MainMenu>(true);
 
-        //bool showNext = game.PuzzleDefinition != mainMenu.Puzzles.Last();
-        //NextButton.gameObject.SetActive(showNext);
+        bool showNext = game.PuzzleDefinition != mainMenu.Stages.SelectMany(x => x.Puzzles).Last();
+        NextButton.gameObject.SetActive(showNext);
     }
 
     [ContextMenu("Test Results")]

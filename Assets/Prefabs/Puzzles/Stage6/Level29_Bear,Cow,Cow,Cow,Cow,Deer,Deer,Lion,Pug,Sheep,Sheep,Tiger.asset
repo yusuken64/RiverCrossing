@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level29_Bear,Cow,Cow,Cow,Cow,Deer,Deer,Lion,Pug,Sheep,Sheep,Tiger
   m_EditorClassIdentifier: 
   PuzzleName: Puzzle 29
+  PuzzleNum: 29
   Width: 3
   Height: 4
   BoatSize: 2

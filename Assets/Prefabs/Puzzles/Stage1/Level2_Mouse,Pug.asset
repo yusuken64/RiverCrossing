@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level2_Mouse,Pug
   m_EditorClassIdentifier: 
   PuzzleName: Puzzle 2
+  PuzzleNum: 2
   Width: 1
   Height: 2
   BoatSize: 2

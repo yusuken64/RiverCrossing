@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level11_Bear,Deer,Tiger
   m_EditorClassIdentifier: 
   PuzzleName: Puzzle 11
+  PuzzleNum: 11
   Width: 1
   Height: 3
   BoatSize: 2

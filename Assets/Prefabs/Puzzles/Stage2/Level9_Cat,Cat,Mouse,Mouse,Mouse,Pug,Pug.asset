@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level9_Cat,Cat,Mouse,Mouse,Mouse,Pug,Pug
   m_EditorClassIdentifier: 
   PuzzleName: Puzzle 9
+  PuzzleNum: 9
   Width: 2
   Height: 4
   BoatSize: 2

@@ -23,5 +23,7 @@ MonoBehaviour:
   - {fileID: 1645330534230722577, guid: c97a4a054e4a01d47bd6d137ae61ee1e, type: 3}
   - {fileID: 7289021463777834827, guid: 799a39abcf101ec4cbdfccba9ced496a, type: 3}
   - {fileID: 832444212218281275, guid: c38b603c162bd024db8d2fd167589956, type: 3}
+  - {fileID: 8309842559200804850, guid: 33374419c76bc7b46a1dcca8c76425a3, type: 3}
+  - {fileID: 8496292126545626667, guid: 625d8bc17038850448e900f644b8d4c3, type: 3}
   Difficulty: 0
   SolveDepth: 0

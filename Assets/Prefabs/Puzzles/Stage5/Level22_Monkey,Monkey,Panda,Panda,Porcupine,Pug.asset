@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level22_Monkey,Monkey,Panda,Panda,Porcupine,Pug
   m_EditorClassIdentifier: 
   PuzzleName: Puzzle 22
+  PuzzleNum: 22
   Width: 2
   Height: 3
   BoatSize: 2
