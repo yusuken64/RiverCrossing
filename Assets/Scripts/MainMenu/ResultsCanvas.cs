@@ -36,6 +36,7 @@ public class ResultsCanvas : MonoBehaviour
     public void Home_Clicked()
     {
         FindObjectOfType<MainMenu>(true).gameObject.SetActive(true);
+        FindObjectOfType<MainMenu>(true).SetupPuzzles();
         FindObjectOfType<Game>(true).GameCanvas.gameObject.SetActive(false);
         FindObjectOfType<Game>(true).ClearGame();
     }

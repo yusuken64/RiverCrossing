@@ -29,9 +29,4 @@ public class PredatorConstraint : GameConstraint
         message = "";
         return false;
     }
-
-    private int GetFamilyCount(IEnumerable<Actor> containingSide, Actor owner)
-    {
-        return containingSide.Count(x => x.ActorName == owner.ActorName);
-    }
 }

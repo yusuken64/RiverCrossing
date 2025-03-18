@@ -5,4 +5,7 @@ using UnityEngine;
 public class StageDefinition : ScriptableObject
 {
     public List<PuzzleDefinition> Puzzles;
+
+    public Sprite LeftImage;
+    public Sprite RightImage;
 }

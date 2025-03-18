@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\MainMenu\LevelButton.cs" />
     <Compile Include="Assets\Scripts\PuzzleDefinition.cs" />
     <Compile Include="Assets\Scripts\Constraints\LonelyConstraint.cs" />
+    <Compile Include="Assets\Scripts\SingletonSaveData.cs" />
     <Compile Include="Assets\Scripts\Game.cs" />
     <Compile Include="Assets\Scripts\Generator.cs" />
     <Compile Include="Assets\Scripts\MainMenu\MainMenu.cs" />

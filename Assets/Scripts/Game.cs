@@ -130,6 +130,7 @@ public class Game : MonoBehaviour
 
     internal void HandleWin()
     {
+        SingletonSaveData.Instance.SaveData.ClearedStageIds.Add(PuzzleDefinition.PuzzleNum);
         Debug.Log("Game Win!");
         GameCanvas.gameObject.SetActive(false);
         ResultsCanvas.Setup("You Win", "Everyone made it safely across the River");

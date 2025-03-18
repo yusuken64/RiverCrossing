@@ -19,6 +19,8 @@ public class MainMenu : MonoBehaviour
     public int CurrentPage;
     public GameObject StageRightButton;
     public GameObject StageLeftButton;
+    public Image LeftImage;
+    public Image RightImage;
 
     public PuzzleDefinition DebugPuzzle;
 
@@ -37,7 +39,7 @@ public class MainMenu : MonoBehaviour
         SetupPuzzles();
     }
 
-    private void SetupPuzzles()
+    public void SetupPuzzles()
     {
         foreach (Transform child in ButtonContainer)
         {
@@ -55,6 +57,10 @@ public class MainMenu : MonoBehaviour
             newButton.LevelSelected = (puzzle) => LevelClicked(puzzle);
         }
 
+        LeftImage.gameObject.SetActive(currentStage.LeftImage != null);
+        RightImage.gameObject.SetActive(currentStage.RightImage != null);
+        LeftImage.sprite = currentStage.LeftImage;
+        RightImage.sprite = currentStage.RightImage;
         StageLeftButton.gameObject.SetActive(CurrentPage > 0);
         StageRightButton.gameObject.SetActive(CurrentPage < Stages.Count() - 1);
     }
@@ -139,7 +145,11 @@ public class MainMenu : MonoBehaviour
 
         LevelClicked(nextPuzzle);
     }
-
+    public void ResetDataClicked()
+    {
+        SingletonSaveData.Instance?.ResetData();
+        Setup();
+    }
 
     public void ExitClicked()
     {

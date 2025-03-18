@@ -18,3 +18,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c4fbaa66eafc6b541b6584149ee7901f, type: 2}
   - {fileID: 11400000, guid: be41d1d25e06ab140bd2526ce9e4680f, type: 2}
   - {fileID: 11400000, guid: e60d15309972fdf4cbdf9d305b38bbcc, type: 2}
+  LeftImage: {fileID: 21300000, guid: 54e92113c66263f448c580c520fc6823, type: 3}
+  RightImage: {fileID: 21300000, guid: 1c7413d1e24c8bd40b6c3b5ffda08381, type: 3}
