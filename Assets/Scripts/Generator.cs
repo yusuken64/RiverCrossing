@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 public class Generator : MonoBehaviour
 {
     public List<Actor> PossiblePrefabs;
@@ -186,3 +187,4 @@ public class Generator : MonoBehaviour
         }
     }
 }
+#endif

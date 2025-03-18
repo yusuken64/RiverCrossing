@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -88,3 +89,4 @@ public class PuzzleFinder : MonoBehaviour
         public string Key { get; internal set; }
     }
 }
+#endif
