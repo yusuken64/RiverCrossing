@@ -56,16 +56,27 @@ public class Solver : MonoBehaviour
             false);
         var goalStateKey = goalState.cachedKey;
 
-        var solution = BFS(initialState, goalStateKey, boatSize);
+        var initialIsValid = IsValid(initialState.LeftSide, initialState.RightSide, new Actor[0]);
 
+        if (!initialIsValid)
+        {
+            if (warnNoSolutions)
+            {
+                Debug.LogWarning("No solution found.");
+            }
+            game.ClearAllActors();
+            return (null, 0);
+        }
+        
+        var solution = BFS(initialState, goalStateKey, boatSize);
         game.ClearAllActors();
 
-        if (solution.path == null && warnNoSolutions)
-        {
-            Debug.LogWarning("No solution found.");
-        }
         if (solution.path == null)
         {
+            if (warnNoSolutions)
+            {
+                Debug.LogWarning("No solution found.");
+            }
             return (null, 0);
         }
 

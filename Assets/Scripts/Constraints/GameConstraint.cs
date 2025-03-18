@@ -28,4 +28,9 @@ public abstract class GameConstraint : MonoBehaviour
         if (string.IsNullOrWhiteSpace(item)) { return false; }
         return actors.Any(actor => actor.KeyWords.Contains(item));
     }
+
+    internal static int GetFamilyCount(IEnumerable<Actor> containingSide, Actor owner)
+    {
+        return containingSide.Count(x => x.ActorName == owner.ActorName);
+    }
 }

@@ -10,18 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba0919d402bc0b749898d1bec04c1cb9, type: 3}
-  m_Name: Level9_Cat,Cat,Mouse,Mouse,Pug,Pug
+  m_Name: Level10_Cat,Cat,Cat,Mouse,Mouse,Pug,Pug,Pug
   m_EditorClassIdentifier: 
-  PuzzleName: Puzzle 9
+  PuzzleName: Puzzle 10
   Width: 2
-  Height: 3
+  Height: 4
   BoatSize: 2
   ActorPrefabs:
   - {fileID: 6424050200218902508, guid: 201b15c764cf64449bc48358c48caca4, type: 3}
   - {fileID: 6424050200218902508, guid: 201b15c764cf64449bc48358c48caca4, type: 3}
+  - {fileID: 6424050200218902508, guid: 201b15c764cf64449bc48358c48caca4, type: 3}
   - {fileID: 7289021463777834827, guid: a79d6a458c087784a81947f1e5492889, type: 3}
   - {fileID: 7289021463777834827, guid: a79d6a458c087784a81947f1e5492889, type: 3}
   - {fileID: 7289021463777834827, guid: 59057161a4d379a4887637c8189d0809, type: 3}
   - {fileID: 7289021463777834827, guid: 59057161a4d379a4887637c8189d0809, type: 3}
-  Difficulty: 71.22
-  SolveDepth: 10
+  - {fileID: 7289021463777834827, guid: 59057161a4d379a4887637c8189d0809, type: 3}
+  Difficulty: 180.21
+  SolveDepth: 16

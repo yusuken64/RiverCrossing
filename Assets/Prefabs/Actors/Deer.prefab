@@ -61,6 +61,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4184888071631929187, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
+      propertyPath: IsHeavy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4184888071631929187, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
       propertyPath: ActorName
       value: Deer
       objectReference: {fileID: 0}

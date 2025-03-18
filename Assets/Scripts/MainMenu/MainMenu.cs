@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using TMPro;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -13,7 +14,7 @@ public class MainMenu : MonoBehaviour
 
     public List<StageDefinition> Stages;
 
-    public int PizzlesPerPage = 8;
+    public TextMeshProUGUI StageText;
     public int CurrentPage;
 
     public PuzzleDefinition DebugPuzzle;
@@ -29,17 +30,20 @@ public class MainMenu : MonoBehaviour
         Game game = FindObjectOfType<Game>();
         game.GameCanvas.SetActive(false);
         game.ClearAllActors();
-        foreach (Transform child in ButtonContainer)
-        {
-            Destroy(child.gameObject);
-        }
 
         SetupPuzzles();
     }
 
     private void SetupPuzzles()
     {
-        var puzzles = Stages[0].Puzzles;
+        foreach (Transform child in ButtonContainer)
+        {
+            Destroy(child.gameObject);
+        }
+
+        var currentStage = Stages[CurrentPage];
+        StageText.text = currentStage.name;
+        var puzzles = currentStage.Puzzles;
         for (int i = 0; i < puzzles.Count; i++)
         {
             PuzzleDefinition puzzleDefinition = puzzles[i];
@@ -75,7 +79,7 @@ public class MainMenu : MonoBehaviour
 
                 if (solution.path == null)
                 {
-                    Debug.LogError($"{name} was not solvable", this);
+                    Debug.LogError($"{puzzle.name} was not solvable", this);
                 }
                 else
                 {
@@ -90,10 +94,13 @@ public class MainMenu : MonoBehaviour
                 puzzle.Difficulty = (float)solution.difficulty;
             }
 
-            foreach (var puzzle in stage.Puzzles
-                .OrderBy(x => x.ActorPrefabs.Count())
-                .ThenBy(x => x.SolveDepth)
-                .ThenBy(x => x.Difficulty))
+            IOrderedEnumerable<PuzzleDefinition> orderedPuzzles = stage.Puzzles
+                            .OrderBy(x => x.ActorPrefabs.Count())
+                            .ThenBy(x => x.SolveDepth)
+                            .ThenBy(x => x.Difficulty);
+            stage.Puzzles = orderedPuzzles.ToList();
+
+            foreach (var puzzle in stage.Puzzles)
             {
                 puzzleNum++;
                 var key = $"Level{puzzleNum}_{Solver.ToKey(puzzle.ActorPrefabs)}";
@@ -134,5 +141,20 @@ public class MainMenu : MonoBehaviour
     public void CreditsClicked()
     {
 
+    }
+
+    //StageSelect
+    public void RightClicked()
+    {
+        CurrentPage++;
+        Mathf.Clamp(CurrentPage, 0, Stages.Count() - 1);
+        SetupPuzzles();
+    }
+
+    public void LeftClicked()
+    {
+        CurrentPage--;
+        Mathf.Clamp(CurrentPage, 0, Stages.Count() - 1);
+        SetupPuzzles();
     }
 }

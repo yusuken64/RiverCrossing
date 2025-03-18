@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba0919d402bc0b749898d1bec04c1cb9, type: 3}
+  m_Name: Level17_Frog,Frog,Rabbit,Rabbit,Racoon,Racoon
+  m_EditorClassIdentifier: 
+  PuzzleName: Puzzle 17
+  Width: 2
+  Height: 3
+  BoatSize: 3
+  ActorPrefabs:
+  - {fileID: 8388528190520832245, guid: cdfe2391b1d2d664787e29a727a7242c, type: 3}
+  - {fileID: 8388528190520832245, guid: cdfe2391b1d2d664787e29a727a7242c, type: 3}
+  - {fileID: 8941935360082772343, guid: 9847d04eb8d1726409a23ce9b4e8757f, type: 3}
+  - {fileID: 8941935360082772343, guid: 9847d04eb8d1726409a23ce9b4e8757f, type: 3}
+  - {fileID: 8239791522300715463, guid: 52460989159f6ad4399a69bd693d8889, type: 3}
+  - {fileID: 8239791522300715463, guid: 52460989159f6ad4399a69bd693d8889, type: 3}
+  Difficulty: 25.73
+  SolveDepth: 6

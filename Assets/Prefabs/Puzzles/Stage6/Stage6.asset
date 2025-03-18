@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1982cbadf6f2b874f89439b67d618777, type: 3}
-  m_Name: Stage2
+  m_Name: Stage6
   m_EditorClassIdentifier: 
   Puzzles:
-  - {fileID: 11400000, guid: 603e45d83e48d3648a344fa4a6e08c0d, type: 2}
-  - {fileID: 11400000, guid: 9cf14ee24e4afa24680571b6d268f29f, type: 2}
-  - {fileID: 11400000, guid: b79221f24302b094180a748dca3ad84d, type: 2}
-  - {fileID: 11400000, guid: 0939b53836f848a42ba374fa54fefba1, type: 2}
-  - {fileID: 11400000, guid: 4c275951e9c678f498d8f46745ba2aac, type: 2}
+  - {fileID: 11400000, guid: cc72b3cac1759ff48855112ae1c5f7d3, type: 2}
+  - {fileID: 11400000, guid: 570d75b3cfa32a143ad7dfbb8ae79863, type: 2}
+  - {fileID: 11400000, guid: 25a91396d675d9a4aa79764beb09e57a, type: 2}
+  - {fileID: 11400000, guid: 4ee1e5cc13bc4124bb68f282dd041c87, type: 2}
+  - {fileID: 11400000, guid: 216d6fdae3422cf4b9cfd94cd2f8bfa0, type: 2}

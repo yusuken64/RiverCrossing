@@ -160,31 +160,8 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2484676141621302505, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2998419445108656419}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 730430602304427420, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
-      insertIndex: 2
-      addedObject: {fileID: 3255203395330043479}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
---- !u!1 &6131502609281916340 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 730430602304427420, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
-  m_PrefabInstance: {fileID: 6860244335784298536}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3255203395330043479
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6131502609281916340}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c16321c61403de4bbf3fa6a237beb53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Predator: Sheep
-  Prey: Mouse
-  Guard: Pug
 --- !u!4 &9029484332539370689 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2484676141621302505, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
