@@ -130,11 +130,15 @@ public class MainMenu : MonoBehaviour
 
     private void LevelClicked(PuzzleDefinition puzzle)
     {
-        this.gameObject.SetActive(false);
-        Game game = FindObjectOfType<Game>();
+        var screenTransition = FindObjectOfType<ScreenTransition>();
+        screenTransition.DoTransition(() =>
+        {
+            this.gameObject.SetActive(false);
+            Game game = FindObjectOfType<Game>();
 
-        game.PuzzleDefinition = puzzle;
-        game.SetupGame();
+            game.PuzzleDefinition = puzzle;
+            game.SetupGame();
+        });
     }
 
     public void NextPuzzle(PuzzleDefinition currentPuzzle)

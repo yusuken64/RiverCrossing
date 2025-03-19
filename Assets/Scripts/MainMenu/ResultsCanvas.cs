@@ -9,13 +9,13 @@ public class ResultsCanvas : MonoBehaviour
 
     public GameObject NextButton;
 
+    public Game game;
+    public MainMenu mainMenu;
+
     public void Setup(string header, string message)
     {
         HeaderText.text = header;
         MessageText.text = message;
-
-        Game game = FindObjectOfType<Game>(true);
-        MainMenu mainMenu = FindObjectOfType<MainMenu>(true);
 
         bool showNext = game.PuzzleDefinition != mainMenu.Stages.SelectMany(x => x.Puzzles).Last();
         NextButton.gameObject.SetActive(showNext);
@@ -30,22 +30,28 @@ public class ResultsCanvas : MonoBehaviour
 
     public void Retry_Clicked()
     {
-        FindObjectOfType<Game>(true).Retry();
+        var screenTransition = FindObjectOfType<ScreenTransition>();
+        screenTransition.DoTransition(() =>
+        {
+            game.Retry();
+        });
     }
 
     public void Home_Clicked()
     {
-        FindObjectOfType<MainMenu>(true).gameObject.SetActive(true);
-        FindObjectOfType<MainMenu>(true).SetupPuzzles();
-        FindObjectOfType<Game>(true).GameCanvas.gameObject.SetActive(false);
-        FindObjectOfType<Game>(true).ClearGame();
+        var screenTransition = FindObjectOfType<ScreenTransition>();
+        screenTransition.DoTransition(() =>
+        {
+            mainMenu.gameObject.SetActive(true);
+            mainMenu.SetupPuzzles();
+            game.GameCanvas.gameObject.SetActive(false);
+            game.ClearGame();
+        });
     }
 
     public void Next_Clicked()
     {
-        Game game = FindObjectOfType<Game>(true);
         game.GameCanvas.gameObject.SetActive(false);
-
-        FindObjectOfType<MainMenu>(true).NextPuzzle(game.PuzzleDefinition);
+        mainMenu.NextPuzzle(game.PuzzleDefinition);
     }
 }
