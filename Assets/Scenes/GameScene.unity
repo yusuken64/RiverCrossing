@@ -6178,6 +6178,7 @@ MonoBehaviour:
   DropBoatSmall: {fileID: 8300000, guid: f9c04ee3fc1f26e4084245e0b6c187fc, type: 3}
   DropBoatLarge: {fileID: 8300000, guid: a089986899e692d4997dc148673b3f92, type: 3}
   BoatCross: {fileID: 8300000, guid: 09dcbd904815cf24b9341762d305092d, type: 3}
+  Success: {fileID: 8300000, guid: 5ccb292ca3228e348a877eff2bcfab74, type: 3}
 --- !u!1 &1287664068
 GameObject:
   m_ObjectHideFlags: 0

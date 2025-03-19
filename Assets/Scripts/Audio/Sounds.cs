@@ -19,6 +19,8 @@ public class Sounds : MonoBehaviour
 
     public AudioClip BoatCross;
 
+    public AudioClip Success;
+
     private void Awake()
     {
         if (Instance == null)

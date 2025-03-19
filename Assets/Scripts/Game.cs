@@ -51,6 +51,7 @@ public class Game : MonoBehaviour
             Actors.Add(newActor);
         }
         GameCanvas.gameObject.SetActive(true);
+        AudioManager.Instance?.PlayMusic(Sounds.Instance?.Music);
     }
 
     public void ClearGame()
@@ -130,6 +131,9 @@ public class Game : MonoBehaviour
 
     internal void HandleWin()
     {
+        AudioManager.Instance?.StopMusic();
+        AudioManager.Instance?.PlaySound(Sounds.Instance?.Success);
+
         SingletonSaveData.Instance.SaveData.ClearedStageIds.Add(PuzzleDefinition.PuzzleNum);
         Debug.Log("Game Win!");
         GameCanvas.gameObject.SetActive(false);
