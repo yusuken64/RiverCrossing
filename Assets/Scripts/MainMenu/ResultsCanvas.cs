@@ -39,6 +39,7 @@ public class ResultsCanvas : MonoBehaviour
 
     public void Home_Clicked()
     {
+        AudioManager.Instance?.StopMusic();
         var screenTransition = FindObjectOfType<ScreenTransition>();
         screenTransition.DoTransition(() =>
         {

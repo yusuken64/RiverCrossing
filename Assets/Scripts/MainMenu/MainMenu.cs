@@ -44,6 +44,8 @@ public class MainMenu : MonoBehaviour
 
     public void SetupPuzzles()
     {
+        AudioManager.Instance?.PlayMusic(Sounds.Instance?.Music);
+
         foreach (Transform child in ButtonContainer)
         {
             Destroy(child.gameObject);

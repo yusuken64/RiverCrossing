@@ -53,6 +53,12 @@ public class AudioManager : MonoBehaviour
         audioSource.loop = true;
         audioSource.Play();
     }
+
+    internal void StopMusic()
+    {
+        BGMAudioSource.Stop();
+    }
+
     internal void PlaySound(AudioClip audioClip)
     {
         if (audioClip  == null) { return; }

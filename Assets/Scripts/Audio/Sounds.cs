@@ -6,6 +6,8 @@ public class Sounds : MonoBehaviour
 {
     public static Sounds Instance;
 
+    public AudioClip Music;
+
     public AudioClip PickUpSmall;
     public AudioClip PickUpLarge;
 
