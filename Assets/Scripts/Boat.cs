@@ -32,6 +32,7 @@ public class Boat : MonoBehaviour
         Game game = FindObjectOfType<Game>();
         if (game.CanBoatMove())
         {
+            AudioManager.Instance?.PlaySound(Sounds.Instance.BoatCross);
             GoRight();
             game.CheckConstraints();
             game.InfoObject.gameObject.SetActive(false);
@@ -43,6 +44,7 @@ public class Boat : MonoBehaviour
         Game game = FindObjectOfType<Game>();
         if (game.CanBoatMove())
         {
+            AudioManager.Instance?.PlaySound(Sounds.Instance.BoatCross);
             GoLeft();
             game.CheckConstraints();
             game.InfoObject.gameObject.SetActive(false);

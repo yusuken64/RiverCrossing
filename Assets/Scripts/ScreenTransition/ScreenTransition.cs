@@ -15,6 +15,9 @@ public class ScreenTransition : MonoBehaviour
     public float TransitionTimeSeconds;
     public float OpenDelayTimeSeconds;
 
+    public AudioClip CloseClip;
+    public AudioClip OpenClip;
+
     private void Start()
     {
         ShutterScreen.gameObject.SetActive(false);
@@ -32,12 +35,14 @@ public class ScreenTransition : MonoBehaviour
         ShutterScreen.gameObject.SetActive(true);
         ShutterScreen.transform.position = StartPositionObject.transform.position;
 
+        AudioManager.Instance?.PlaySound(CloseClip);
         var closeTween = ShutterScreen.transform.DOMove(EndPositionObject.transform.position, TransitionTimeSeconds);
         yield return closeTween.WaitForCompletion();
 
         postTransition?.Invoke();
         yield return new WaitForSeconds(OpenDelayTimeSeconds);
 
+        AudioManager.Instance?.PlaySound(OpenClip);
         var openTween = ShutterScreen.transform.DOMove(StartPositionObject.transform.position, TransitionTimeSeconds);
         yield return openTween.WaitForCompletion();
 

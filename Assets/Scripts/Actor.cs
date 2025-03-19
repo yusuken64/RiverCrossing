@@ -41,6 +41,8 @@ public class Actor : MonoBehaviour
             {
                 game.InfoObject.gameObject.SetActive(false);
             }
+
+            PlayPickupSound();
         };
         draggable.OnReleased = (destinationCell) =>
         {
@@ -66,7 +68,41 @@ public class Actor : MonoBehaviour
             {
                 game.HandleWin();
             }
+
+            PlayDropSound();
         };
+    }
+
+    private void PlayPickupSound()
+    {
+        if (IsHeavy)
+        {
+            AudioManager.Instance?.PlaySound(Sounds.Instance?.PickUpLarge);
+        }
+        else if (IsPredator())
+        {
+            AudioManager.Instance?.PlaySound(Sounds.Instance?.PickUpLarge);
+        }
+        else
+        {
+            AudioManager.Instance?.PlaySound(Sounds.Instance?.PickUpSmall);
+        }
+    }
+
+    private void PlayDropSound()
+    {
+        if (IsHeavy)
+        {
+            AudioManager.Instance?.PlaySound(Sounds.Instance?.DropLarge);
+        }
+        else if (IsPredator())
+        {
+            AudioManager.Instance?.PlaySound(Sounds.Instance?.DropLarge);
+        }
+        else
+        {
+            AudioManager.Instance?.PlaySound(Sounds.Instance?.DropSmall);
+        }
     }
 
     internal bool IsPredator()

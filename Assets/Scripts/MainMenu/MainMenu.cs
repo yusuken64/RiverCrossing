@@ -22,6 +22,8 @@ public class MainMenu : MonoBehaviour
     public Image LeftImage;
     public Image RightImage;
 
+    public GameObject AudioSettings;
+
     public PuzzleDefinition DebugPuzzle;
 
     private void Start()
@@ -31,6 +33,7 @@ public class MainMenu : MonoBehaviour
 
     public void Setup()
     {
+        AudioSettings.gameObject.SetActive(false);
         CurrentPage = 0;
         Game game = FindObjectOfType<Game>();
         game.GameCanvas.SetActive(false);
@@ -163,6 +166,11 @@ public class MainMenu : MonoBehaviour
     public void CreditsClicked()
     {
 
+    }
+
+    public void VolumeButton_Clicked()
+    {
+        AudioSettings.SetActive(!AudioSettings.activeSelf);
     }
 
     //StageSelect

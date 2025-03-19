@@ -1,0 +1,32 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Sounds : MonoBehaviour
+{
+    public static Sounds Instance;
+
+    public AudioClip PickUpSmall;
+    public AudioClip PickUpLarge;
+
+    public AudioClip DropSmall;
+    public AudioClip DropLarge;
+
+    public AudioClip DropBoatSmall;
+    public AudioClip DropBoatLarge;
+
+    public AudioClip BoatCross;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject); // Ensure only one instance exists
+        }
+    }
+}

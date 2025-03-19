@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 8749727344733643282}
   - component: {fileID: 7781686451213581739}
   - component: {fileID: 5037402410028735548}
+  - component: {fileID: 5698594031686224437}
   m_Layer: 5
   m_Name: RetryButton
   m_TagString: Untagged
@@ -236,6 +237,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5698594031686224437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1706773056621997077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d464be4744cb7974383f3648d9b5d754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ClickSound: {fileID: 8300000, guid: 245bb3810100ae346b87107994c37e42, type: 3}
 --- !u!1 &6514560400790979614
 GameObject:
   m_ObjectHideFlags: 0

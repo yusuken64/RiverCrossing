@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\ScreenTransition\ScreenTransition.cs" />
+    <Compile Include="Assets\Scripts\MainMenu\ButtonSound.cs" />
     <Compile Include="Assets\Scripts\Constraints\MajorityConstraint.cs" />
     <Compile Include="Assets\Scripts\Constraints\MinorityConstraint.cs" />
     <Compile Include="Assets\Scripts\MainMenu\LevelButton.cs" />
@@ -71,12 +72,15 @@
     <Compile Include="Assets\Scripts\Actor.cs" />
     <Compile Include="Assets\Scripts\Solver.cs" />
     <Compile Include="Assets\Scripts\Constraints\PredatorConstraint.cs" />
+    <Compile Include="Assets\Scripts\Audio\VolumeSlider.cs" />
     <Compile Include="Assets\Scripts\Draggable.cs" />
     <Compile Include="Assets\Scripts\MainMenu\ResultsCanvas.cs" />
     <Compile Include="Assets\Scripts\Constraints\HeavyPredatorConstraint.cs" />
+    <Compile Include="Assets\Scripts\Audio\Sounds.cs" />
     <Compile Include="Assets\Scripts\Container.cs" />
     <Compile Include="Assets\Scripts\Boat.cs" />
     <Compile Include="Assets\Scripts\Constraints\PredatorPreyConstraint.cs" />
+    <Compile Include="Assets\Scripts\Audio\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Cell.cs" />
     <Compile Include="Assets\Scripts\PuzzleFinder.cs" />
     <Compile Include="Assets\Scripts\Constraints\PredatorGuardedConstraint.cs" />
