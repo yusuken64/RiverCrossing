@@ -9,17 +9,12 @@ public class HeavyPredatorConstraint : GameConstraint
         return $"{owner.ActorName} must outnumber heavy predators";
     }
 
-    public override bool IsGameOver(
-        Actor owner,
-        IEnumerable<Actor> leftSideActors,
-        IEnumerable<Actor> rightSideActors,
-        IEnumerable<Actor> boatActors,
-        out string message)
+    public override bool IsGameOverFunc(ActorData owner, IEnumerable<ActorData> leftSideActors, IEnumerable<ActorData> rightSideActors, IEnumerable<ActorData> boatActors, out string message)
     {
         var containingSide = GetContainingSide(leftSideActors, rightSideActors, owner);
         var familyCount = GetFamilyCount(containingSide, owner);
 
-        var heavyPredatorCount = containingSide.Count(x => x.IsPredator() && x.IsHeavy);
+        var heavyPredatorCount = containingSide.Count(x => x.IsPredator && x.IsHeavy);
         if (heavyPredatorCount >= familyCount)
         {
             message = $"{owner.ActorName} must outnumber heavy predators";

@@ -1,6 +1,8 @@
 #if UNITY_EDITOR
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class PuzzleFinder : MonoBehaviour
@@ -22,6 +24,7 @@ public class PuzzleFinder : MonoBehaviour
     public int PuzzleCountMax;
 
     public int MaxTry = 200;
+    public bool RandomSearch;
 
     [ContextMenu("Find Puzzles")]
     public void FindPuzzles()
@@ -46,6 +49,11 @@ public class PuzzleFinder : MonoBehaviour
             for (int boatSize = 2; boatSize < 4; boatSize++)
             {
                 var generatedPuzzles = Generator.GenerateConstrainedPuzzles(actorCount, boatSize);
+                if (RandomSearch)
+                {
+                    generatedPuzzles = generatedPuzzles.OrderBy(x => Guid.NewGuid());
+                }
+
                 foreach(var generatedPuzzle in generatedPuzzles)
                 {
                     tries++;
@@ -57,11 +65,12 @@ public class PuzzleFinder : MonoBehaviour
                     if (generatedPuzzle.solution.difficulty >= MinDifficulty &&
                         generatedPuzzle.solution.path.Count >= MinDepth)
                     {
-                        string key = Solver.ToKey(generatedPuzzle.combination);
+                        List<Actor> combination = generatedPuzzle.combination.Select(data => Generator.PossiblePrefabs.First(x => x.ActorName == data.ActorName)).ToList();
+                        string key = Solver.ToKey(combination);
                         Debug.Log($"Found puzzle {key}_b{boatSize} with difficulty {generatedPuzzle.solution.difficulty} (d = {generatedPuzzle.solution.path.Count()})");
                         foundPuzzles.Add(new FoundPuzzleData()
                         {
-                            Combination = generatedPuzzle.combination,
+                            Combination = combination,
                             BoatSize = boatSize,
                             Key = key
                         });
@@ -80,6 +89,68 @@ public class PuzzleFinder : MonoBehaviour
             Debug.LogError("Failed to find a suitable puzzle within the attempt limit.");
         }
         return foundPuzzles;
+    }
+
+    [ContextMenu("Solve Generated Puzzles")]
+    public void OrderGeneratedsPuzzles()
+    {
+        string directoryPath = $"Assets/Prefabs/Generated/";
+
+        var puzzleDefinitions = GetAllPuzzleDefinitionsInFolder(directoryPath);
+
+        Debug.Log($"found {puzzleDefinitions.Count()} puzzles");
+
+        foreach(var puzzleDefinition in puzzleDefinitions)
+        {
+            (List<GameState> path, double difficulty) solution = Solver.Solve(puzzleDefinition.ActorPrefabs.Select(Solver.ToActorData).ToList(),
+                puzzleDefinition.BoatSize);
+
+            if (solution.path != null)
+            {
+                puzzleDefinition.Difficulty = (float)solution.difficulty;
+                puzzleDefinition.SolveDepth = solution.path.Count();
+            }
+        }
+
+        AssetDatabase.Refresh();
+    }
+
+    [ContextMenu("Order Generated Puzzles")]
+    public void OrderGeneratePuzzles()
+    {
+        string directoryPath = $"Assets/Prefabs/Generated/";
+        var puzzleDefinitions = GetAllPuzzleDefinitionsInFolder(directoryPath);
+        var orderedPuzzles = puzzleDefinitions.OrderBy(x => x.Difficulty);
+
+        var requiredCounts = Generator.MustContain
+            .GroupBy(x => x.ActorName)
+            .ToDictionary(g => g.Key, g => g.Count());
+
+        var candidatePuzzles = orderedPuzzles
+            .Where(combination => requiredCounts.All(req => combination.ActorPrefabs
+            .Count(x => x.ActorName == req.Key) >= req.Value));
+
+        foreach (var puzzle in candidatePuzzles
+            .OrderByDescending(x => x.SolveDepth)
+            .Take(20))
+        {
+            Debug.Log($"{puzzle.PuzzleName} difficulty{puzzle.Difficulty} d{puzzle.SolveDepth}", puzzle);
+        }
+    }
+
+    public static PuzzleDefinition[] GetAllPuzzleDefinitionsInFolder(string folderPath)
+    {
+        if (!AssetDatabase.IsValidFolder(folderPath))
+        {
+            Debug.LogError($"Invalid folder path: {folderPath}");
+            return new PuzzleDefinition[0];
+        }
+
+        string[] guids = AssetDatabase.FindAssets("t:PuzzleDefinition", new[] { folderPath });
+        return guids
+            .Select(guid => AssetDatabase.LoadAssetAtPath<PuzzleDefinition>(AssetDatabase.GUIDToAssetPath(guid)))
+            .Where(asset => asset != null)
+            .ToArray();
     }
 
     public class FoundPuzzleData

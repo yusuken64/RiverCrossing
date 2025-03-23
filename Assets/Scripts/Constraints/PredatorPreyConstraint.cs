@@ -11,14 +11,13 @@ public class PredatorPreyConstraint : GameConstraint
         return $"{Predator} will eat the {Prey} Unless {Guard} is present";
     }
 
-    public override bool IsGameOver(
-        Actor owner,
-        IEnumerable<Actor> leftSideActors,
-        IEnumerable<Actor> rightSideActors,
-        IEnumerable<Actor> boatActors,
+    public override bool IsGameOverFunc(
+        ActorData owner,
+        IEnumerable<ActorData> leftSideActors,
+        IEnumerable<ActorData> rightSideActors,
+        IEnumerable<ActorData> boatActors,
         out string message)
     {
-
         var containingSide = GetContainingSide(leftSideActors, rightSideActors, owner);
 
         bool hasPredator = HasItem(containingSide, Predator);

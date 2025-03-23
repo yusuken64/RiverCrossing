@@ -2330,17 +2330,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PossiblePrefabs:
-  - {fileID: 8309842559200804850, guid: 33374419c76bc7b46a1dcca8c76425a3, type: 3}
-  - {fileID: 8496292126545626667, guid: 625d8bc17038850448e900f644b8d4c3, type: 3}
-  - {fileID: 992369366352160612, guid: 2f3819453634f6d4b83b967d74c3b19b, type: 3}
+  - {fileID: 7289021463777834827, guid: 59057161a4d379a4887637c8189d0809, type: 3}
+  - {fileID: 7289021463777834827, guid: 719024332ce1ef342809c33c57a2a6c3, type: 3}
+  - {fileID: 7289021463777834827, guid: 799a39abcf101ec4cbdfccba9ced496a, type: 3}
+  - {fileID: 1645330534230722577, guid: c97a4a054e4a01d47bd6d137ae61ee1e, type: 3}
+  - {fileID: 832444212218281275, guid: c38b603c162bd024db8d2fd167589956, type: 3}
+  - {fileID: 7823687320652029290, guid: 0dda3211bf040984a8be4fbcf064a5dd, type: 3}
+  - {fileID: 4195481316871445180, guid: e8e83a9b6caa0ad4396a988f127b8d7b, type: 3}
+  - {fileID: 1691203986589502945, guid: cdb9fedf2b039bd45bbebeca6c44f7f0, type: 3}
+  - {fileID: 7289021463777834827, guid: a79d6a458c087784a81947f1e5492889, type: 3}
+  - {fileID: 6424050200218902508, guid: 201b15c764cf64449bc48358c48caca4, type: 3}
   ActorCount: 8
   BoatSize: 2
   Solver: {fileID: 659124769}
   GeneratePuzzleFiles: 0
   MustContain:
-  - {fileID: 8309842559200804850, guid: 33374419c76bc7b46a1dcca8c76425a3, type: 3}
-  - {fileID: 8496292126545626667, guid: 625d8bc17038850448e900f644b8d4c3, type: 3}
-  - {fileID: 992369366352160612, guid: 2f3819453634f6d4b83b967d74c3b19b, type: 3}
+  - {fileID: 7289021463777834827, guid: 59057161a4d379a4887637c8189d0809, type: 3}
+  - {fileID: 7289021463777834827, guid: 59057161a4d379a4887637c8189d0809, type: 3}
+  - {fileID: 7289021463777834827, guid: 59057161a4d379a4887637c8189d0809, type: 3}
+  - {fileID: 7289021463777834827, guid: a79d6a458c087784a81947f1e5492889, type: 3}
+  - {fileID: 7289021463777834827, guid: a79d6a458c087784a81947f1e5492889, type: 3}
+  - {fileID: 7289021463777834827, guid: a79d6a458c087784a81947f1e5492889, type: 3}
+  - {fileID: 6424050200218902508, guid: 201b15c764cf64449bc48358c48caca4, type: 3}
+  - {fileID: 6424050200218902508, guid: 201b15c764cf64449bc48358c48caca4, type: 3}
+  - {fileID: 6424050200218902508, guid: 201b15c764cf64449bc48358c48caca4, type: 3}
+  - {fileID: 1691203986589502945, guid: cdb9fedf2b039bd45bbebeca6c44f7f0, type: 3}
+  - {fileID: 4195481316871445180, guid: e8e83a9b6caa0ad4396a988f127b8d7b, type: 3}
 --- !u!4 &275037087
 Transform:
   m_ObjectHideFlags: 0
@@ -2371,11 +2386,12 @@ MonoBehaviour:
   Solver: {fileID: 659124769}
   Generator: {fileID: 275037086}
   MinDifficulty: 1
-  MinDepth: 1
-  ActorCountMin: 3
-  ActorCountMax: 6
-  PuzzleCountMax: 6
-  MaxTry: 200
+  MinDepth: 20
+  ActorCountMin: 12
+  ActorCountMax: 12
+  PuzzleCountMax: 2000
+  MaxTry: 2000000
+  RandomSearch: 0
 --- !u!1 &292338082 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1576152672587218382, guid: d9200694295cc784380375e0acb14632, type: 3}
@@ -2975,6 +2991,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 75131507fcec7a642b9751429b16b5df, type: 2}
   - {fileID: 11400000, guid: c25ca648292d69841a96134ee4b140c7, type: 2}
   - {fileID: 11400000, guid: bf984fa48e6883a4d9e72e65a9790615, type: 2}
+  - {fileID: 11400000, guid: ef3d0e6be6afe3a458d641decdf804db, type: 2}
   StageText: {fileID: 1853366262}
   CurrentPage: 0
   StageRightButton: {fileID: 1451268212}
@@ -4016,8 +4033,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31e01a0ff4bafd6468e98992b4e784ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PuzzleDefinition: {fileID: 11400000, guid: 740e5e62ca8ef544cac67cb3951f4ff2, type: 2}
-  warnNoSolutions: 0
+  PuzzleDefinition: {fileID: 11400000, guid: 65eddb473ff4d0044921278dec18ca13, type: 2}
+  warnNoSolutions: 1
 --- !u!4 &659124770
 Transform:
   m_ObjectHideFlags: 0
@@ -7776,7 +7793,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3.9294, y: 77}
+  m_AnchoredPosition: {x: 0, y: 77}
   m_SizeDelta: {x: 434.7873, y: 62.2775}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1739871960

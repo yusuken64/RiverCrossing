@@ -1,10 +1,12 @@
+#if UNITY_EDITOR
+
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-#if UNITY_EDITOR
 public class Generator : MonoBehaviour
 {
     public List<Actor> PossiblePrefabs;
@@ -24,35 +26,47 @@ public class Generator : MonoBehaviour
     [ContextMenu("Generate Puzzles")]
     public void GeneratePuzzle()
     {
-        IEnumerable<((List<GameState> path, double difficulty) solution, List<Actor> combination)> generatedPuzzles = GenerateConstrainedPuzzles(ActorCount, BoatSize);
+        var generatedPuzzles = GenerateConstrainedPuzzles(ActorCount, BoatSize);
         if (GeneratePuzzleFiles)
         {
             foreach (var puzzle in generatedPuzzles)
             {
-                var key = Solver.ToKey(puzzle.combination.ToList());
-                CreatePuzzleData(puzzle.combination.ToList(), BoatSize, key);
+                List<Actor> actors = puzzle.combination.Select(data => PossiblePrefabs.First(x => x.ActorName == data.ActorName)).ToList();
+                var key = Solver.ToKey(actors);
+                CreatePuzzleData(actors, BoatSize, key);
             }
         }
     }
 
-    public IEnumerable<((List<GameState> path, double difficulty) solution, List<Actor> combination)> GenerateConstrainedPuzzles(int actorCount, int boatSize)
+    public IEnumerable<((List<GameState> path, double difficulty) solution, List<ActorData> combination)> GenerateConstrainedPuzzles(int actorCount, int boatSize)
     {
         Solver.warnNoSolutions = false;
-        var combinations = GenerateCombinations(PossiblePrefabs, actorCount);
+        var possibleActors = PossiblePrefabs.Select(Solver.ToActorData).ToList();
+        var combinations = GenerateCombinations(possibleActors, actorCount);
 
         var requiredCounts = MustContain
             .GroupBy(x => x.ActorName)
             .ToDictionary(g => g.Key, g => g.Count());
 
+        UnityEngine.Debug.Log($"Done Generating {combinations.Count()} combination of animals");
+
+        Stopwatch stopwatch = Stopwatch.StartNew();
         var solvedPuzzles = combinations
-            .Where(combination => requiredCounts.All(req => combination.Count(x => x.name == req.Key) >= req.Value))
+            .Where(combination => requiredCounts.All(req => combination.Count(x => x.ActorName == req.Key) >= req.Value))
             .Select(combination => (
-                solution: Solver.Solve(combination, boatSize),
+                solution: Solver.Solve(combination.ToList(), boatSize),
                 combination: combination
             ))
             .Where(solution => solution.solution.path != null);
-     
-        Debug.Log($"Done Generating {solvedPuzzles.Count()} solvable puzzles");
+
+        int solvedCount = solvedPuzzles.Count();
+        UnityEngine.Debug.Log($"Done Generating {solvedCount} solvable puzzles");
+
+        stopwatch.Stop();
+        int solveCount2 = solvedCount > 0 ? solvedCount : 1;
+        UnityEngine.Debug.Log($"Elapsed time: {stopwatch.ElapsedMilliseconds}ms, " +
+            $"avg {stopwatch.ElapsedMilliseconds / solveCount2: 1}ms");
+
         return solvedPuzzles;
     }
 
@@ -106,7 +120,7 @@ public class Generator : MonoBehaviour
         EditorUtility.FocusProjectWindow();
         Selection.activeObject = asset;
 
-        Debug.Log($"Created new asset at: {assetPath}");
+        UnityEngine.Debug.Log($"Created new asset at: {assetPath}");
     }
 #endif
     public static (int width, int height) GetDimensions(int number)
@@ -135,10 +149,10 @@ public class Generator : MonoBehaviour
         return sizes[number - 1];
     }
 
-    public static List<List<Actor>> GenerateCombinations(List<Actor> items, int length, bool noDuplicates = true)
+    public static List<List<ActorData>> GenerateCombinations(List<ActorData> items, int length, bool noDuplicates = true)
     {
-        List<List<Actor>> result = new List<List<Actor>>();
-        GenerateCombinationsRecursive(items, new List<Actor>(), length, result, 0);
+        List<List<ActorData>> result = new List<List<ActorData>>();
+        GenerateCombinationsRecursive(items, new List<ActorData>(), length, result, 0);
 
         if (!noDuplicates)
         {
@@ -146,7 +160,7 @@ public class Generator : MonoBehaviour
         }
 
         var distinctByKey = result
-            .Select(x => new GameState(x.ToArray(), new Actor[0], true))
+            .Select(x => new GameState(x.ToArray(), new ActorData[0], true))
             .GroupBy(p => p.cachedKey)
             .Select(g => g.First())
             .Select(x => x.LeftSide.ToList())
@@ -166,16 +180,16 @@ public class Generator : MonoBehaviour
         }
     }
 
-    static void GenerateCombinationsRecursive(
-        List<Actor> items,
-        List<Actor> current,
+    static void GenerateCombinationsRecursive<T>(
+        List<T> items,
+        List<T> current,
         int length,
-        List<List<Actor>> result,
+        List<List<T>> result,
         int startIndex)
     {
         if (current.Count == length)
         {
-            result.Add(new List<Actor>(current));
+            result.Add(new List<T>(current));
             return;
         }
 

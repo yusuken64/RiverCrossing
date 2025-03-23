@@ -123,6 +123,7 @@ public class Game : MonoBehaviour
 
     internal void HandleLoss(string message)
     {
+        AudioManager.Instance?.StopMusic();
         Debug.Log("Game Over!");
         GameCanvas.gameObject.SetActive(false);
         ResultsCanvas.Setup("You Lose", message);

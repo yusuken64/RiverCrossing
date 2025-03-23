@@ -10,13 +10,7 @@ public class MajorityConstraint : GameConstraint
         return $"{Predator}s will eat the {Prey} if they outnumber them";
     }
 
-
-    public override bool IsGameOver(
-        Actor owner,
-        IEnumerable<Actor> leftSideActors,
-        IEnumerable<Actor> rightSideActors,
-        IEnumerable<Actor> boatActors,
-        out string message)
+    public override bool IsGameOverFunc(ActorData owner, IEnumerable<ActorData> leftSideActors, IEnumerable<ActorData> rightSideActors, IEnumerable<ActorData> boatActors, out string message)
     {
         var containingSide = GetContainingSide(leftSideActors, rightSideActors, owner);
 

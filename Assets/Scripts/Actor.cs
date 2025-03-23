@@ -11,8 +11,6 @@ public class Actor : MonoBehaviour
     public bool CanPilotBoat;
     public bool IsHeavy;
 
-    public List<string> KeyWords;
-
     void Start()
     {
         var draggable = GetComponent<Draggable>();

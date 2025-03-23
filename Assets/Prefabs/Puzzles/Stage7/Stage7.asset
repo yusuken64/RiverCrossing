@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1982cbadf6f2b874f89439b67d618777, type: 3}
+  m_Name: Stage7
+  m_EditorClassIdentifier: 
+  Puzzles:
+  - {fileID: 11400000, guid: 65eddb473ff4d0044921278dec18ca13, type: 2}
+  - {fileID: 11400000, guid: 7dcc899acc8b92a4cbb4bd57c2707595, type: 2}
+  - {fileID: 11400000, guid: a4603b3bb03c9e847b8b050ac0e2fbb0, type: 2}
+  - {fileID: 11400000, guid: 2e61033fe94541f489f7f1e18323f509, type: 2}
+  - {fileID: 11400000, guid: c6f311d2ef2bdf842b758007ee51b709, type: 2}
+  LeftImage: {fileID: 21300000, guid: ea67b22732f75384a8770dd2adb3da45, type: 3}
+  RightImage: {fileID: 21300000, guid: 9ef4b39412e22a642bab722c5c20a43f, type: 3}

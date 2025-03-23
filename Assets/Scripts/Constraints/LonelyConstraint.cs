@@ -9,12 +9,7 @@ public class LonelyConstraint : GameConstraint
         return $"{owner.ActorName} cannot be left alone";
     }
 
-    public override bool IsGameOver(
-        Actor owner,
-        IEnumerable<Actor> leftSideActors,
-        IEnumerable<Actor> rightSideActors,
-        IEnumerable<Actor> boatActors,
-        out string message)
+    public override bool IsGameOverFunc(ActorData owner, IEnumerable<ActorData> leftSideActors, IEnumerable<ActorData> rightSideActors, IEnumerable<ActorData> boatActors, out string message)
     {
         var containingSide = GetContainingSide(leftSideActors, rightSideActors, owner);
         var alone = containingSide.Count() == 1;
@@ -24,7 +19,7 @@ public class LonelyConstraint : GameConstraint
             message = $"{owner.ActorName} cannot be left alone";
             return true;
         }
-    
+
         message = "";
         return false;
     }

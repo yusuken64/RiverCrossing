@@ -4,7 +4,10 @@ using UnityEngine;
 
 public abstract class GameConstraint : MonoBehaviour
 {
-    public static IEnumerable<Actor> GetContainingSide(IEnumerable<Actor> leftSideActors, IEnumerable<Actor> rightSideActors, Actor owner)
+    public static IEnumerable<T> GetContainingSide<T>(
+        IEnumerable<T> leftSideActors,
+        IEnumerable<T> rightSideActors,
+        T owner)
     {
         var isLeft = leftSideActors.Contains(owner);
 
@@ -12,25 +15,51 @@ public abstract class GameConstraint : MonoBehaviour
     }
 
     public abstract string Description();
-    public abstract bool IsGameOver(Actor owner,
+
+    public bool IsGameOver(
+        Actor owner,
         IEnumerable<Actor> leftSideActors,
         IEnumerable<Actor> rightSideActors,
         IEnumerable<Actor> boatActors,
-        out string message);
-
-    internal static int CountItem(IEnumerable<Actor> actors, string item)
+        out string message)
     {
-        return actors.Count(actor => actor.KeyWords.Contains(item));
+        return IsGameOverFunc(ToLightWeightActorData(owner),
+            leftSideActors.Select(ToLightWeightActorData),
+            rightSideActors.Select(ToLightWeightActorData),
+            boatActors.Select(ToLightWeightActorData),
+            out message);
     }
 
-    internal static bool HasItem(IEnumerable<Actor> actors, string item)
+
+    public abstract bool IsGameOverFunc(ActorData owner,
+        IEnumerable<ActorData> leftSideActors,
+        IEnumerable<ActorData> rightSideActors,
+        IEnumerable<ActorData> boatActors,
+     out string message);
+
+    internal static int CountItem(IEnumerable<ActorData> actors, string item)
+    {
+        return actors.Count(actor => actor.ActorName == item);
+    }
+
+    internal static bool HasItem(IEnumerable<ActorData> actors, string item)
     {
         if (string.IsNullOrWhiteSpace(item)) { return false; }
-        return actors.Any(actor => actor.KeyWords.Contains(item));
+        return actors.Any(actor => actor.ActorName == item);
     }
 
-    internal static int GetFamilyCount(IEnumerable<Actor> containingSide, Actor owner)
+    internal static int GetFamilyCount(IEnumerable<ActorData> containingSide, ActorData owner)
     {
         return containingSide.Count(x => x.ActorName == owner.ActorName);
+    }
+
+    internal static ActorData ToLightWeightActorData(Actor actor)
+    {
+        return new(
+            actor.ActorName,
+            actor.CanPilotBoat,
+            actor.IsHeavy,
+            actor.IsPredator(),
+            null);
     }
 }

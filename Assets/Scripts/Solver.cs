@@ -22,7 +22,7 @@ public class Solver : MonoBehaviour
     public void SolvePuzzle()
     {
         warnNoSolutions = true;
-        var solution = Solve(PuzzleDefinition.ActorPrefabs, PuzzleDefinition.BoatSize);
+        var solution = Solve(PuzzleDefinition.ActorPrefabs.Select(ToActorData).ToList(), PuzzleDefinition.BoatSize);
         if (solution.path != null)
         {
             Debug.LogWarning($"Solution found in {solution.path.Count()} steps {solution.difficulty}");
@@ -34,29 +34,29 @@ public class Solver : MonoBehaviour
         }
     }
 
-    public (List<GameState> path, double difficulty) Solve(List<Actor> actorPrefabs, int boatSize)
+    public static ActorData ToActorData(Actor actor, int index)
     {
-        var game = FindObjectOfType<Game>(true);
-        game.ClearAllActors();
+        return new(
+            actor.ActorName,
+            actor.CanPilotBoat,
+            actor.IsHeavy,
+            actor.IsPredator(),
+            GetConstraintDatas(actor));
+    }
 
-        List<Actor> puzzleActors = new();
-        foreach (var actorPrefab in actorPrefabs)
-        {
-            var newActor = Instantiate(actorPrefab);
-            puzzleActors.Add(newActor);
-        }
-
+    public (List<GameState> path, double difficulty) Solve(List<ActorData> actorDatas, int boatSize)
+    {
         var initialState = new GameState(
-            puzzleActors.ToArray(),
-            new Actor[0],
+            actorDatas.ToArray(),
+            new ActorData[0],
             true);
         var goalState = new GameState(
-            new Actor[0],
-            puzzleActors.ToArray(),
+            new ActorData[0],
+            actorDatas.ToArray(),
             false);
         var goalStateKey = goalState.cachedKey;
 
-        var initialIsValid = IsValid(initialState.LeftSide, initialState.RightSide, new Actor[0]);
+        var initialIsValid = IsValid(initialState.LeftSide, initialState.RightSide, new ActorData[0]);
 
         if (!initialIsValid)
         {
@@ -64,12 +64,10 @@ public class Solver : MonoBehaviour
             {
                 Debug.LogWarning("No solution found.");
             }
-            game.ClearAllActors();
             return (null, 0);
         }
         
         var solution = BFS(initialState, goalStateKey, boatSize);
-        game.ClearAllActors();
 
         if (solution.path == null)
         {
@@ -173,7 +171,7 @@ public class Solver : MonoBehaviour
                 ? state.RightSide.Concat(move).ToArray()
                 : RemoveActors(state.RightSide, move);
 
-            if (IsValid(newLeft, newRight, move))
+            if (IsValid(newLeft, newRight, move.ToArray()))
             {
                 var nextState = new GameState(newLeft, newRight, !state.BoatIsLeft);
                 yield return (nextState.cachedKey, nextState);
@@ -186,7 +184,7 @@ public class Solver : MonoBehaviour
         }
     }
 
-    private static Actor[] RemoveActors(Actor[] original, IEnumerable<Actor> toRemove)
+    private static ActorData[] RemoveActors(ActorData[] original, IEnumerable<ActorData> toRemove)
     {
         var list = original.ToList();
         foreach (var actor in toRemove)
@@ -196,33 +194,33 @@ public class Solver : MonoBehaviour
         return list.ToArray();
     }
 
-    private static bool IsValid(IEnumerable<Actor> left, IEnumerable<Actor> right, IEnumerable<Actor> boat)
+    private static bool IsValid(ActorData[] left, ActorData[] right, ActorData[] boat)
     {
-        bool leftValid = !left.Any(x => x.IsGameOver(left, right, boat, out _));
-        bool rightValid = !right.Any(x => x.IsGameOver(left, right, boat, out _));
+        bool leftValid = !left.Any(x => x.IsGameOver(left, right, boat));
+        bool rightValid = !right.Any(x => x.IsGameOver(left, right, boat));
 
         return leftValid && rightValid;
     }
 
-    private static IEnumerable<IEnumerable<Actor>> GetPossibleMoves(Actor[] side, int boatCapacity)
+    private static IEnumerable<IEnumerable<T>> GetPossibleMoves<T>(T[] side, int boatCapacity)
     {
         return GetCombinations(side, boatCapacity);
     }
 
-    private static IEnumerable<IEnumerable<Actor>> GetCombinations(Actor[] actors, int maxSize)
+    private static IEnumerable<IEnumerable<T>> GetCombinations<T>(T[] actors, int maxSize)
     {
         int n = actors.Length;
 
         for (int size = 1; size <= Math.Min(maxSize, n); size++)
         {
-            foreach (var combination in GetCombinationsRecursive(actors, size, 0, new List<Actor>()))
+            foreach (var combination in GetCombinationsRecursive(actors, size, 0, new List<T>()))
             {
                 yield return combination;
             }
         }
     }
 
-    private static IEnumerable<IEnumerable<Actor>> GetCombinationsRecursive(Actor[] actors, int size, int start, List<Actor> current)
+    private static IEnumerable<IEnumerable<T>> GetCombinationsRecursive<T>(T[] actors, int size, int start, List<T> current)
     {
         if (current.Count == size)
         {
@@ -244,28 +242,77 @@ public class Solver : MonoBehaviour
     {
         return string.Join(',', actors.Select(x => x.ActorName).OrderBy(x => x));
     }
+
+    private static Func<ActorData, ActorData[], ActorData[], ActorData[], bool>[] GetConstraintDatas(Actor actor)
+    {
+        var gameConstraints = actor.GetComponents<GameConstraint>();
+
+        return gameConstraints
+            .Select(x => new Func<ActorData, ActorData[], ActorData[], ActorData[], bool>((actorData, left, right, boat) =>
+            {
+                bool result = x.IsGameOverFunc(actorData, left, right, boat, out _);
+                return result;
+            }))
+            .ToArray();
+    }
 }
 
 public struct GameState
 {
-    public Actor[] LeftSide;
-    public Actor[] RightSide;
+    public ActorData[] LeftSide;
+    public ActorData[] RightSide;
     public bool BoatIsLeft;
 
     public readonly string cachedKey;
 
-    public GameState(Actor[] leftSide, Actor[] rightSide, bool boatIsLeft)
+    public GameState(ActorData[] leftSide, ActorData[] rightSide, bool boatIsLeft)
     {
         this.LeftSide = leftSide.OrderBy(x => x.ActorName).ToArray();
         this.RightSide = rightSide.OrderBy(x => x.ActorName).ToArray();
         this.BoatIsLeft = boatIsLeft;
 
-        if (LeftSide == null) LeftSide = Array.Empty<Actor>();
-        if (RightSide == null) RightSide = Array.Empty<Actor>();
+        if (LeftSide == null) LeftSide = Array.Empty<ActorData>();
+        if (RightSide == null) RightSide = Array.Empty<ActorData>();
 
         var left = string.Join(',', LeftSide.Select(x => x.ActorName).OrderBy(x => x));
         var right = string.Join(',', RightSide.Select(x => x.ActorName).OrderBy(x => x));
 
         cachedKey = $"{left}|{right}|{(BoatIsLeft ? "L" : "R")}";
+    }
+}
+
+public record ActorData
+{
+    public readonly string ActorName;
+    public readonly bool CanPilotBoat;
+    public readonly bool IsHeavy;
+    public readonly bool IsPredator;
+    public readonly Func<ActorData, ActorData[], ActorData[], ActorData[], bool>[] GameOverConstraints;
+
+    public ActorData(
+        string actorName,
+        bool canPilotBoat,
+        bool isHeavy,
+        bool isPredator,
+        Func<ActorData, ActorData[], ActorData[], ActorData[], bool>[] constraints)
+    {
+        ActorName = actorName;
+        CanPilotBoat = canPilotBoat;
+        IsHeavy = isHeavy;
+        IsPredator = isPredator;
+        GameOverConstraints = constraints;
+    }
+
+    internal bool IsGameOver(
+        ActorData[] left,
+        ActorData[] right,
+        ActorData[] boat)
+    {
+        if (GameOverConstraints == null || GameOverConstraints.Length == 0)
+        {
+            return false;
+        }
+
+        return GameOverConstraints.All(constraint => constraint.Invoke(this, left, right, boat));
     }
 }

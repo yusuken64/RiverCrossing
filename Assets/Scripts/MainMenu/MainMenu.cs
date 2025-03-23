@@ -92,7 +92,8 @@ public class MainMenu : MonoBehaviour
             foreach (var puzzle in stage.Puzzles)
             {
                 var solver = FindObjectOfType<Solver>();
-                (List<GameState> path, double difficulty) solution = solver.Solve(puzzle.ActorPrefabs, puzzle.BoatSize);
+                (List<GameState> path, double difficulty) solution =
+                    solver.Solve(puzzle.ActorPrefabs.Select(Solver.ToActorData).ToList(), puzzle.BoatSize);
 
                 if (solution.path == null)
                 {

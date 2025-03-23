@@ -10,17 +10,17 @@ public class MinorityConstraint : GameConstraint
         return $"{Animal} cannot be majority";
     }
 
-    public override bool IsGameOver(
-        Actor owner,
-        IEnumerable<Actor> leftSideActors,
-        IEnumerable<Actor> rightSideActors,
-        IEnumerable<Actor> boatActors,
+    public override bool IsGameOverFunc(
+        ActorData owner,
+        IEnumerable<ActorData> leftSideActors,
+        IEnumerable<ActorData> rightSideActors,
+        IEnumerable<ActorData> boatActors,
         out string message)
     {
         var containingSide = GetContainingSide(leftSideActors, rightSideActors, owner);
 
         int animalCount = CountItem(containingSide, Animal);
-        int otherCount = containingSide.Count(actor => !actor.KeyWords.Contains(Animal));
+        int otherCount = containingSide.Count(actor => actor.ActorName != Animal);
 
         if (animalCount > 0 &&
             animalCount > otherCount)

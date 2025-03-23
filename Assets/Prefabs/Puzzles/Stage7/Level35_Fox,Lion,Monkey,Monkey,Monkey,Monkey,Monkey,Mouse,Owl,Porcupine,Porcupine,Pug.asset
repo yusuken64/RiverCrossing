@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba0919d402bc0b749898d1bec04c1cb9, type: 3}
+  m_Name: Level35_Fox,Lion,Monkey,Monkey,Monkey,Monkey,Monkey,Mouse,Owl,Porcupine,Porcupine,Pug
+  m_EditorClassIdentifier: 
+  PuzzleName: Puzzle 35
+  PuzzleNum: 35
+  Width: 3
+  Height: 4
+  BoatSize: 2
+  ActorPrefabs:
+  - {fileID: 4195481316871445180, guid: e8e83a9b6caa0ad4396a988f127b8d7b, type: 3}
+  - {fileID: 7823687320652029290, guid: 0dda3211bf040984a8be4fbcf064a5dd, type: 3}
+  - {fileID: 992369366352160612, guid: 2f3819453634f6d4b83b967d74c3b19b, type: 3}
+  - {fileID: 992369366352160612, guid: 2f3819453634f6d4b83b967d74c3b19b, type: 3}
+  - {fileID: 992369366352160612, guid: 2f3819453634f6d4b83b967d74c3b19b, type: 3}
+  - {fileID: 992369366352160612, guid: 2f3819453634f6d4b83b967d74c3b19b, type: 3}
+  - {fileID: 992369366352160612, guid: 2f3819453634f6d4b83b967d74c3b19b, type: 3}
+  - {fileID: 7289021463777834827, guid: a79d6a458c087784a81947f1e5492889, type: 3}
+  - {fileID: 1691203986589502945, guid: cdb9fedf2b039bd45bbebeca6c44f7f0, type: 3}
+  - {fileID: 7079924526971421310, guid: 8882eab41d38a1b48b2e23d28e37c38c, type: 3}
+  - {fileID: 7079924526971421310, guid: 8882eab41d38a1b48b2e23d28e37c38c, type: 3}
+  - {fileID: 7289021463777834827, guid: 59057161a4d379a4887637c8189d0809, type: 3}
+  Difficulty: Infinity
+  SolveDepth: 38

@@ -49,6 +49,13 @@ public class AudioManager : MonoBehaviour
     internal void PlayMusic(AudioClip music)
     {
         AudioSource audioSource = BGMAudioSource;
+
+        // Check if the same clip is already playing
+        if (audioSource.clip == music && audioSource.isPlaying)
+        {
+            return;
+        }
+
         audioSource.clip = music;
         audioSource.loop = true;
         audioSource.Play();
