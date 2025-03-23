@@ -102,7 +102,7 @@ public class PuzzleFinder : MonoBehaviour
 
         foreach(var puzzleDefinition in puzzleDefinitions)
         {
-            (List<GameState> path, double difficulty) solution = Solver.Solve(puzzleDefinition.ActorPrefabs.Select(Solver.ToActorData).ToList(),
+            (List<GameState> path, double difficulty) solution = Solver.Solve(puzzleDefinition.ActorPrefabs.Select(Actor.ToActorData).ToList(),
                 puzzleDefinition.BoatSize);
 
             if (solution.path != null)

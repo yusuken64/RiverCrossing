@@ -47,6 +47,7 @@ public class Game : MonoBehaviour
         {
             Actor prefab = PuzzleDefinition.ActorPrefabs[i];
             Actor newActor = Instantiate(prefab);
+            newActor.Initialize();
             LeftShore.Cells[i].SetActor(newActor);
             Actors.Add(newActor);
         }

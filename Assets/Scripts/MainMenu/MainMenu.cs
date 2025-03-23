@@ -93,7 +93,7 @@ public class MainMenu : MonoBehaviour
             {
                 var solver = FindObjectOfType<Solver>();
                 (List<GameState> path, double difficulty) solution =
-                    solver.Solve(puzzle.ActorPrefabs.Select(Solver.ToActorData).ToList(), puzzle.BoatSize);
+                    solver.Solve(puzzle.ActorPrefabs.Select(Actor.ToActorData).ToList(), puzzle.BoatSize);
 
                 if (solution.path == null)
                 {

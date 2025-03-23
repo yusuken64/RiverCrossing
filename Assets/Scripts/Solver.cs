@@ -22,7 +22,7 @@ public class Solver : MonoBehaviour
     public void SolvePuzzle()
     {
         warnNoSolutions = true;
-        var solution = Solve(PuzzleDefinition.ActorPrefabs.Select(ToActorData).ToList(), PuzzleDefinition.BoatSize);
+        var solution = Solve(PuzzleDefinition.ActorPrefabs.Select(Actor.ToActorData).ToList(), PuzzleDefinition.BoatSize);
         if (solution.path != null)
         {
             Debug.LogWarning($"Solution found in {solution.path.Count()} steps {solution.difficulty}");
@@ -32,16 +32,6 @@ public class Solver : MonoBehaviour
                 Debug.Log($"step{i} {state.cachedKey}");
             }
         }
-    }
-
-    public static ActorData ToActorData(Actor actor, int index)
-    {
-        return new(
-            actor.ActorName,
-            actor.CanPilotBoat,
-            actor.IsHeavy,
-            actor.IsPredator(),
-            GetConstraintDatas(actor));
     }
 
     public (List<GameState> path, double difficulty) Solve(List<ActorData> actorDatas, int boatSize)
@@ -242,19 +232,6 @@ public class Solver : MonoBehaviour
     {
         return string.Join(',', actors.Select(x => x.ActorName).OrderBy(x => x));
     }
-
-    private static Func<ActorData, ActorData[], ActorData[], ActorData[], bool>[] GetConstraintDatas(Actor actor)
-    {
-        var gameConstraints = actor.GetComponents<GameConstraint>();
-
-        return gameConstraints
-            .Select(x => new Func<ActorData, ActorData[], ActorData[], ActorData[], bool>((actorData, left, right, boat) =>
-            {
-                bool result = x.IsGameOverFunc(actorData, left, right, boat, out _);
-                return result;
-            }))
-            .ToArray();
-    }
 }
 
 public struct GameState
@@ -278,41 +255,5 @@ public struct GameState
         var right = string.Join(',', RightSide.Select(x => x.ActorName).OrderBy(x => x));
 
         cachedKey = $"{left}|{right}|{(BoatIsLeft ? "L" : "R")}";
-    }
-}
-
-public record ActorData
-{
-    public readonly string ActorName;
-    public readonly bool CanPilotBoat;
-    public readonly bool IsHeavy;
-    public readonly bool IsPredator;
-    public readonly Func<ActorData, ActorData[], ActorData[], ActorData[], bool>[] GameOverConstraints;
-
-    public ActorData(
-        string actorName,
-        bool canPilotBoat,
-        bool isHeavy,
-        bool isPredator,
-        Func<ActorData, ActorData[], ActorData[], ActorData[], bool>[] constraints)
-    {
-        ActorName = actorName;
-        CanPilotBoat = canPilotBoat;
-        IsHeavy = isHeavy;
-        IsPredator = isPredator;
-        GameOverConstraints = constraints;
-    }
-
-    internal bool IsGameOver(
-        ActorData[] left,
-        ActorData[] right,
-        ActorData[] boat)
-    {
-        if (GameOverConstraints == null || GameOverConstraints.Length == 0)
-        {
-            return false;
-        }
-
-        return GameOverConstraints.All(constraint => constraint.Invoke(this, left, right, boat));
     }
 }

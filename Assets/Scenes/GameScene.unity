@@ -2999,7 +2999,7 @@ MonoBehaviour:
   LeftImage: {fileID: 663320870}
   RightImage: {fileID: 1784899341}
   AudioSettings: {fileID: 2003134730}
-  DebugPuzzle: {fileID: 11400000, guid: 2bc01cf399decce41bcb78492c899e5b, type: 2}
+  DebugPuzzle: {fileID: 11400000, guid: ec0f4d34bc03fae4abc71b7457027a14, type: 2}
 --- !u!114 &373301843
 MonoBehaviour:
   m_ObjectHideFlags: 0

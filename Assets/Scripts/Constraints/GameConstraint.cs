@@ -9,7 +9,7 @@ public abstract class GameConstraint : MonoBehaviour
         IEnumerable<T> rightSideActors,
         T owner)
     {
-        var isLeft = leftSideActors.Contains(owner);
+        bool isLeft = leftSideActors.Any(actor => ReferenceEquals(actor, owner));
 
         return isLeft ? leftSideActors : rightSideActors;
     }
@@ -23,10 +23,10 @@ public abstract class GameConstraint : MonoBehaviour
         IEnumerable<Actor> boatActors,
         out string message)
     {
-        return IsGameOverFunc(ToLightWeightActorData(owner),
-            leftSideActors.Select(ToLightWeightActorData),
-            rightSideActors.Select(ToLightWeightActorData),
-            boatActors.Select(ToLightWeightActorData),
+        return IsGameOverFunc(owner._actorData,
+            leftSideActors.Select(x => x._actorData),
+            rightSideActors.Select(x => x._actorData),
+            boatActors.Select(x => x._actorData),
             out message);
     }
 

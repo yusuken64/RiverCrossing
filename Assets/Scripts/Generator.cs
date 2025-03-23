@@ -41,7 +41,7 @@ public class Generator : MonoBehaviour
     public IEnumerable<((List<GameState> path, double difficulty) solution, List<ActorData> combination)> GenerateConstrainedPuzzles(int actorCount, int boatSize)
     {
         Solver.warnNoSolutions = false;
-        var possibleActors = PossiblePrefabs.Select(Solver.ToActorData).ToList();
+        var possibleActors = PossiblePrefabs.Select(Actor.ToActorData).ToList();
         var combinations = GenerateCombinations(possibleActors, actorCount);
 
         var requiredCounts = MustContain
