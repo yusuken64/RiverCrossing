@@ -14,7 +14,7 @@ public class LevelButton : MonoBehaviour
         ButtonText.text = puzzleDefinition.PuzzleNum.ToString();
         PuzzleDefinition = puzzleDefinition;
 
-        var cleared = SingletonSaveData.Instance.SaveData.ClearedStageIds.Contains(puzzleDefinition.PuzzleNum);
+        var cleared = SingletonSaveData.Instance.SaveData.GameData.ClearedStageIds.Contains(puzzleDefinition.PuzzleNum);
         ClearedObject.SetActive(cleared);
     }
 

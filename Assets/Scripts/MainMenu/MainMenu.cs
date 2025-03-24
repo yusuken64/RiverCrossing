@@ -158,6 +158,7 @@ public class MainMenu : MonoBehaviour
     public void ResetDataClicked()
     {
         SingletonSaveData.Instance?.ResetData();
+        SingletonSaveData.Instance?.Save();
         Setup();
     }
 

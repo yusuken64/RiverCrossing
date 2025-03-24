@@ -44,6 +44,24 @@ public class AudioManager : MonoBehaviour
     {
         float volume = Mathf.Log10(Mathf.Max(sliderValue, 0.0001f)) * 20; // Prevent log errors
         AudioMixer.SetFloat(volumeParameter, volume);
+
+        switch (volumeParameter)
+        {
+            case "BGMVol":
+                SingletonSaveData.Instance.SaveData.ApplicationData.BGMVolume = sliderValue;
+                break;
+            case "SFXVol":
+                SingletonSaveData.Instance.SaveData.ApplicationData.SFXVolume = sliderValue;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void ApplicationInitialized(SaveData saveData)
+    {
+        OnVolumeSliderChanged(BGMVol, saveData.ApplicationData.BGMVolume);
+        OnVolumeSliderChanged(SFXVol, saveData.ApplicationData.SFXVolume);
     }
 
     internal void PlayMusic(AudioClip music)

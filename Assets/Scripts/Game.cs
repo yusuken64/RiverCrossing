@@ -136,7 +136,8 @@ public class Game : MonoBehaviour
         AudioManager.Instance?.StopMusic();
         AudioManager.Instance?.PlaySound(Sounds.Instance?.Success);
 
-        SingletonSaveData.Instance.SaveData.ClearedStageIds.Add(PuzzleDefinition.PuzzleNum);
+        SingletonSaveData.Instance.SaveData.GameData.ClearedStageIds.Add(PuzzleDefinition.PuzzleNum);
+        SingletonSaveData.Instance.Save();
         Debug.Log("Game Win!");
         GameCanvas.gameObject.SetActive(false);
         ResultsCanvas.Setup("You Win", "Everyone made it safely across the River");

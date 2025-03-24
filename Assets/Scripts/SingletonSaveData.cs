@@ -5,6 +5,7 @@ using UnityEngine;
 public class SingletonSaveData : MonoBehaviour
 {
     public static SingletonSaveData Instance { get; private set; }
+    public ISaveManager SaveManager { get; internal set; }
 
     public SaveData SaveData;
 
@@ -13,7 +14,6 @@ public class SingletonSaveData : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            ResetData(); //TODO lead from platform
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -24,11 +24,60 @@ public class SingletonSaveData : MonoBehaviour
 
     internal void ResetData()
     {
-        SaveData = new();
+        SaveData = SaveData.DefaultData;
+    }
+
+    internal void Load()
+    {
+        var saveData = SaveManager.Load();
+        if (saveData == null)
+        {
+            ResetData();
+        }
+        else
+        {
+            SaveData = saveData;
+        }
+
+        //TODO refactor to SaveDataChanged;
+        AudioManager.Instance.ApplicationInitialized(SaveData);
+    }
+
+    internal void Save()
+    {
+        SaveManager.Save(SaveData);
     }
 }
 
+[Serializable]
 public class SaveData
 {
-    public HashSet<int> ClearedStageIds = new();
+    public ApplicationData ApplicationData;
+    public GameData GameData;
+
+    public static SaveData DefaultData = new SaveData()
+    {
+        ApplicationData = new()
+        {
+            BGMVolume = 0.5f,
+            SFXVolume = 0.5f
+        },
+        GameData = new()
+        {
+            ClearedStageIds = new()
+        }
+    };
+}
+
+[Serializable]
+public class ApplicationData
+{
+    public float SFXVolume;
+    public float BGMVolume;
+}
+
+[Serializable]
+public class GameData
+{
+    public List<int> ClearedStageIds = new();
 }
