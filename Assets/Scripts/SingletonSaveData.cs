@@ -55,7 +55,7 @@ public class SaveData
     public ApplicationData ApplicationData;
     public GameData GameData;
 
-    public static SaveData DefaultData = new SaveData()
+    public static SaveData DefaultData => new SaveData()
     {
         ApplicationData = new()
         {
