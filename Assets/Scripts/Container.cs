@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Container : MonoBehaviour
@@ -35,6 +36,11 @@ public class Container : MonoBehaviour
                 Cells.Add(newCell);
             }
         }
+    }
+
+    internal Cell GetFirstEmptyCell()
+    {
+        return Cells.FirstOrDefault(x => x.CurrentActor == null);
     }
 
     [ContextMenu("Clear Cells")]

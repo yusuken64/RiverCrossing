@@ -9,8 +9,13 @@ public class Draggable : MonoBehaviour
     public LayerMask GridLayer;
     public Action OnHold;
     public Action<Cell> OnReleased;
+    public Action OnClcked;
 
     public bool IsDraggable;
+
+    public float HoldThresholdSeconds;
+    public float HoldTimeSeconds;
+
 
     void OnMouseDown()
     {
@@ -25,6 +30,7 @@ public class Draggable : MonoBehaviour
         if (cell != null)
         {
           isDragging = true;
+          HoldTimeSeconds = 0;
           OnHold?.Invoke();
         }
     }
@@ -39,14 +45,35 @@ public class Draggable : MonoBehaviour
 
     void OnMouseUp()
     {
-        isDragging = false;
-        var collider = GetCellUnderneath();
-        Cell cell = null;
-        if (collider != null)
+        if (!IsDraggable)
         {
-            cell = collider.GetComponent<Cell>();
+            return;
         }
-        OnReleased?.Invoke(cell);
+
+        isDragging = false;
+
+        if (HoldTimeSeconds < HoldThresholdSeconds)
+        {
+            OnClcked?.Invoke();
+        }
+        else
+        {
+            var collider = GetCellUnderneath();
+            Cell cell = null;
+            if (collider != null)
+            {
+                cell = collider.GetComponent<Cell>();
+            }
+            OnReleased?.Invoke(cell);
+        }
+    }
+
+    private void Update()
+    {
+        if (isDragging)
+        {
+            HoldTimeSeconds += Time.deltaTime;
+        }
     }
 
     private Collider2D GetCellUnderneath()

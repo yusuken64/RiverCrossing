@@ -17,6 +17,8 @@ public class Game : MonoBehaviour
     public GameObject InfoObject;
     public TextMeshProUGUI LevelText;
 
+    public CrossButton CrossButton;
+
     public List<Actor> Actors;
 
     private void Start()
@@ -52,6 +54,7 @@ public class Game : MonoBehaviour
             Actors.Add(newActor);
         }
         GameCanvas.gameObject.SetActive(true);
+        UpdateCrossButton();
         AudioManager.Instance?.PlayMusic(Sounds.Instance?.Music);
     }
 
@@ -114,12 +117,31 @@ public class Game : MonoBehaviour
     {
         if (IsGameOver(out string message))
         {
+            DisableInput();
             HandleLoss(message);
         }
         else if (CheckWin())
         {
+            DisableInput();
             HandleWin();
         }
+    }
+
+    internal void UpdateCrossButton()
+    {
+        if (CanBoatMove())
+        {
+            CrossButton.SetToClickable();
+        }
+        else
+        {
+            CrossButton.SetToUnClickable();
+        }
+    }
+
+    private void DisableInput()
+    {
+        Actors.ForEach(x => x.GetComponent<Draggable>().IsDraggable = false);
     }
 
     internal void HandleLoss(string message)

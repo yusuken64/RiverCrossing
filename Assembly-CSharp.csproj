@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\Constraints\LonelyConstraint.cs" />
     <Compile Include="Assets\Scripts\Common\Common.cs" />
     <Compile Include="Assets\Scripts\SingletonSaveData.cs" />
+    <Compile Include="Assets\Scripts\GameMenu\CrossButton.cs" />
     <Compile Include="Assets\Scripts\Game.cs" />
     <Compile Include="Assets\Scripts\Generator.cs" />
     <Compile Include="Assets\Scripts\SteamSaveManager.cs" />

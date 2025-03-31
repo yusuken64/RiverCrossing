@@ -44,31 +44,70 @@ public class Actor : MonoBehaviour
         };
         draggable.OnReleased = (destinationCell) =>
         {
+            DropOnCell(destinationCell);
+        };
+        draggable.OnClcked = () =>
+        {
+            Game game = FindObjectOfType<Game>();
+
+            bool onLeftShore = game.LeftShore.Cells.Any(x => x.CurrentActor == this);
+            bool onRightShore = game.RightShore.Cells.Any(x => x.CurrentActor == this);
+            bool onBoat = game.Boat.Cells.Any(x => x.CurrentActor == this);
+            bool boatIsOnRight = game.Boat.IsBoatRight;
+
+            Cell destinationCell = null;
+
+            if (onLeftShore && !boatIsOnRight)
+            {
+                destinationCell = game.Boat.GetFirstEmptyCell();
+            }
+            else if (onRightShore && boatIsOnRight)
+            {
+                destinationCell = game.Boat.GetFirstEmptyCell();
+            }
+            else if (onBoat && boatIsOnRight)
+            {
+                destinationCell = game.RightShore.GetFirstEmptyCell();
+            }
+            else if (onBoat && !boatIsOnRight)
+            {
+                destinationCell = game.LeftShore.GetFirstEmptyCell();
+            }
+
             if (destinationCell != null)
             {
-                if (CanDrop(CurrentCell, destinationCell))
-                {
-                    CurrentCell?.SetActor(null);
-                    destinationCell?.SetActor(this);
-                }
-                else
-                {
-                    CurrentCell?.SetActor(this);
-                }
+                DropOnCell(destinationCell);
+            }
+        };
+    }
+
+    private void DropOnCell(Cell destinationCell)
+    {
+        if (destinationCell != null)
+        {
+            if (CanDrop(CurrentCell, destinationCell))
+            {
+                CurrentCell?.SetActor(null);
+                destinationCell?.SetActor(this);
             }
             else
             {
                 CurrentCell?.SetActor(this);
             }
+        }
+        else
+        {
+            CurrentCell?.SetActor(this);
+        }
 
-            Game game = FindObjectOfType<Game>();
-            if (game.CheckWin())
-            {
-                game.HandleWin();
-            }
+        Game game = FindObjectOfType<Game>();
+        if (game.CheckWin())
+        {
+            game.HandleWin();
+        }
+        game.UpdateCrossButton();
 
-            PlayDropSound();
-        };
+        PlayDropSound();
     }
 
     internal ActorData _actorData;

@@ -50,7 +50,7 @@ MonoBehaviour:
   ActorName: 
   CurrentCell: {fileID: 0}
   CanPilotBoat: 0
-  KeyWords: []
+  IsHeavy: 0
 --- !u!114 &3308444627536430083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,6 +67,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   IsDraggable: 1
+  HoldThresholdSeconds: 0.2
+  HoldTimeSeconds: 0
 --- !u!61 &6655902058994482622
 BoxCollider2D:
   m_ObjectHideFlags: 0

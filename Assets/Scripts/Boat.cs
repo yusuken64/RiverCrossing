@@ -1,4 +1,7 @@
+using DG.Tweening;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Boat : MonoBehaviour
@@ -17,13 +20,15 @@ public class Boat : MonoBehaviour
 
     public void GoRight()
     {
-        this.transform.position = RightPosition.position;
+        //this.transform.position = RightPosition.position;
+        this.transform.DOMove(RightPosition.position, 0.2f);
         IsBoatRight = true;
     }
 
     public void GoLeft()
     {
-        this.transform.position = LeftPosition.position;
+        //this.transform.position = LeftPosition.position;
+        this.transform.DOMove(LeftPosition.position, 0.2f);
         IsBoatRight = false;
     }
 
@@ -61,5 +66,10 @@ public class Boat : MonoBehaviour
         {
             GoRight_Clicked();
         }
+    }
+
+    internal Cell GetFirstEmptyCell()
+    {
+        return Cells.FirstOrDefault(x => x.CurrentActor == null);
     }
 }
