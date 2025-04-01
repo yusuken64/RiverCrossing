@@ -40,7 +40,7 @@ public class Boat : MonoBehaviour
             AudioManager.Instance?.PlaySound(Sounds.Instance.BoatCross);
             GoRight();
             game.CheckConstraints();
-            game.InfoObject.gameObject.SetActive(false);
+            game.InfoPanel.gameObject.SetActive(false);
         }
     }
 
@@ -52,7 +52,7 @@ public class Boat : MonoBehaviour
             AudioManager.Instance?.PlaySound(Sounds.Instance.BoatCross);
             GoLeft();
             game.CheckConstraints();
-            game.InfoObject.gameObject.SetActive(false);
+            game.InfoPanel.gameObject.SetActive(false);
         }
     }
 

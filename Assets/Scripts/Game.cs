@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
 using UnityEngine;
 
 public class Game : MonoBehaviour
@@ -13,9 +12,7 @@ public class Game : MonoBehaviour
     public Container RightShore;
     public Boat Boat;
 
-    public TextMeshProUGUI InfoText;
-    public GameObject InfoObject;
-    public TextMeshProUGUI LevelText;
+    public InfoPanel InfoPanel;
 
     public CrossButton CrossButton;
 
@@ -44,7 +41,7 @@ public class Game : MonoBehaviour
         LeftShore.SetupCells();
         RightShore.SetupCells();
 
-        LevelText.text = PuzzleDefinition.PuzzleName;
+        InfoPanel.LevelText.text = PuzzleDefinition.PuzzleName;
         for (int i = 0; i < PuzzleDefinition.ActorPrefabs.Count; i++)
         {
             Actor prefab = PuzzleDefinition.ActorPrefabs[i];
@@ -78,7 +75,7 @@ public class Game : MonoBehaviour
         Boat.GoLeft();
 
         Actors.Clear();
-        InfoObject.gameObject.SetActive(false);
+        InfoPanel.gameObject.SetActive(false);
     }
 
     internal bool CheckWin()

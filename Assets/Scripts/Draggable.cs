@@ -16,7 +16,6 @@ public class Draggable : MonoBehaviour
     public float HoldThresholdSeconds;
     public float HoldTimeSeconds;
 
-
     void OnMouseDown()
     {
         if (!IsDraggable)

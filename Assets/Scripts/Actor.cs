@@ -6,6 +6,7 @@ using UnityEngine;
 public class Actor : MonoBehaviour
 {
     public string ActorName;
+    public Sprite InfoSprite;
 
     public Cell CurrentCell;
     public bool CanPilotBoat;
@@ -16,29 +17,9 @@ public class Actor : MonoBehaviour
         var draggable = GetComponent<Draggable>();
         draggable.OnHold = () =>
         {
-            List<string> infos = new List<string>();
-            if (CanPilotBoat)
-            {
-                infos.Add($"{ActorName} can move the Boat");
-            }
-
-            var gameConstraints = GetComponents<GameConstraint>();
-            foreach (var gameConstraint in gameConstraints)
-            {
-                infos.Add(gameConstraint.Description());
-            }
-
             Game game = FindObjectOfType<Game>();
-            string infoTextString = string.Join(Environment.NewLine, infos);
-            if (!string.IsNullOrEmpty(infoTextString))
-            {
-                game.InfoText.text = infoTextString;
-                game.InfoObject.gameObject.SetActive(true);
-            }
-            else
-            {
-                game.InfoObject.gameObject.SetActive(false);
-            }
+            game.InfoPanel.Setup(this);
+            game.InfoPanel.gameObject.SetActive(true);
 
             PlayPickupSound();
         };
@@ -88,6 +69,12 @@ public class Actor : MonoBehaviour
             if (CanDrop(CurrentCell, destinationCell))
             {
                 CurrentCell?.SetActor(null);
+                destinationCell?.SetActor(this);
+            }
+            else if (CanSwap(CurrentCell, destinationCell))
+            {
+                var originalActor = destinationCell?.CurrentActor;
+                CurrentCell?.SetActor(originalActor);
                 destinationCell?.SetActor(this);
             }
             else
@@ -170,6 +157,11 @@ public class Actor : MonoBehaviour
     {
         if (destinationCell.CurrentActor != null) { return false; }
 
+        return SameSide(currentCell, destinationCell);
+    }
+
+    private static bool SameSide(Cell currentCell, Cell destinationCell)
+    {
         var game = FindObjectOfType<Game>();
 
         // Get all possible groups of cells
@@ -204,6 +196,13 @@ public class Actor : MonoBehaviour
         }
 
         return false;
+    }
+
+    private bool CanSwap(Cell currentCell, Cell destinationCell)
+    {
+        if (currentCell == destinationCell) { return false; }
+
+        return SameSide(currentCell, destinationCell);
     }
 
     internal bool IsGameOver(IEnumerable<Actor> leftSideActors, IEnumerable<Actor> rightSideActors, IEnumerable<Actor> boatActors, out string message)
