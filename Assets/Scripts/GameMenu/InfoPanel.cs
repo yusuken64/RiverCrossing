@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,6 +24,22 @@ public class InfoPanel : MonoBehaviour
         foreach (var gameConstraint in gameConstraints)
         {
             infos.Add(gameConstraint.Description());
+        }
+
+        var game = FindObjectOfType<Game>();
+        var otherGameConstraints = game.Actors
+            .Where(x => x.ActorName != actor.ActorName)
+            .GroupBy(x => x.ActorName)
+            .SelectMany(x => x.First().GetComponents<GameConstraint>());
+        foreach(var gameConstraint in otherGameConstraints)
+        {
+            if (gameConstraint is PredatorPreyConstraint predatorPreyConstraint)
+            {
+                if (predatorPreyConstraint.Prey == actor.ActorName)
+                {
+                    infos.Add(predatorPreyConstraint.Description());
+                }
+            }
         }
 
         string infoTextString = string.Join(Environment.NewLine, infos);
