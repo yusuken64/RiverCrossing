@@ -147,6 +147,10 @@ PrefabInstance:
       value: Tiger
       objectReference: {fileID: 0}
     - target: {fileID: 4184888071631929187, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
+      propertyPath: FontIndex
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 4184888071631929187, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
       propertyPath: InfoSprite
       value: 
       objectReference: {fileID: 21300000, guid: 3b08d9a4507b2b24492389253c331e01, type: 3}

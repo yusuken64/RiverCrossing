@@ -8,7 +8,10 @@ public class PredatorGuardedConstraint : GameConstraint
 
     public override string Description()
     {
-        return $"{Predator} will eat everyone unless {Guard} is present";
+        Game game = FindObjectOfType<Game>();
+        var predatorActor = game.Actors.First(x => x.ActorName == Predator);
+        var guardActor = game.Actors.First(x => x.ActorName == Guard);
+        return $"{Predator} {predatorActor.ActorAsText()} will eat everyone unless {Guard} {guardActor.ActorAsText()} is present";
     }
 
     public override bool IsGameOverFunc(ActorData owner, IEnumerable<ActorData> leftSideActors, IEnumerable<ActorData> rightSideActors, IEnumerable<ActorData> boatActors, out string message)

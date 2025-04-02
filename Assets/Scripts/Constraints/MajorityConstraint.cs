@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 public class MajorityConstraint : GameConstraint
 {
@@ -7,7 +8,10 @@ public class MajorityConstraint : GameConstraint
 
     public override string Description()
     {
-        return $"{Predator}s will eat the {Prey} if they outnumber them";
+        Game game = FindObjectOfType<Game>();
+        var predatorActor = game.Actors.First(x => x.ActorName == Predator);
+        var preyActor = game.Actors.First(x => x.ActorName == Prey);
+        return $"{predatorActor.ActorName} {predatorActor.ActorAsText()} will eat the {preyActor.ActorName} {preyActor.ActorAsText()} if they outnumber them";
     }
 
     public override bool IsGameOverFunc(ActorData owner, IEnumerable<ActorData> leftSideActors, IEnumerable<ActorData> rightSideActors, IEnumerable<ActorData> boatActors, out string message)

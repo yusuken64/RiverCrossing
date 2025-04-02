@@ -69,6 +69,10 @@ PrefabInstance:
       value: Deer
       objectReference: {fileID: 0}
     - target: {fileID: 4184888071631929187, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
+      propertyPath: FontIndex
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4184888071631929187, guid: 5769fede32185a64fb5ffa34ce6754f8, type: 3}
       propertyPath: InfoSprite
       value: 
       objectReference: {fileID: 21300000, guid: 1de4acfbfa350a747bd066ead9553656, type: 3}

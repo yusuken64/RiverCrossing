@@ -126,7 +126,11 @@ public class Game : MonoBehaviour
 
     internal void UpdateCrossButton()
     {
-        if (CanBoatMove())
+        if (WillGameOver())
+        {
+            CrossButton.SetToDanger();
+        }
+        else if (CanBoatMove())
         {
             CrossButton.SetToClickable();
         }
@@ -134,6 +138,20 @@ public class Game : MonoBehaviour
         {
             CrossButton.SetToUnClickable();
         }
+    }
+
+    private bool WillGameOver()
+    {
+        foreach (var actor in Actors)
+        {
+            (List<Actor> leftSideActors, List<Actor> rightSideActors, List<Actor> boatActors) = Game.GetMoveActors(this);
+            if (actor.IsGameOver(leftSideActors, rightSideActors, boatActors, out _))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void DisableInput()
@@ -213,6 +231,33 @@ public class Game : MonoBehaviour
         return (leftSideActors, rightSideActors, boatActors);
     }
 
+    public static (List<Actor> leftSideActors, List<Actor> rightSideActors, List<Actor> boatActors) GetMoveActors(Game game)
+    {
+        var leftSideActors = game.LeftShore.Cells.Where(x => x.CurrentActor != null)
+            .Select(x => x.CurrentActor)
+            .ToList();
+        var rightSideActors = game.RightShore.Cells.Where(x => x.CurrentActor != null)
+            .Select(x => x.CurrentActor)
+            .ToList();
+        var boatActors = game.Boat.Cells
+                .Where(x => x.CurrentActor != null)
+                .Select(x => x.CurrentActor).ToList();
+
+        if (game.Boat.IsBoatRight)
+        {
+            leftSideActors.AddRange(game.Boat.Cells
+                .Where(x => x.CurrentActor != null)
+                .Select(x => x.CurrentActor));
+        }
+        else
+        {
+            rightSideActors.AddRange(game.Boat.Cells
+                .Where(x => x.CurrentActor != null)
+                .Select(x => x.CurrentActor));
+        }
+
+        return (leftSideActors, rightSideActors, boatActors);
+    }
     public void Pause_Clicked()
     {
         var active = ResultsCanvas.gameObject.activeSelf;

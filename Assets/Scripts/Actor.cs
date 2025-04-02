@@ -7,6 +7,7 @@ public class Actor : MonoBehaviour
 {
     public string ActorName;
     public Sprite InfoSprite;
+    public int FontIndex;
 
     public Cell CurrentCell;
     public bool CanPilotBoat;
@@ -259,6 +260,11 @@ public class Actor : MonoBehaviour
                 return result;
             }))
             .ToArray();
+    }
+
+    public string ActorAsText()
+    {
+        return $"<sprite index={FontIndex}>";
     }
 }
 

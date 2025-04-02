@@ -7,7 +7,9 @@ public class MinorityConstraint : GameConstraint
 
     public override string Description()
     {
-        return $"{Animal} cannot be majority";
+        Game game = FindObjectOfType<Game>();
+        var animalActor = game.Actors.First(x => x.ActorName == Animal);
+        return $"{Animal} {animalActor.ActorAsText()} cannot be majority";
     }
 
     public override bool IsGameOverFunc(

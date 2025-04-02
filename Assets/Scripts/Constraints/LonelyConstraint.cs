@@ -6,7 +6,7 @@ public class LonelyConstraint : GameConstraint
     public override string Description()
     {
         var owner = GetComponent<Actor>();
-        return $"{owner.ActorName} cannot be left alone";
+        return $"{owner.ActorName} {owner.ActorAsText()} cannot be left alone";
     }
 
     public override bool IsGameOverFunc(ActorData owner, IEnumerable<ActorData> leftSideActors, IEnumerable<ActorData> rightSideActors, IEnumerable<ActorData> boatActors, out string message)

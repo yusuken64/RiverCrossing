@@ -6,7 +6,7 @@ public class PredatorConstraint : GameConstraint
     public override string Description()
     {
         var owner = GetComponent<Actor>();
-        return $"{owner.ActorName} must outnumber predators";
+        return $"{owner.ActorName} {owner.ActorAsText()} must outnumber predators";
     }
 
     public override bool IsGameOverFunc(ActorData owner, IEnumerable<ActorData> leftSideActors, IEnumerable<ActorData> rightSideActors, IEnumerable<ActorData> boatActors, out string message)

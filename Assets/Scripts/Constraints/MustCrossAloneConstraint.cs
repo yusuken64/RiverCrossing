@@ -6,7 +6,7 @@ public class MustCrossAloneConstraint : GameConstraint
     public override string Description()
     {
         var owner = GetComponent<Actor>();
-        return $"{owner.ActorName} must cross the river Alone";
+        return $"{owner.ActorName} {owner.ActorAsText()} must cross the river Alone";
     }
 
     public override bool IsGameOverFunc(ActorData owner, IEnumerable<ActorData> leftSideActors, IEnumerable<ActorData> rightSideActors, IEnumerable<ActorData> boatActors, out string message)

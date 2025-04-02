@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 public class PredatorPreyConstraint : GameConstraint
 {
@@ -8,7 +9,11 @@ public class PredatorPreyConstraint : GameConstraint
 
     public override string Description()
     {
-        return $"{Predator} will eat the {Prey} Unless {Guard} is present";
+        Game game = FindObjectOfType<Game>();
+        var predatorActor = game.Actors.First(x => x.ActorName == Predator);
+        var preyActor = game.Actors.First(x => x.ActorName == Prey);
+        var guardActor = game.Actors.First(x => x.ActorName == Guard);
+        return $"{Predator} {predatorActor.ActorAsText()} will eat the {Prey} {preyActor.ActorAsText()} Unless {Guard} {guardActor.ActorAsText()} is present";
     }
 
     public override bool IsGameOverFunc(
