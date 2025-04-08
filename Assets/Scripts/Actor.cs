@@ -58,29 +58,29 @@ public class Actor : MonoBehaviour
 
             if (destinationCell != null)
             {
-                DropOnCell(destinationCell);
+                DropOnCell(destinationCell, true);
             }
         };
     }
 
-    private void DropOnCell(Cell destinationCell)
+    private void DropOnCell(Cell destinationCell, bool jump = false)
     {
         if (destinationCell != null)
         {
             if (CanDrop(CurrentCell, destinationCell))
             {
                 CurrentCell?.SetActor(null);
-                destinationCell?.SetActor(this);
+                destinationCell?.SetActor(this, jump);
             }
             else if (CanSwap(CurrentCell, destinationCell))
             {
                 var originalActor = destinationCell?.CurrentActor;
-                CurrentCell?.SetActor(originalActor);
-                destinationCell?.SetActor(this);
+                CurrentCell?.SetActor(originalActor, jump);
+                destinationCell?.SetActor(this, jump);
             }
             else
             {
-                CurrentCell?.SetActor(this);
+                CurrentCell?.SetActor(this, jump);
             }
         }
         else
