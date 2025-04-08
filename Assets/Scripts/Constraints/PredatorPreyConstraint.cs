@@ -10,9 +10,15 @@ public class PredatorPreyConstraint : GameConstraint
     public override string Description()
     {
         Game game = FindObjectOfType<Game>();
-        var predatorActor = game.Actors.First(x => x.ActorName == Predator);
-        var preyActor = game.Actors.First(x => x.ActorName == Prey);
-        var guardActor = game.Actors.First(x => x.ActorName == Guard);
+        var predatorActor = game.Actors.FirstOrDefault(x => x.ActorName == Predator);
+        var preyActor = game.Actors.FirstOrDefault(x => x.ActorName == Prey);
+        var guardActor = game.Actors.FirstOrDefault(x => x.ActorName == Guard);
+
+        if (predatorActor == null || preyActor == null || guardActor == null)
+        {
+            return null;
+        }
+
         return $"{Predator} {predatorActor.ActorAsText()} will eat the {Prey} {preyActor.ActorAsText()} Unless {Guard} {guardActor.ActorAsText()} is present";
     }
 

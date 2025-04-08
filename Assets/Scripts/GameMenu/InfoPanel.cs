@@ -42,7 +42,7 @@ public class InfoPanel : MonoBehaviour
             }
         }
 
-        string infoTextString = string.Join(Environment.NewLine, infos);
+        string infoTextString = string.Join(Environment.NewLine, infos.Where(x => x != null));
 
         InfoText.text = infoTextString;
         InfoImage.sprite = actor.InfoSprite;

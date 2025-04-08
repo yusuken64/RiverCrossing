@@ -18,10 +18,17 @@ public class Game : MonoBehaviour
 
     public List<Actor> Actors;
 
+    public List<ParticleSystem> Confettis;
+
     private void Start()
     {
         ResultsCanvas.gameObject.SetActive(false);
         GameCanvas.gameObject.SetActive(false);
+
+        foreach(var confetti in Confettis)
+        {
+            confetti.gameObject.SetActive(false);
+        }
     }
 
     internal void Retry()
@@ -57,6 +64,11 @@ public class Game : MonoBehaviour
 
     public void ClearGame()
     {
+        foreach (var confetti in Confettis)
+        {
+            confetti.gameObject.SetActive(false);
+        }
+
         GameCanvas.gameObject.SetActive(false);
         ResultsCanvas.gameObject.SetActive(false);
         ClearAllActors();
@@ -179,6 +191,12 @@ public class Game : MonoBehaviour
         GameCanvas.gameObject.SetActive(false);
         ResultsCanvas.Setup("You Win", "Everyone made it safely across the River");
         ResultsCanvas.gameObject.SetActive(true);
+
+        foreach (var confetti in Confettis)
+        {
+            confetti.gameObject.SetActive(true);
+            confetti.Play();
+        }
     }
 
     public bool IsGameOver(out string message)
