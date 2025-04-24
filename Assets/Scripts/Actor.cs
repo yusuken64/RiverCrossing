@@ -56,36 +56,34 @@ public class Actor : MonoBehaviour
                 destinationCell = game.LeftShore.GetFirstEmptyCell();
             }
 
-            if (destinationCell != null)
-            {
-                DropOnCell(destinationCell, true);
-            }
+            DropOnCell(destinationCell, true);
         };
     }
 
     private void DropOnCell(Cell destinationCell, bool jump = false)
     {
-        if (destinationCell != null)
+        if (destinationCell == null ||
+            destinationCell == CurrentCell)
         {
-            if (CanDrop(CurrentCell, destinationCell))
-            {
-                CurrentCell?.SetActor(null);
-                destinationCell?.SetActor(this, jump);
-            }
-            else if (CanSwap(CurrentCell, destinationCell))
-            {
-                var originalActor = destinationCell?.CurrentActor;
-                CurrentCell?.SetActor(originalActor, jump);
-                destinationCell?.SetActor(this, jump);
-            }
-            else
-            {
-                CurrentCell?.SetActor(this, jump);
-            }
+            CurrentCell?.SetActor(this);
+            return;
+        }
+
+        if (CanDrop(CurrentCell, destinationCell))
+        {
+            CurrentCell?.SetActor(null);
+            destinationCell.SetActor(this, jump);
+        }
+        else if (CanSwap(CurrentCell, destinationCell))
+        {
+            var originalActor = destinationCell.CurrentActor;
+            CurrentCell?.SetActor(originalActor, jump);
+            destinationCell.SetActor(this, jump);
         }
         else
         {
-            CurrentCell?.SetActor(this);
+            // Drop failed, reset actor to original cell
+            CurrentCell?.SetActor(this, jump);
         }
 
         Game game = FindObjectOfType<Game>();

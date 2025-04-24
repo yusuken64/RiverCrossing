@@ -12,6 +12,7 @@ public class Boat : MonoBehaviour
     public bool IsBoatRight; //false means left;
 
     public List<Cell> Cells => GetComponent<Container>().Cells;
+    public bool Moving;
 
     private void Start()
     {
@@ -20,16 +21,39 @@ public class Boat : MonoBehaviour
 
     public void GoRight()
     {
+        SetAnimalsBusy(true);
+
         //this.transform.position = RightPosition.position;
-        this.transform.DOMove(RightPosition.position, 0.2f);
+        this.transform.DOMove(RightPosition.position, 0.2f)
+            .OnComplete(() => {
+                SetAnimalsBusy(false);
+                Moving = false;
+            });
         IsBoatRight = true;
     }
 
     public void GoLeft()
     {
+        SetAnimalsBusy(true);
+
         //this.transform.position = LeftPosition.position;
-        this.transform.DOMove(LeftPosition.position, 0.2f);
+        this.transform.DOMove(LeftPosition.position, 0.2f)
+            .OnComplete(() => {
+                SetAnimalsBusy(false);
+                Moving = false;
+            });
         IsBoatRight = false;
+    }
+
+    private void SetAnimalsBusy(bool busy)
+    {
+        var boatActors = Cells.Where(x => x.CurrentActor != null)
+            .Select(x => x.CurrentActor);
+
+        foreach (var actor in boatActors)
+        {
+            actor.GetComponent<Draggable>().IsBusy = busy;
+        }
     }
 
     public void GoRight_Clicked()
@@ -58,6 +82,9 @@ public class Boat : MonoBehaviour
 
     public void CrossRiver_Clicked()
     {
+        if (Moving) { return; }
+        Moving = true;
+
         if (IsBoatRight)
         {
             GoLeft_Clicked();

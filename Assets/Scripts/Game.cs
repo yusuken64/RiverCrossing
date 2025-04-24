@@ -138,13 +138,16 @@ public class Game : MonoBehaviour
 
     internal void UpdateCrossButton()
     {
-        if (WillGameOver())
+        if (CanBoatMove())
         {
-            CrossButton.SetToDanger();
-        }
-        else if (CanBoatMove())
-        {
-            CrossButton.SetToClickable();
+            if (WillGameOver())
+            {
+                CrossButton.SetToDanger();
+            }
+            else
+            {
+                CrossButton.SetToClickable();
+            }
         }
         else
         {

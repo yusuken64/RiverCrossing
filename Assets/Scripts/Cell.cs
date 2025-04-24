@@ -10,6 +10,7 @@ public class Cell : MonoBehaviour
         CurrentActor = actor;
         if (actor != null)
         {
+            actor.GetComponent<Draggable>().IsBusy = true;
             actor.CurrentCell = this;
             actor.transform.SetParent(this.transform);
 
@@ -31,11 +32,17 @@ public class Cell : MonoBehaviour
                     {
                         actor.transform.localPosition = new Vector3(0, 0, -0.1f);
                         actor.transform.localRotation = Quaternion.identity;
+                        actor.GetComponent<Draggable>().IsBusy = false;
                     });
             }
             else
             {
-                actor.transform.DOLocalMove(targetLocalPosition, 0.2f);
+                actor.transform
+                    .DOLocalMove(targetLocalPosition, 0.2f)
+                    .OnComplete(() =>
+                    {
+                        actor.GetComponent<Draggable>().IsBusy = false;
+                    });
             }
         }
     }
