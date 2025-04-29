@@ -21,6 +21,7 @@ public class Boat : MonoBehaviour
 
     public void GoRight()
     {
+        Moving = true;
         SetAnimalsBusy(true);
 
         //this.transform.position = RightPosition.position;
@@ -34,6 +35,7 @@ public class Boat : MonoBehaviour
 
     public void GoLeft()
     {
+        Moving = true;
         SetAnimalsBusy(true);
 
         //this.transform.position = LeftPosition.position;
@@ -83,7 +85,6 @@ public class Boat : MonoBehaviour
     public void CrossRiver_Clicked()
     {
         if (Moving) { return; }
-        Moving = true;
 
         if (IsBoatRight)
         {

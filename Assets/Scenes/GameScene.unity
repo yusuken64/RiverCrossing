@@ -2044,16 +2044,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PossiblePrefabs:
   - {fileID: 7289021463777834827, guid: 59057161a4d379a4887637c8189d0809, type: 3}
-  - {fileID: 7289021463777834827, guid: 719024332ce1ef342809c33c57a2a6c3, type: 3}
-  - {fileID: 7289021463777834827, guid: 799a39abcf101ec4cbdfccba9ced496a, type: 3}
-  - {fileID: 1645330534230722577, guid: c97a4a054e4a01d47bd6d137ae61ee1e, type: 3}
-  - {fileID: 832444212218281275, guid: c38b603c162bd024db8d2fd167589956, type: 3}
-  - {fileID: 7823687320652029290, guid: 0dda3211bf040984a8be4fbcf064a5dd, type: 3}
-  - {fileID: 4195481316871445180, guid: e8e83a9b6caa0ad4396a988f127b8d7b, type: 3}
-  - {fileID: 1691203986589502945, guid: cdb9fedf2b039bd45bbebeca6c44f7f0, type: 3}
-  - {fileID: 7289021463777834827, guid: a79d6a458c087784a81947f1e5492889, type: 3}
   - {fileID: 6424050200218902508, guid: 201b15c764cf64449bc48358c48caca4, type: 3}
-  ActorCount: 8
+  ActorCount: 5
   BoatSize: 2
   Solver: {fileID: 659124769}
   GeneratePuzzleFiles: 0
@@ -2061,14 +2053,9 @@ MonoBehaviour:
   - {fileID: 7289021463777834827, guid: 59057161a4d379a4887637c8189d0809, type: 3}
   - {fileID: 7289021463777834827, guid: 59057161a4d379a4887637c8189d0809, type: 3}
   - {fileID: 7289021463777834827, guid: 59057161a4d379a4887637c8189d0809, type: 3}
-  - {fileID: 7289021463777834827, guid: a79d6a458c087784a81947f1e5492889, type: 3}
-  - {fileID: 7289021463777834827, guid: a79d6a458c087784a81947f1e5492889, type: 3}
-  - {fileID: 7289021463777834827, guid: a79d6a458c087784a81947f1e5492889, type: 3}
   - {fileID: 6424050200218902508, guid: 201b15c764cf64449bc48358c48caca4, type: 3}
   - {fileID: 6424050200218902508, guid: 201b15c764cf64449bc48358c48caca4, type: 3}
   - {fileID: 6424050200218902508, guid: 201b15c764cf64449bc48358c48caca4, type: 3}
-  - {fileID: 1691203986589502945, guid: cdb9fedf2b039bd45bbebeca6c44f7f0, type: 3}
-  - {fileID: 4195481316871445180, guid: e8e83a9b6caa0ad4396a988f127b8d7b, type: 3}
 --- !u!4 &275037087
 Transform:
   m_ObjectHideFlags: 0
@@ -2099,10 +2086,10 @@ MonoBehaviour:
   Solver: {fileID: 659124769}
   Generator: {fileID: 275037086}
   MinDifficulty: 1
-  MinDepth: 20
-  ActorCountMin: 12
-  ActorCountMax: 12
-  PuzzleCountMax: 2000
+  MinDepth: 1
+  ActorCountMin: 6
+  ActorCountMax: 8
+  PuzzleCountMax: 200
   MaxTry: 2000000
   RandomSearch: 0
 --- !u!1 &292338082 stripped
@@ -3357,7 +3344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PuzzleDefinition: {fileID: 11400000, guid: c6f311d2ef2bdf842b758007ee51b709, type: 2}
-  warnNoSolutions: 1
+  warnNoSolutions: 0
 --- !u!4 &659124770
 Transform:
   m_ObjectHideFlags: 0
@@ -3997,6 +3984,7 @@ MonoBehaviour:
   RightPosition: {fileID: 47839941}
   LeftPosition: {fileID: 1993942543}
   IsBoatRight: 0
+  Moving: 0
 --- !u!1 &779188933
 GameObject:
   m_ObjectHideFlags: 0
