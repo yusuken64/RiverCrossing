@@ -60,6 +60,9 @@ public class Game : MonoBehaviour
         GameCanvas.gameObject.SetActive(true);
         UpdateCrossButton();
         AudioManager.Instance?.PlayMusic(Sounds.Instance?.Music);
+
+        var levelPlaySample = FindObjectOfType<LevelPlaySample>();
+        levelPlaySample?.LoadInterstitialAd();
     }
 
     public void ClearGame()
@@ -279,10 +282,13 @@ public class Game : MonoBehaviour
 
         return (leftSideActors, rightSideActors, boatActors);
     }
+
     public void Pause_Clicked()
     {
         var active = ResultsCanvas.gameObject.activeSelf;
         ResultsCanvas.gameObject.SetActive(!active);
         ResultsCanvas.Setup("Paused", "Get all animals to the right side");
+
+        InfoPanel.gameObject.SetActive(false);
     }
 }

@@ -25,6 +25,13 @@ public class Common : MonoBehaviour
         SingletonSaveData.Instance.SaveManager = GetSaveManager();
         SingletonSaveData.Instance.Load();
         SceneManager.LoadScene(OpenScene);
+        //if (LoadingSceneIntegration.otherScene == -2)
+        //{
+        //}
+        //else
+        //{
+        //    SceneManager.LoadScene(LoadingSceneIntegration.otherScene);
+        //}
     }
 
     public static ISaveManager GetSaveManager()

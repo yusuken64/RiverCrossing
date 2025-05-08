@@ -21,6 +21,7 @@ public class Actor : MonoBehaviour
             Game game = FindObjectOfType<Game>();
             game.InfoPanel.Setup(this);
             game.InfoPanel.gameObject.SetActive(true);
+            game.ResultsCanvas.gameObject.SetActive(false);
 
             PlayPickupSound();
         };

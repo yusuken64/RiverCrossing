@@ -24,12 +24,12 @@ public class ScreenTransition : MonoBehaviour
         BlockScreen.gameObject.SetActive(false);
     }
 
-    public void DoTransition(Action postTransition)
+    public void DoTransition(Action postTransition, bool showAd)
     {
-        StartCoroutine(DoTransitionRoutine(postTransition));
+        StartCoroutine(DoTransitionRoutine(postTransition, showAd));
     }
 
-    private IEnumerator DoTransitionRoutine(Action postTransition)
+    private IEnumerator DoTransitionRoutine(Action postTransition, bool showAd)
     {
         BlockScreen.gameObject.SetActive(true);
         ShutterScreen.gameObject.SetActive(true);
@@ -38,6 +38,19 @@ public class ScreenTransition : MonoBehaviour
         AudioManager.Instance?.PlaySound(CloseClip);
         var closeTween = ShutterScreen.transform.DOMove(EndPositionObject.transform.position, TransitionTimeSeconds);
         yield return closeTween.WaitForCompletion();
+
+        if (showAd)
+        {
+            var levelPlaySample = FindObjectOfType<LevelPlaySample>();
+            if (levelPlaySample != null)
+            {
+                levelPlaySample.ShowInterstitialAd();
+                while (levelPlaySample.showingAd)
+                {
+                    yield return null;
+                }
+            }
+        }
 
         postTransition?.Invoke();
         yield return new WaitForSeconds(OpenDelayTimeSeconds);
@@ -53,6 +66,6 @@ public class ScreenTransition : MonoBehaviour
     [ContextMenu("Test Transition")]
     public void TestTransition()
     {
-        DoTransition(null);
+        DoTransition(null, false);
     }
 }

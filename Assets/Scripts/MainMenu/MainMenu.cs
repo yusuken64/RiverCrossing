@@ -134,7 +134,7 @@ public class MainMenu : MonoBehaviour
     }
 #endif
 
-    private void LevelClicked(PuzzleDefinition puzzle)
+    private void LevelClicked(PuzzleDefinition puzzle, bool showAd = false)
     {
         var screenTransition = FindObjectOfType<ScreenTransition>();
         screenTransition.DoTransition(() =>
@@ -144,7 +144,7 @@ public class MainMenu : MonoBehaviour
 
             game.PuzzleDefinition = puzzle;
             game.SetupGame();
-        });
+        }, showAd);
     }
 
     public void NextPuzzle(PuzzleDefinition currentPuzzle)
@@ -152,9 +152,11 @@ public class MainMenu : MonoBehaviour
         var index = currentPuzzle.PuzzleNum;
         var nextPuzzle = Stages.SelectMany(x => x.Puzzles)
             .FirstOrDefault(x => x.PuzzleNum == index + 1);
+        var showAd = nextPuzzle.PuzzleNum > 5;
 
-        LevelClicked(nextPuzzle);
+        LevelClicked(nextPuzzle, showAd);
     }
+
     public void ResetDataClicked()
     {
         SingletonSaveData.Instance?.ResetData();

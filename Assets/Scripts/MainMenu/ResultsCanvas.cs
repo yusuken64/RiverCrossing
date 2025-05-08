@@ -34,7 +34,7 @@ public class ResultsCanvas : MonoBehaviour
         screenTransition.DoTransition(() =>
         {
             game.Retry();
-        });
+        }, true);
     }
 
     public void Home_Clicked()
@@ -47,7 +47,7 @@ public class ResultsCanvas : MonoBehaviour
             mainMenu.SetupPuzzles();
             game.GameCanvas.gameObject.SetActive(false);
             game.ClearGame();
-        });
+        }, true);
     }
 
     public void Next_Clicked()

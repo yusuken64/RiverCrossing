@@ -1,0 +1,21 @@
+https://cloud.unity.com/home/organizations/2474099279522/projects/018ff897-9889-46b0-a3cb-05b64cabeee0/monetization/about
+
+Organization Core ID
+2474099279522
+
+Android Game ID
+5849806
+
+Interstitial_Android
+
+
+Cross the river Ad unit ID interstitial
+6cz0cngo51z6b4ci
+
+
+API Management
+KeyId
+67c1ba96-0baa-4436-ae57-d565dd7fb565
+
+Secret Key
+6wZF3EkQ2s2q2RG9Vo4OFvvwsPVe4yMr
