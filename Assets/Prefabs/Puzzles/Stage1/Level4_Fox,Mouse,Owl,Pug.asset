@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level4_Fox,Mouse,Owl,Pug
   m_EditorClassIdentifier: 
   PuzzleName: Puzzle 4
+  PuzzleShortName: 4
   PuzzleNum: 4
   Width: 1
   Height: 4

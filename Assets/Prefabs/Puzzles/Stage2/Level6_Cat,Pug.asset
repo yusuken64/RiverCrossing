@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level6_Cat,Pug
   m_EditorClassIdentifier: 
   PuzzleName: Puzzle 6
+  PuzzleShortName: 6
   PuzzleNum: 6
   Width: 1
   Height: 2

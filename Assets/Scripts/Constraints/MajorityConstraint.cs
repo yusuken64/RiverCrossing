@@ -9,8 +9,11 @@ public class MajorityConstraint : GameConstraint
     public override string Description()
     {
         Game game = FindObjectOfType<Game>();
-        var predatorActor = game.Actors.First(x => x.ActorName == Predator);
-        var preyActor = game.Actors.First(x => x.ActorName == Prey);
+        var predatorActor = game.Actors.FirstOrDefault(x => x.ActorName == Predator);
+        var preyActor = game.Actors.FirstOrDefault(x => x.ActorName == Prey);
+
+        if(predatorActor == null || preyActor == null) { return null; }
+
         return $"{predatorActor.ActorName} {predatorActor.ActorAsText()} will eat the {preyActor.ActorName} {preyActor.ActorAsText()} if they outnumber them";
     }
 

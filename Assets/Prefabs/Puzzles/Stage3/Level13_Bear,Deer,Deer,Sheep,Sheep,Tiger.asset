@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level13_Bear,Deer,Deer,Sheep,Sheep,Tiger
   m_EditorClassIdentifier: 
   PuzzleName: Puzzle 13
+  PuzzleShortName: 13
   PuzzleNum: 13
   Width: 2
   Height: 3

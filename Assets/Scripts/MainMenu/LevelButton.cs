@@ -11,7 +11,7 @@ public class LevelButton : MonoBehaviour
 
     internal void Setup(PuzzleDefinition puzzleDefinition)
     {
-        ButtonText.text = puzzleDefinition.PuzzleNum.ToString();
+        ButtonText.text = puzzleDefinition.PuzzleShortName;
         PuzzleDefinition = puzzleDefinition;
 
         var cleared = SingletonSaveData.Instance.SaveData.GameData.ClearedStageIds.Contains(puzzleDefinition.PuzzleNum);

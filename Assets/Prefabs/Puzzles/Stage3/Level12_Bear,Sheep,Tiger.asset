@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level12_Bear,Sheep,Tiger
   m_EditorClassIdentifier: 
   PuzzleName: Puzzle 12
+  PuzzleShortName: 12
   PuzzleNum: 12
   Width: 1
   Height: 3

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level33_Deer,Fox,Lion,Monkey,Monkey,Monkey,Monkey,Monkey,Mouse,Owl,Porcupine,Pug
   m_EditorClassIdentifier: 
   PuzzleName: Puzzle 33
+  PuzzleShortName: 33
   PuzzleNum: 33
   Width: 3
   Height: 4

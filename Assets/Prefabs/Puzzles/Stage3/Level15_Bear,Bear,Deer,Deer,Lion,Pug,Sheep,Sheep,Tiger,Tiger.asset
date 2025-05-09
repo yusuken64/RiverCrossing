@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level15_Bear,Bear,Deer,Deer,Lion,Pug,Sheep,Sheep,Tiger,Tiger
   m_EditorClassIdentifier: 
   PuzzleName: Puzzle 15
+  PuzzleShortName: 15
   PuzzleNum: 15
   Width: 3
   Height: 4

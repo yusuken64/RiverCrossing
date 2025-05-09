@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level23_Monkey,Monkey,Panda,Porcupine,Porcupine,Pug
   m_EditorClassIdentifier: 
   PuzzleName: Puzzle 23
+  PuzzleShortName: 23
   PuzzleNum: 23
   Width: 2
   Height: 3

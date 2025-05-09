@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level1_Pug
   m_EditorClassIdentifier: 
   PuzzleName: Puzzle 1
+  PuzzleShortName: 1
   PuzzleNum: 1
   Width: 1
   Height: 1

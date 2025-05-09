@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level31_Cat,Cat,Cat,Fox,Mouse,Mouse,Mouse,Owl,Porcupine,Pug,Pug,Pug
   m_EditorClassIdentifier: 
   PuzzleName: Puzzle 31
+  PuzzleShortName: 31
   PuzzleNum: 31
   Width: 3
   Height: 4

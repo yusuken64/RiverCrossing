@@ -1,4 +1,3 @@
-#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +9,7 @@ public class PuzzleFinder : MonoBehaviour
     public Solver Solver;
     public Generator Generator;
 
-    [Range(1, 300f)]
+    [Range(1, 30000f)]
     public float MinDifficulty;
 
     [Range(1, 100f)]
@@ -26,6 +25,28 @@ public class PuzzleFinder : MonoBehaviour
     public int MaxTry = 200;
     public bool RandomSearch;
 
+    internal PuzzleDefinition FindFirstPuzzleWithCount(int index, int actorCount, int minDepth, float minDifficulty)
+    {
+        var puzzleData = Generator.GenerateConstrainedPuzzleFast(actorCount, 2, minDepth, minDifficulty, MaxTry);
+        if (puzzleData.solution.path == null) { return null; }
+
+        (int width, int height) = Generator.GetDimensions(actorCount);
+
+        List<Actor> actors = puzzleData.combination.Select(data => Generator.PossiblePrefabs.First(x => x.ActorName == data.ActorName)).ToList();
+        PuzzleDefinition asset = ScriptableObject.CreateInstance<PuzzleDefinition>();
+        asset.PuzzleShortName = $"R{actorCount}";
+        asset.PuzzleNum = 100 + index;
+        asset.PuzzleName = $"Infinite {actorCount}";
+        asset.BoatSize = 2;
+        asset.Width = width;
+        asset.Height = height;
+        asset.ActorPrefabs = new();
+        asset.ActorPrefabs.AddRange(actors);
+
+        return asset;
+    }
+
+#if UNITY_EDITOR
     [ContextMenu("Find Puzzles")]
     public void FindPuzzles()
     {
@@ -37,6 +58,16 @@ public class PuzzleFinder : MonoBehaviour
                 Generator.CreatePuzzleData(foundPuzzle.Combination, foundPuzzle.BoatSize, foundPuzzle.Key);
             }
         }
+    }
+
+    [ContextMenu("Find Puzzles Fast")]
+    public void FindPuzzlesFast()
+    {
+        var puzzleData = Generator.GenerateConstrainedPuzzleFast(ActorCountMin, 2, MinDepth, MinDifficulty, MaxTry);
+
+        List<Actor> actors = puzzleData.combination.Select(data => Generator.PossiblePrefabs.First(x => x.ActorName == data.ActorName)).ToList();
+        string key = Solver.ToKey(actors);
+        Debug.Log($"{key}, d = {puzzleData.solution.path.Count}, difficulty = {puzzleData.solution.difficulty}");
     }
 
     private List<FoundPuzzleData> FindPuzzleWithDifficulty()
@@ -152,6 +183,7 @@ public class PuzzleFinder : MonoBehaviour
             .Where(asset => asset != null)
             .ToArray();
     }
+#endif
 
     public class FoundPuzzleData
     {
@@ -160,4 +192,3 @@ public class PuzzleFinder : MonoBehaviour
         public string Key { get; internal set; }
     }
 }
-#endif

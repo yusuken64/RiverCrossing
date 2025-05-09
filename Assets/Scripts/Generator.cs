@@ -1,5 +1,3 @@
-#if UNITY_EDITOR
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -37,6 +35,33 @@ public class Generator : MonoBehaviour
             }
         }
     }
+#endif
+
+    public ((List<GameState> path, double difficulty) solution, List<ActorData> combination) GenerateConstrainedPuzzle(int actorCount, int boatSize)
+    {
+        Solver.warnNoSolutions = false;
+        var possibleActors = PossiblePrefabs.Select(Actor.ToActorData).ToList();
+        var combinations = GenerateCombinations(possibleActors, actorCount);
+
+
+        Stopwatch stopwatch = Stopwatch.StartNew();
+        ((List<GameState> path, double difficulty) solution, List<ActorData> combination) result = new();
+        foreach (List<ActorData> combination in combinations)
+        {
+            var solution = Solver.Solve(combination.ToList(), boatSize);
+            if (solution.path != null)
+            {
+                result.solution = solution;
+                result.combination = combination;
+                break;
+            }
+        }
+
+        stopwatch.Stop();
+        UnityEngine.Debug.Log($"Elapsed time: {stopwatch.ElapsedMilliseconds}ms");
+
+        return result;
+    }
 
     public IEnumerable<((List<GameState> path, double difficulty) solution, List<ActorData> combination)> GenerateConstrainedPuzzles(int actorCount, int boatSize)
     {
@@ -70,6 +95,63 @@ public class Generator : MonoBehaviour
         return solvedPuzzles;
     }
 
+    public ((List<GameState> path, double difficulty) solution, List<ActorData> combination) 
+        GenerateConstrainedPuzzleFast(int actorCount, int boatSize, int minDepth, float minDifficulty, int tryMax)
+    {
+        var possibleActors = PossiblePrefabs.Select(Actor.ToActorData).ToList();
+        var combinations = GenerateCombinations(possibleActors, actorCount);
+        Shuffle(combinations);
+
+        UnityEngine.Debug.Log($"Done Generating {combinations.Count()} combination of animals");
+
+        Stopwatch stopwatch = Stopwatch.StartNew();
+
+        int tryCount = 0;
+        ((List<GameState> path, double difficulty) solution, List<ActorData> combination) result = new();
+        foreach (var combination in combinations)
+        {
+            tryCount++;
+
+            if (tryCount > tryMax)
+            {
+                break;
+            }
+
+            var solution = Solver.Solve(combination.ToList(), boatSize);
+            if (solution.path == null ||
+                solution.path.Count < minDepth ||
+                solution.difficulty < minDifficulty)
+            {
+                UnityEngine.Debug.Log($"actors = {actorCount}, depth = {solution.path?.Count}, difficulty = {solution.difficulty}");
+                continue;
+            }
+
+            result = (
+                solution: solution,
+                combination: combination
+            );
+
+            break;
+        };
+
+        stopwatch.Stop();
+        UnityEngine.Debug.Log($"Elapsed time: {stopwatch.ElapsedMilliseconds}ms");
+
+        return result;
+    }
+
+    public static void Shuffle<T>(IList<T> list)
+    {
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = UnityEngine.Random.Range(0, n + 1); // inclusive 0..n
+            (list[k], list[n]) = (list[n], list[k]); // tuple swap
+        }
+    }
+
+#if UNITY_EDITOR
     public void CreatePuzzleData(List<Actor> combination, int boatSize, string key)
     {
         var (width, height) = GetDimensions(combination.Count());
@@ -201,4 +283,3 @@ public class Generator : MonoBehaviour
         }
     }
 }
-#endif

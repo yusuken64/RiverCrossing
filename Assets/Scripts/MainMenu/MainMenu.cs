@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -13,7 +14,7 @@ public class MainMenu : MonoBehaviour
     public LevelButton ButtonPrefab;
     public Transform ButtonContainer;
 
-    public List<StageDefinition> Stages;
+    public List<StageDefinitionBase> Stages;
 
     public TextMeshProUGUI StageText;
     public int CurrentPage;
@@ -21,10 +22,12 @@ public class MainMenu : MonoBehaviour
     public GameObject StageLeftButton;
     public Image LeftImage;
     public Image RightImage;
+    public GameObject GeneratePuzzleButton;
 
     public GameObject AudioSettings;
 
     public PuzzleDefinition DebugPuzzle;
+    public Loading LoadingScreen;
 
     private void Start()
     {
@@ -33,6 +36,7 @@ public class MainMenu : MonoBehaviour
 
     public void Setup()
     {
+        LoadingScreen.gameObject.SetActive(false);
         AudioSettings.gameObject.SetActive(false);
         CurrentPage = 0;
         Game game = FindObjectOfType<Game>();
@@ -53,7 +57,7 @@ public class MainMenu : MonoBehaviour
 
         var currentStage = Stages[CurrentPage];
         StageText.text = currentStage.name;
-        var puzzles = currentStage.Puzzles;
+        var puzzles = currentStage.GetPuzzles();
         for (int i = 0; i < puzzles.Count; i++)
         {
             PuzzleDefinition puzzleDefinition = puzzles[i];
@@ -62,10 +66,21 @@ public class MainMenu : MonoBehaviour
             newButton.LevelSelected = (puzzle) => LevelClicked(puzzle);
         }
 
-        LeftImage.gameObject.SetActive(currentStage.LeftImage != null);
-        RightImage.gameObject.SetActive(currentStage.RightImage != null);
-        LeftImage.sprite = currentStage.LeftImage;
-        RightImage.sprite = currentStage.RightImage;
+        if (currentStage is StageDefinition stageDefinition)
+        {
+            LeftImage.gameObject.SetActive(stageDefinition.LeftImage != null);
+            RightImage.gameObject.SetActive(stageDefinition.RightImage != null);
+            LeftImage.sprite = stageDefinition.LeftImage;
+            RightImage.sprite = stageDefinition.RightImage;
+            GeneratePuzzleButton.SetActive(false);
+        }
+        else
+        {
+            GeneratePuzzleButton.SetActive(true);
+            LeftImage.gameObject.SetActive(false);
+            RightImage.gameObject.SetActive(false);
+        }
+
         StageLeftButton.gameObject.SetActive(CurrentPage > 0);
         StageRightButton.gameObject.SetActive(CurrentPage < Stages.Count() - 1);
     }
@@ -83,7 +98,8 @@ public class MainMenu : MonoBehaviour
         int puzzleNum = 0;
         for (int i = 0; i < Stages.Count; i++)
         {
-            StageDefinition stage = Stages[i];
+            StageDefinition stage = Stages[i] as StageDefinition;
+            if (stage == null) { continue; }
             stage.name = $"Stage{i + 1}";
             EditorUtility.SetDirty(stage);
             string stageAssetPath = AssetDatabase.GetAssetPath(stage);
@@ -125,6 +141,7 @@ public class MainMenu : MonoBehaviour
                 puzzle.name = key;
                 puzzle.PuzzleName = $"Puzzle {puzzleNum}";
                 puzzle.PuzzleNum = puzzleNum;
+                puzzle.PuzzleShortName = puzzleNum.ToString();
                 EditorUtility.SetDirty(puzzle);
                 string assetPath = AssetDatabase.GetAssetPath(puzzle);
                 AssetDatabase.RenameAsset(assetPath, key);
@@ -150,9 +167,10 @@ public class MainMenu : MonoBehaviour
     public void NextPuzzle(PuzzleDefinition currentPuzzle)
     {
         var index = currentPuzzle.PuzzleNum;
-        var nextPuzzle = Stages.SelectMany(x => x.Puzzles)
+        var nextPuzzle = Stages
+            .SelectMany(x => x.GetPuzzles())
             .FirstOrDefault(x => x.PuzzleNum == index + 1);
-        var showAd = nextPuzzle.PuzzleNum > 5;
+        var showAd = currentPuzzle.PuzzleNum > 5;
 
         LevelClicked(nextPuzzle, showAd);
     }
@@ -191,6 +209,32 @@ public class MainMenu : MonoBehaviour
     {
         CurrentPage--;
         CurrentPage = Mathf.Clamp(CurrentPage, 0, Stages.Count() - 1);
+        SetupPuzzles();
+    }
+
+    public void GeneratePuzzle_Clicked()
+    {
+        StartCoroutine(GeneratePuzzleRoutine());
+    }
+
+    private IEnumerator GeneratePuzzleRoutine()
+    {
+        LoadingScreen.gameObject.SetActive(true);
+        LoadingScreen.Setup();
+
+        yield return null;
+
+        var currentStage = Stages[CurrentPage];
+        if (currentStage is InfiniteStageDefinition infiniteStageDefinition)
+        {
+            SingletonSaveData.Instance.SaveData.GameData.ClearedStageIds.RemoveAll(id => id >= 100);
+            SingletonSaveData.Instance.Save();
+
+            infiniteStageDefinition.ResetPuzzles();
+        }
+
+        LoadingScreen.gameObject.SetActive(false);
+        yield return null;
         SetupPuzzles();
     }
 }

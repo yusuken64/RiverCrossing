@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level19_Frog,Frog,Frog,Frog,Rabbit,Rabbit,Rabbit,Racoon,Racoon
   m_EditorClassIdentifier: 
   PuzzleName: Puzzle 19
+  PuzzleShortName: 19
   PuzzleNum: 19
   Width: 3
   Height: 3

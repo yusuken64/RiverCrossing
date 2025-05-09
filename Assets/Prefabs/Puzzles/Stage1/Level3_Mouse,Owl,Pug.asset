@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level3_Mouse,Owl,Pug
   m_EditorClassIdentifier: 
   PuzzleName: Puzzle 3
+  PuzzleShortName: 3
   PuzzleNum: 3
   Width: 1
   Height: 3

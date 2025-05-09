@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level32_Fox,Monkey,Monkey,Monkey,Mouse,Owl,Porcupine,Porcupine,Porcupine,Porcupine,Pug,Pug
   m_EditorClassIdentifier: 
   PuzzleName: Puzzle 32
+  PuzzleShortName: 32
   PuzzleNum: 32
   Width: 3
   Height: 4

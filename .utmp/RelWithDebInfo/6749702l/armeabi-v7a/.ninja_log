@@ -1,5 +1,5 @@
 # ninja log v5
-522	889	7683548531233244	C:/Users/yusuk/Documents/GitHub/SudokuRiver/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6749702l/obj/armeabi-v7a/libswappywrapper.so	27b42d641dd6200d
-2	521	7683548527706827	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	759468facf338bea
 3	193	7684001826035943	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	759468facf338bea
 193	470	7684001828638947	C:/Users/yusuk/Documents/GitHub/SudokuRiver/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6749702l/obj/armeabi-v7a/libswappywrapper.so	27b42d641dd6200d
+2	184	7684869262229940	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	759468facf338bea
+185	411	7684869264485584	C:/Users/yusuk/Documents/GitHub/SudokuRiver/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6749702l/obj/armeabi-v7a/libswappywrapper.so	27b42d641dd6200d

@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\Constraints\MajorityConstraint.cs" />
     <Compile Include="Assets\Scripts\Common\Common.cs" />
     <Compile Include="Assets\Scripts\SingletonSaveData.cs" />
+    <Compile Include="Assets\Scripts\MainMenu\Loading.cs" />
     <Compile Include="Assets\Scripts\Solver.cs" />
     <Compile Include="Assets\Scripts\MainMenu\ResultsCanvas.cs" />
     <Compile Include="Assets\Scripts\Boat.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Assets\Samples\Ads Mediation\8.8.1\Unity LevelPlay Sample\Scripts\LevelPlaySample.cs" />
     <Compile Include="Assets\Scripts\Generator.cs" />
     <Compile Include="Assets\Scripts\SteamSaveManager.cs" />
+    <Compile Include="Assets\Scripts\InfiniteStageDefinition.cs" />
     <Compile Include="Assets\Scripts\MainMenu\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Common\LoadingSceneIntegration.cs" />
     <Compile Include="Assets\Scripts\Actor.cs" />
@@ -1122,6 +1124,10 @@
       <HintPath>Library\ScriptAssemblies\Unity.2D.Common.Path.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.Recorder">
+      <HintPath>Library\ScriptAssemblies\Unity.Recorder.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.2D.IK.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.IK.Editor.dll</HintPath>
       <Private>False</Private>
@@ -1178,8 +1184,16 @@
       <HintPath>Library\ScriptAssemblies\Unity.2D.Animation.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.Bindings.OpenImageIO.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Bindings.OpenImageIO.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.Collections">
       <HintPath>Library\ScriptAssemblies\Unity.Collections.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Recorder.Base">
+      <HintPath>Library\ScriptAssemblies\Unity.Recorder.Base.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.2D.PixelPerfect.Editor">
@@ -1280,6 +1294,10 @@
     </Reference>
     <Reference Include="Unity.2D.Psdimporter.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Psdimporter.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Recorder.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Recorder.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">

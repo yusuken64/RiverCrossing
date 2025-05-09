@@ -17,7 +17,7 @@ public class ResultsCanvas : MonoBehaviour
         HeaderText.text = header;
         MessageText.text = message;
 
-        bool showNext = game.PuzzleDefinition != mainMenu.Stages.SelectMany(x => x.Puzzles).Last();
+        bool showNext = game.PuzzleDefinition != mainMenu.Stages.SelectMany(x => x.GetPuzzles()).Last();
         NextButton.gameObject.SetActive(showNext);
     }
 
