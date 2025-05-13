@@ -9,7 +9,8 @@ public class LevelPlaySample : MonoBehaviour
     private LevelPlayInterstitialAd interstitialAd;
 
 #if UNITY_ANDROID
-    string appKey = "5849806";
+    //string appKey = "5849806";
+    string appKey = "21f4ab225";
     //string bannerAdUnitId = "thnfvcsog13bhn08";
     string interstitialAdUnitId = "6cz0cngo51z6b4ci";
 #elif UNITY_IPHONE
@@ -24,6 +25,7 @@ public class LevelPlaySample : MonoBehaviour
 
     public void Start()
     {
+        IronSource.Agent.setMetaData("is_child_directed", "true");
         Debug.Log("unity-script: IronSource.Agent.validateIntegration");
         IronSource.Agent.validateIntegration();
 
@@ -31,10 +33,14 @@ public class LevelPlaySample : MonoBehaviour
 
         // SDK init
         Debug.Log("unity-script: LevelPlay SDK initialization");
-        LevelPlay.Init(appKey,adFormats:new []{com.unity3d.mediation.LevelPlayAdFormat.REWARDED});
 
         LevelPlay.OnInitSuccess += SdkInitializationCompletedEvent;
         LevelPlay.OnInitFailed += SdkInitializationFailedEvent;
+        
+        LevelPlay.Init(appKey, adFormats: new[]
+        {
+            com.unity3d.mediation.LevelPlayAdFormat.INTERSTITIAL
+        });
     }
 
     void EnableAds()
