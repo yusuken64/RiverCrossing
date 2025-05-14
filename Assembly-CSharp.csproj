@@ -74,6 +74,7 @@
     <Compile Include="Assets\Scripts\Constraints\PredatorGuardedConstraint.cs" />
     <Compile Include="Assets\Scripts\Constraints\MustCrossAloneConstraint.cs" />
     <Compile Include="Assets\Scripts\StageDefinition.cs" />
+    <Compile Include="Assets\Scripts\Audio\ZoomSlider.cs" />
     <Compile Include="Assets\Scripts\MainMenu\ButtonSound.cs" />
     <Compile Include="Assets\Scripts\Constraints\MinorityConstraint.cs" />
     <Compile Include="Assets\Scripts\MainMenu\LevelButton.cs" />

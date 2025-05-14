@@ -29,6 +29,8 @@ public class ScreenTransition : MonoBehaviour
         StartCoroutine(DoTransitionRoutine(postTransition, showAd));
     }
 
+    DateTimeOffset? lastAdTime;
+
     private IEnumerator DoTransitionRoutine(Action postTransition, bool showAd)
     {
         BlockScreen.gameObject.SetActive(true);
@@ -44,10 +46,18 @@ public class ScreenTransition : MonoBehaviour
             var levelPlaySample = FindObjectOfType<LevelPlaySample>();
             if (levelPlaySample != null)
             {
-                levelPlaySample.ShowInterstitialAd();
-                while (levelPlaySample.showingAd)
+                if (lastAdTime == null)
                 {
-                    yield return null;
+                    lastAdTime = DateTimeOffset.UtcNow;
+                }
+                else if (DateTimeOffset.UtcNow - lastAdTime > TimeSpan.FromMinutes(3))
+                {
+                    levelPlaySample.ShowInterstitialAd();
+                    while (levelPlaySample.showingAd)
+                    {
+                        yield return null;
+                    }
+                    lastAdTime = DateTimeOffset.UtcNow;
                 }
             }
         }

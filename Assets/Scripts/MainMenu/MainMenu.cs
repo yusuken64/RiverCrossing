@@ -237,4 +237,10 @@ public class MainMenu : MonoBehaviour
         yield return null;
         SetupPuzzles();
     }
+
+    public void OnZoomChanged(float value)
+    {
+        var cam = FindFirstObjectByType<Camera>();
+        cam.orthographicSize = value;
+    }
 }
